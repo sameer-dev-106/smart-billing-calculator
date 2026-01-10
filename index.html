@@ -1,67 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Dukandar Calculator | Sameer</title>
+    <title>Smart Billing Calculator | Sameer</title>
 </head>
+
 <body>
     <main>
-        <div class="calculator">
-            <div class="total-items">
-                <div class="kul-rakam">
-                    <h1>
-                        Kul Rakam: <span class="kul">00</span>
-                    </h1>
+        <section class="calculator-screen">
+
+            <header class="calc-header">
+                <div class="total-box">
+                    Kul Rakam: <span class="calc-total">00</span>
                 </div>
-                <div class="items">
-                    <p>
-                        Items: <span>0</span>
-                    </p>
+                <div class="items-box">
+                    Items: <span class="calc-items">0</span>
                 </div>
+            </header>
+
+            <div class="calc-display">
+                <div class="expression">0</div>
             </div>
-            <div class="input-display">
-                <div class="expression">
-                    0
-                </div>
-            </div>
-            <div class="calculator-buttons">
+
+            <div class="calc-keypad">
+
                 <div class="btn-div">
-                    <button class="jama">J</button>
-                    <button class="pehle-ka">P</button>
+                    <button class="bill">Bill</button>
                     <button class="clear">C</button>
                     <button class="delete">DE</button>
                 </div>
+
                 <div class="btn-div">
                     <button>7</button>
                     <button>8</button>
                     <button>9</button>
                     <button class="operator">÷</button>
                 </div>
+
                 <div class="btn-div">
                     <button>4</button>
                     <button>5</button>
                     <button>6</button>
                     <button class="operator">×</button>
                 </div>
+
                 <div class="btn-div">
                     <button>3</button>
                     <button>2</button>
                     <button>1</button>
-                    <button class="operator">-</button>
+                    <button class="operator">−</button>
                 </div>
+
                 <div class="btn-div">
                     <button>0</button>
                     <button>.</button>
                     <button class="equal">=</button>
                     <button class="operator">+</button>
                 </div>
+
             </div>
-        </div>
+
+        </section>
+
+        <section class="bill-screen">
+
+            <header class="bill-header">
+
+                <div class="shop-details">
+                    <div class="logo">
+                        <img src="data:image/png;base64,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"
+                            alt="">
+                    </div>
+                    <h1>Lilar Kariyana Store</h1>
+                </div>
+
+                <div class="date-time">
+                    11-01-2026
+                    <br>
+                    04:40 PM
+                </div>
+
+            </header>
+
+            <section class="customer-info">
+                <h1>Custmore Name</h1>
+            </section>
+
+            <section class="bill-items">
+
+                <ol class="items-list">
+                    <li><span>0</span></li>
+                    <li><span>0</span></li>
+                </ol>
+
+            </section>
+
+            <footer class="bill-summary">
+                <div>
+                    <p>Kul Rakam: <span class="total-amount">0</span></p>
+                    <p>Pehle ka: <span class="previous-amount">0</span></p>
+                    <p>Jama: <span class="paid-amount">0</span></p>
+                </div>
+                <div class="total-balance-amount">
+                    <p>Kul Bakaya: <span class="balance-amount">0</span></p>
+                    <p>Items: <span class="calc-items">0</span></p>
+                </div>
+            </footer>
+        </section>
+
+        <section class="modal shop-name-modal">
+            <div class="subh-labh-logo">
+                <img src="./assets/img/shubh-labh-1.jpg" alt="">
+            </div>
+
+            <div class="modal-box">
+                <h2>Smart Billing Calculator</h2>
+                <!-- <h2>Enter Shope Name</h2> -->
+
+                <input type="text" class="shop-name-input" placeholder="Enter Shope Name">
+
+                <button class="save-shop-name">Save</button>
+            </div>
+        </section>
+
+        <section class="modal settings-modal">
+
+            <h1>Settings</h1>
+            <div class="modal-box">
+                <h2>Select Languag</h2>
+
+                <label class="lang-setting">
+                    <input type="radio" name="lang" value="hinglish">
+                    Hinglish
+                </label>
+
+                <label class="lang-setting">
+                    <input type="radio" name="lang" value="english">
+                    English
+                </label>
+
+                <button class="close-settings">Close</button>
+            </div>
+
+        </section>
+
+        <section class="modal bill-input-modal">
+            <div class="subh-labh-logo">
+                <img src="./assets/img/shubh-labh-2.jpg" alt="">
+            </div>
+
+            <div class="modal-box">
+                <h2>Create Bill</h2>
+
+                <input type="text" class="customer-name-input" placeholder="Customer Name">
+
+                <input type="text" class="previous-amount-input" placeholder="Pehle ka (optional)">
+
+                <input type="text" class="paid-amount-input" placeholder="Jama (optional)">
+
+                <div class="modal-action">
+                    <button class="canacel-bill">Canacel</button>
+                    <button class="confirm-bill">Create Bill</button>
+                </div>
+
+            </div>
+        </section>
 
     </main>
 
     <script src="script.js"></script>
 </body>
+
 </html>
