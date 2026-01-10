@@ -268,7 +268,7 @@ button.delete { background-color: darkturquoise; }
 .settings-modal {
     width: 100%;
     height: 100%;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
@@ -324,7 +324,7 @@ button.delete { background-color: darkturquoise; }
         justify-content: center;
     }
 
-    .calculator-screencustomer-info,
+    .calculator-screen,
     .bill-screen,
     .shop-name-modal,
     .settings-modal,
