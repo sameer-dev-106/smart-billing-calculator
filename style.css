@@ -1,3 +1,71 @@
+/* ========================================
+    CSS VARIABLES - Easy Customization
+======================================== */
+:root {
+    /* Primary Colors */
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --primary-color: #667eea;
+    --primary-dark: #764ba2;
+
+    /* Secondary Colors */
+    --success-color: #28a745;
+    --danger-color: #e70c37;
+    --warning-color: #ffc107;
+
+    /* Neutral Colors */
+    --white: #ffffff;
+    --black: #000000;
+    --light-bg: #f8f9fa;
+    --dark-text: #303034;
+    --gray-text: #666;
+    --light-gray: #ddd;
+
+    /* Button Colors */
+    --btn-bg: #303034;
+    --btn-operator: #aaa;
+    --btn-special: darkturquoise;
+    --btn-bill: rgb(230, 19, 19);
+
+    /* === CALCULATOR BUTTON CUSTOMIZATION === */
+    /* Number Buttons (0-9, .) */
+    --btn-number-weight: 600;
+    --btn-radius: 50%;
+
+    /* Spacing */
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 15px;
+    --spacing-lg: 20px;
+    --spacing-xl: 30px;
+
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 10px;
+    --radius-lg: 15px;
+    --radius-xl: 20px;
+    --radius-round: 50%;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 2px 5px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 0 10px rgba(0, 0, 0, 0.5);
+
+    /* Font Sizes */
+    --font-xs: 14px;
+    --font-sm: 16px;
+    --font-md: 20px;
+    --font-lg: 25px;
+    --font-xl: 45px;
+    --font-xxl: 55px;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+}
+
+/* ========================================
+    RESET & BASE STYLES
+======================================== */
 * {
     margin: 0;
     padding: 0;
@@ -5,76 +73,146 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-html, body {
+html,
+body {
     height: 100dvh;
     width: 100dvw;
+    overflow: hidden;
 }
 
+/* ========================================
+    MAIN CONTAINER
+======================================== */
 main {
-    height: 100vh;
-    width: 100vw;
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-gradient);
 }
 
+/* ========================================
+    SCREEN VISIBILITY CONTROL
+======================================== */
+/* Default: All screens hidden */
+.calculator-screen,
+.bill-screen,
+.modal {
+    display: none;
+}
+
+/* Active: Screen visible */
+.calculator-screen.active,
+.bill-screen.active,
+.modal.active {
+    display: flex;
+}
+
+/* ========================================
+    CALCULATOR SCREEN
+======================================== */
 .calculator-screen {
     height: 100%;
     width: 100%;
     min-width: 360px;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    position: relative;
-    background-color: #111;
+    background-color: var(--light-bg);
+    flex-direction: column;
 }
 
+/* Calculator Header */
 .calc-header {
-    padding: 10px;
-    color: #fefefe;
+    background: var(--primary-gradient);
+    color: var(--white);
+    padding: var(--spacing-sm);
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.total-box, .items-box {
-    border: 2px solid rgb(123, 120, 120);
-    border-radius: 20px;
-    padding: 14px;
-    font-weight: 500;
-    font-size: 22px;
-}
-
-.total-box span,
-.items-box span{
-    color: limegreen;
+.calc-header h1 {
+    font-size: var(--font-md);
     font-weight: 600;
 }
 
-.calc-display {
-    min-width: 360px;
-    padding: 10px;
-
-    color: white;
-
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end; 
-
-    font-size: clamp(24px, 10vw, 48px);
-    line-height: 1.2;
-
-    overflow-y: auto;
-    word-break: break-all;
-    text-align: right
+.settings-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: var(--white);
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-round);
+    font-size: var(--font-md);
+    cursor: pointer;
+    transition: background var(--transition-normal);
 }
 
+.settings-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.settings-btn:active {
+    transform: scale(0.95);
+}
+
+/* Total & Items Display Box */
+.total-items-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-sm);
+    margin: var(--spacing-sm);
+    font-weight: 500;
+    font-size: var(--font-sm);
+    border-radius: var(--radius-xl);
+    background: var(--white);
+    box-shadow: var(--shadow-md);
+}
+
+.total-box {
+    font-size: var(--font-md);
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.calc-total,
+.calc-items {
+    color: var(--dark-text);
+}
+
+/* Calculator Display (Expression) */
+.calc-display {
+    flex: 1;
+    min-width: 360px;
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.2;
+    overflow-y: auto;
+    word-break: break-all;
+    color: var(--dark-text);
+}
+
+.expression {
+    min-height: 40px;
+}
+
+/* Calculator Keypad */
 .calc-keypad {
     user-select: none;
     width: 100%;
     padding: 1rem;
-    border-top: 5px solid white;
+    border-top: 5px solid var(--black);
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
+    background: var(--white);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--spacing-sm);
     align-items: center;
     justify-content: space-between;
 }
@@ -83,255 +221,491 @@ main {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    gap: 15px;
+    gap: 10px;
+    width: 100%;
 }
 
-.calc-keypad button{
-    width: 64px;
-    height: 64px;
-    font-size: 27px;
-    font-weight: 600;
+/* ===== CALCULATOR BUTTONS - CUSTOMIZABLE ===== */
+
+/* Base styles for all buttons */
+.calc-keypad button {
+    /* Default number button styles */
+    width: 74px;
+    height: 74px;
+    font-size: 37px;
+    font-weight: var(--btn-number-weight);
+    border-radius: var(--btn-radius);
+
+    /* Common styles */
+    color: var(--white);
+    background-color: var(--btn-bg);
     border: none;
-    border-radius: 50%;
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-button:active { scale: 0.9; }
+.calc-keypad button:active {
+    transform: scale(0.9);
+}
 
+/* Operator Buttons (+, -, ×, ÷) - CUSTOMIZABLE */
 button.operator {
-    background-color: #aaa;
-    font-size: 45px;
-    padding-bottom: 8px;
+    font-size: var(--font-xl);
+    font-weight: 700;
+    background-color: var(--btn-operator);
+    padding-bottom: 10px;
+    color: var(--black);
+}
+
+/* Equal Button (=) - CUSTOMIZABLE */
+/* Clear & Delete Buttons - CUSTOMIZABLE */
+button.equal,
+button.clear,
+button.delete { 
+    font-size: var(--font-lg);
+    background-color: var(--btn-special); 
 }
 
 button.equal {
-    font-size: 45px;
-    padding-bottom: 8px;
+    font-size: var(--font-xl);
+    padding-bottom: 10px;
 }
 
+/* Bill Button - CUSTOMIZABLE */
 button.bill {
-    width: 138px;
-    height: 64px;
+    width: 160px;
+    font-size: var(--font-lg);
     border-radius: 20px;
-    background-color: rgb(230, 19, 19);
-    color: white;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    background-color: var(--btn-bill);
+    color: var(--white);
 }
 
-button.equal,
-button.clear, 
-button.delete { background-color: darkturquoise; }
-
-/* Bill screen styling */
-.bill-screen{
+/* ========================================
+    BILL SCREEN
+======================================== */
+.bill-screen {
     width: 100%;
     height: 100%;
-    display: none;
-    grid-template-rows: auto auto 1fr auto;
+    flex-direction: column;
+    background: var(--white);
 }
 
+/* Bill Header */
 .bill-header {
     width: 100%;
     display: flex;
-    align-items: start;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-between;
-    padding: 10px;
-    border-bottom:4px solid #111;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    background-color: #bbd0e4;
+    gap: 6px;
+    padding: var(--spacing-sm);
+    color: var(--white);
+    background: var(--primary-gradient);
+    border-bottom-left-radius: var(--radius-lg);
+    border-bottom-right-radius: var(--radius-lg);
 }
 
 .shop-details {
     display: flex;
-    gap: 10px;
-}
-
-.shop-details h1{
-    font-size: 20px;
-    width: 150px;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
 }
 
 .shop-details .logo {
-    width: 50px;
-    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-round);
+    object-fit: cover;
+    overflow: hidden;
 }
 
-.shop-details .logo img { width: 100%; }
-.customer-info { text-align: center; }
+.shop-details .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-.customer-info h1 { 
-    font-size: 20px;
+.shop-details h1 {
+    font-size: var(--font-lg);
+}
+
+.bill-date {
+    width: 100%;
+    text-align: center;
+    font-size: var(--font-sm);
+    opacity: 0.9;
+    padding: var(--spacing-sm);
     font-weight: 500;
 }
 
-.date-time {
-    border: 2px solid #000;
-    border-radius: 10px;
-    padding: 8px;
-    font-weight: 700;
+.customer-info {
+    width: 100%;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-md);
+    margin: var(--spacing-xs);
+    padding: var(--spacing-sm);
+    font-size: var(--font-md);
 }
 
-.bill-summary {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    border-top:4px solid #111;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    
-}
-.bill-summary p{
-    font-size: 20px;
+.customer-name {
     font-weight: 600;
 }
 
-.total-balance-amount {
-    margin-top: 10px;
-    border-top: 2px solid black;
-    padding-top: 5px;
+/* Bill Items List */
+.bill-items {
+    flex: 1;
+    padding: var(--spacing-lg);
+    overflow-y: auto;
+    word-break: break-all;
+    background: var(--light-bg);
+}
+
+.bill-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 4px 12px;
+    margin-bottom: var(--spacing-sm);
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
 }
 
-.bill-items {
-    min-height: 500px;
-    padding-left: 50px;
-    font-size: 20px;
+.item-number {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: var(--font-md);
+}
+
+.item-amount {
+    color: var(--black);
+    font-weight: 700;
+    font-size: var(--font-md);
+}
+
+/* Bill Summary */
+.bill-summary {
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    overflow-x: auto;
-    word-break: break-all;
+    flex-direction: column;
+    padding: 0 var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 4px solid var(--primary-dark);
+    border-top-left-radius: var(--radius-xl);
+    border-top-right-radius: var(--radius-xl);
+    background: var(--white);
+    font-size: var(--font-md);
+    font-weight: 600;
 }
 
-.bill-items li span{
-    font-weight: 500;
-    color: #111;
-}
-.bill-items li{
-    font-weight: 800;
-    color: #1971c2;
+.summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 0;
 }
 
-/* Shop Name Modal */
-.shop-name-modal {
+.summary-row.total {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--primary-color);
+    border-top: 3px solid var(--gray-text);
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-xs);
+}
+
+/* Bill Actions */
+.bill-actions {
+    padding: var(--spacing-sm);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-sm);
+    flex-shrink: 0;
+    background: var(--white);
+}
+
+.bill-actions button {
+    padding: 14px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-sm);
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+}
+
+.bill-actions button:active {
+    transform: scale(0.95);
+}
+
+.new-bill-btn {
+    background: var(--primary-gradient);
+    color: var(--white);
+}
+
+.print-btn {
+    background: var(--success-color);
+    color: var(--white);
+}
+
+/* ========================================
+    MODAL BASE STYLES
+======================================== */
+.modal {
     width: 100%;
     height: 100%;
-    display: none;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-}
-
-.subh-labh-logo {
-    width: 250px;
-}
-
-.subh-labh-logo img {
-    width: 100%;
+    justify-content: center;
+    user-select: none;
+    background: var(--white);
 }
 
 .modal-box {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
 }
 
 .modal-box h2 {
-    font-size: 30px;
+    font-size: var(--font-lg);
+    color: var(--dark-text);
 }
 
-.modal-box input{
-    padding: 15px 20px;
-    border: 2px solid black;
-    border: none;
-    border-radius: 10px;
-    font-size: 20px;
-}
-
-.shop-name-modal button {
-    padding: 10px 100px;
-    border: none;
-    border-radius: 10px;
-    font-size: 25px;
-    font-weight: 600;
-    background-color: #3691e6;
-}
-
-.shop-name-modal button:hover {
-    background-color: #6592bc;
-    
-}
-
-/* setting modal */
-.settings-modal {
+.modal-box input {
     width: 100%;
-    height: 100%;
-    display: none;
-    flex-direction: column;
-    align-items: center;
+    font-size: var(--font-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: 2px solid var(--light-gray);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--transition-normal);
+}
+
+.modal-box input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Subh Labh Logo */
+.subh-labh-logo {
+    width: 250px;
+    margin-bottom: var(--spacing-lg);
+}
+
+.subh-labh-logo img {
+    width: 100%;
+    height: auto;
+}
+
+/* ========================================
+    SHOP NAME MODAL
+======================================== */
+.shop-name-modal {
     justify-content: space-evenly;
 }
 
-.settings-modal h1 {
-    font-size: 60px;
-}
-
-.lang-setting {
-    font-size: 25px;
-    font-weight: 400;
-    line-height: 0.8;
-}
-
-.settings-modal .modal-box button {
+.save-shop-name {
+    padding: var(--spacing-sm) 100px;
     border: none;
-    background-color: #e70c37;
-    padding: 8px 20px;
-    font-size: 25px;
+    border-radius: var(--radius-md);
+    font-size: var(--font-lg);
     font-weight: 600;
-    border-radius: 8px;
-    margin-top: 40px;
+    background: var(--primary-gradient);
+    color: var(--white);
+    cursor: pointer;
+    transition: all var(--transition-normal);
 }
 
-/* Billing input */
-.bill-input-modal {
-    display: none;
-    flex-direction: column;
+.save-shop-name:hover {
+    background: var(--primary-dark);
+}
+
+.save-shop-name:active {
+    transform: scale(0.95);
+}
+
+/* ========================================
+    SETTINGS MODAL
+======================================== */
+.settings-modal {
+    justify-content: space-around;
+}
+
+.settings-header {
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.settings-header h1 {
+    font-size: var(--font-xxl);
+    color: var(--dark-text);
+}
+
+.setting-item {
+    width: 100%;
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    color: var(--gray-text);
+    font-weight: 600;
+    font-size: var(--font-lg);
+}
+
+.setting-item select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--light-gray);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-sm);
+    background: var(--white);
+    cursor: pointer;
+    transition: border-color var(--transition-normal);
+}
+
+.setting-item select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.settings-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.update-settings,
+.close-settings {
+    width: 100%;
+    margin-top: var(--spacing-sm);
+    padding: 12px;
+    background: var(--primary-gradient);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-md);
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+}
+
+.close-settings { background: linear-gradient(135deg, #ea6666 0%, #dc5858 100%); }
+
+.update-settings:active,
+.close-settings:active {
+    transform: scale(0.95);
+}
+
+/* ========================================
+    BILL INPUT MODAL
+======================================== */
+.bill-input-modal {
+    justify-content: center;
+}
+
+.modal-action {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+}
+
 .modal-action button {
     border: none;
-    padding: 15px 26px;
-    border-radius: 10px;
-    font-size: 20px;
+    padding: var(--spacing-md) 26px;
+    border-radius: var(--radius-md);
+    font-size: var(--font-md);
     font-weight: 600;
+    cursor: pointer;
+    transition: transform var(--transition-fast);
 }
 
-.canacel-bill { background-color: #e70c37; }
+.modal-action button:active {
+    transform: scale(0.95);
+}
+
+.cancel-bill {
+    background-color: var(--danger-color);
+    color: var(--white);
+}
+
 .confirm-bill {
-    background-color: #000;
-    color: #fefefe;
+    background-color: var(--black);
+    color: var(--white);
 }
 
-
-@media (min-width:500px) {
+/* ========================================
+    RESPONSIVE DESIGN - Desktop/Tablet
+======================================== */
+@media (min-width: 500px) {
     main {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        padding: var(--spacing-lg);
     }
 
     .calculator-screen,
     .bill-screen,
     .shop-name-modal,
     .settings-modal,
-    .bill-input-modal{
+    .bill-input-modal {
+        overflow: hidden;
         width: 400px;
         height: 780px;
         border-radius: 20px;
-        box-shadow: 0 0 10px black;
+        box-shadow: var(--shadow-lg);
     }
+
+    /* Calculator specific adjustments */
+    .calculator-screen {
+        min-width: 400px;
+    }
+
+    .calc-display {
+        min-width: 400px;
+    }
+}
+
+/* ========================================
+    ADDITIONAL RESPONSIVE BREAKPOINTS
+======================================== */
+
+/* Landscape mode adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
+    .calc-display {
+        font-size: clamp(20px, 8vw, 36px);
+    }
+}
+/* ========================================
+    SCROLLBAR STYLING
+======================================== */
+.bill-items::-webkit-scrollbar,
+.calc-display::-webkit-scrollbar {
+    width: 6px;
+}
+
+.bill-items::-webkit-scrollbar-track,
+.calc-display::-webkit-scrollbar-track {
+    background: var(--light-bg);
+}
+
+.bill-items::-webkit-scrollbar-thumb,
+.calc-display::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
 }

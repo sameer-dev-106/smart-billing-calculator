@@ -1,63 +1,125 @@
 # Smart Billing Calculator
 
-A mobile-first smart calculator built for shopkeepers and daily billing use.
-Instead of just showing a final total, this calculator helps track items,
-verify calculations, and generate a simple bill view.
+A mobile-first smart billing calculator built for small shopkeepers.
+This app solves the biggest problem of normal calculators:
+you cannot verify what items were added to reach the final total.
 
-## 🚀 Features
+This project separates calculation and billing so every shopkeeper
+can confidently generate a correct bill.
 
-- Calculator mode for fast calculations
-- Bill mode with item list and totals
-- Item count tracking
-- Reload-safe using localStorage
-- Hinglish and English language support (planned)
-- Mobile-style calculator UI
-- Designed for real shop use cases
+---
 
-## 🧠 Why this project?
+## 🧠 What this app does
 
-Normal calculators only show the final number.
-In shops, it becomes difficult to verify:
-- how many items were added
-- which values were included
-- whether the total is correct
+Normal calculators only show one final number.
+In real shops this causes:
+- mistakes
+- confusion
+- arguments
+- no way to verify the bill
 
-This project solves that problem by separating:
-- calculation flow
-- final bill verification
+Smart Billing Calculator fixes this by:
+- tracking each added value as an item
+- showing a full bill
+- supporting previous balance (pehle ka) and payment (jama)
+- working even after page reload using localStorage
+
+---
+
+## 📱 App Flow
+
+1. **First time setup**  
+   User enters shop name which is saved permanently.
+
+2. **Calculator Mode**  
+   User enters numbers like a normal calculator.  
+   The screen shows:
+   - current expression  
+   - total amount  
+   - item count  
+
+3. **Create Bill**  
+   When user clicks Bill, a form opens asking:
+   - Customer Name (required)
+   - Pehle ka (optional)
+   - Jama (optional)
+
+4. **Bill Mode**  
+   The app shows a receipt-style bill with:
+   - shop name  
+   - date and time  
+   - customer name  
+   - item list  
+   - total  
+   - previous balance  
+   - payment  
+   - final balance  
+
+Only the item list scrolls.  
+The summary always stays visible.
+
+---
+
+## 🌐 Language Support
+
+The app supports:
+- Hindi  
+- Hinglish  
+- English  
+
+Language can be changed from the Settings screen.  
+The selected language is saved in localStorage.
+
+---
+
+## 💾 Data Storage
+
+The app uses localStorage to save:
+- Shop name  
+- Selected language  
+- Current calculation and bill state  
+
+This prevents data loss if the page reloads.
+
+---
 
 ## 🛠 Tech Stack
 
-- HTML
-- CSS
-- JavaScript (Vanilla)
-- LocalStorage
+- HTML  
+- CSS  
+- Vanilla JavaScript  
+- LocalStorage  
 
-## 📱 UI Inspiration
+This version will later be converted to React.
 
-Inspired by mobile calculator apps and real-world shop billing flow.
-Focused on:
-- big buttons
-- one-hand usage
-- fast input
-- clear verification
+---
+
+## 🎯 Project Goal
+
+To create a real shop-ready billing calculator that:
+- prevents calculation mistakes  
+- makes billing transparent  
+- works on any phone  
+- feels like a real app, not a demo  
+
+---
 
 ## 📦 Project Status
 
-- UI layout completed
-- Calculator structure ready
-- JavaScript logic in progress
+- UI and design completed  
+- Screens and modals built  
+- JavaScript logic in progress  
 
 Future plans:
-- React version
-- Bill history
-- Export / share bill
-- PWA offline support
+- React version  
+- Bill history  
+- Export or print bill  
+- PWA offline support  
+
+---
 
 ## 👤 Author
 
 **Sameer**
-
----
 
 Built with a real problem in mind, not just for demo purposes.
