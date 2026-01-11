@@ -87,9 +87,9 @@ main {
     width: 100dvw;
     height: 100dvh;
     overflow: hidden;
-    /* display: flex;
+    display: flex;
     align-items: center;
-    justify-content: center; */
+    justify-content: center;
     position: relative;
     background: var(--primary-gradient);
 }
