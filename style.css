@@ -511,7 +511,7 @@ button.bill {
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-lg);
-    padding: var(--spacing-lg);
+    padding: 0 var(--spacing-md);
 }
 
 .modal-box h2 {
@@ -579,12 +579,18 @@ button.bill {
     justify-content: space-around;
 }
 
+.settings-modal .modal{
+    padding: var(--spacing-xl);
+    gap: var(--spacing-lg);
+}
+
 .settings-header {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     border-bottom: 2px solid;
+    /* margin-bottom: 20px; */
 }
 
 .settings-header h1 {
@@ -678,7 +684,7 @@ button.bill {
 
 .modal-action button {
     border: none;
-    padding: var(--spacing-md) 26px;
+    padding: var(--spacing-md) 18px;
     border-radius: var(--radius-md);
     font-size: var(--font-md);
     font-weight: 600;
