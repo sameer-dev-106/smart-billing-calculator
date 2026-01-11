@@ -90,7 +90,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    /* position: relative; */
     background: var(--primary-gradient);
 }
 
@@ -118,6 +118,7 @@ main {
     min-width: 360px;
     background-color: var(--light-bg);
     flex-direction: column;
+    position: relative;
 }
 
 /* Calculator Header */
@@ -471,12 +472,13 @@ button.bill {
     height: 100%;
     position: fixed;
     top: 0;
-    left: 0;
     background: rgba(0, 0, 0, 0.454);
     backdrop-filter: blur(4px);
     display: none;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    user-select: none;
 }
 
 .modal-overlay.active {
@@ -484,6 +486,7 @@ button.bill {
 }
 
 .modal {
+    max-width: 320px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -492,6 +495,15 @@ button.bill {
     padding: 20px 10px;
     border-radius: 20px;
     background: var(--white);
+}
+
+.modal-overlay .calc-name {
+    position: fixed;
+    top: 3%;
+    color: #fff;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.249);
+    border-radius: 10px;
 }
 
 .modal-box {
@@ -503,7 +515,7 @@ button.bill {
 }
 
 .modal-box h2 {
-    font-size: var(--font-lg);
+    font-size: var(--font-md);
     color: var(--dark-text);
 }
 
@@ -706,6 +718,11 @@ button.bill {
         height: 780px;
         border-radius: 20px;
         box-shadow: var(--shadow-lg);
+    }
+
+
+    .modal-overlay {
+        top: 3.2%;
     }
 
     /* Calculator specific adjustments */
