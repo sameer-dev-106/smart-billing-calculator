@@ -15,7 +15,7 @@
     /* Neutral Colors */
     --white: #ffffff;
     --black: #000000;
-    --light-bg: #f8f9fa;
+    --light-bg: #eaebed;
     --dark-text: #303034;
     --gray-text: #666;
     --light-gray: #ddd;
@@ -86,9 +86,11 @@ body {
 main {
     width: 100dvw;
     height: 100dvh;
-    display: flex;
+    overflow: hidden;
+    /* display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
+    position: relative;
     background: var(--primary-gradient);
 }
 
@@ -97,15 +99,13 @@ main {
 ======================================== */
 /* Default: All screens hidden */
 .calculator-screen,
-.bill-screen,
-.modal {
+.bill-screen {
     display: none;
 }
 
 /* Active: Screen visible */
 .calculator-screen.active,
-.bill-screen.active,
-.modal.active {
+.bill-screen.active {
     display: flex;
 }
 
@@ -292,12 +292,14 @@ button.bill {
     width: 100%;
     height: 100%;
     flex-direction: column;
-    background: var(--white);
+    background: var(--light-bg);
 }
 
 /* Bill Header */
 .bill-header {
     width: 100%;
+    min-height: 120px;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -314,14 +316,20 @@ button.bill {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-sm);
+    flex-wrap: nowrap;
+    gap: var(--spacing-lg);
 }
 
 .shop-details .logo {
-    width: 30px;
-    height: 30px;
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
     border-radius: var(--radius-round);
+    text-align: center;
+    color: #000;
+    background-color: #fff;
     object-fit: cover;
+    object-position: center;
     overflow: hidden;
 }
 
@@ -332,6 +340,7 @@ button.bill {
 }
 
 .shop-details h1 {
+    text-align: center;
     font-size: var(--font-lg);
 }
 
@@ -346,15 +355,13 @@ button.bill {
 
 .customer-info {
     width: 100%;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background: rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-md);
-    margin: var(--spacing-xs);
-    padding: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-lg);
     font-size: var(--font-md);
-}
-
-.customer-name {
     font-weight: 600;
 }
 
@@ -365,13 +372,14 @@ button.bill {
     overflow-y: auto;
     word-break: break-all;
     background: var(--light-bg);
+    padding-bottom: 120px;
 }
 
 .bill-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 4px 12px;
+    padding: 4px 15px;
     margin-bottom: var(--spacing-sm);
     background-color: var(--white);
     border-radius: var(--radius-md);
@@ -381,13 +389,13 @@ button.bill {
 .item-number {
     color: var(--primary-color);
     font-weight: 700;
-    font-size: var(--font-md);
+    font-size: var(--font-lg);
 }
 
 .item-amount {
     color: var(--black);
     font-weight: 700;
-    font-size: var(--font-md);
+    font-size: var(--font-lg);
 }
 
 /* Bill Summary */
@@ -457,13 +465,32 @@ button.bill {
 /* ========================================
     MODAL BASE STYLES
 ======================================== */
-.modal {
+
+.modal-overlay {
     width: 100%;
     height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.454);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     user-select: none;
+    padding: 20px 10px;
+    border-radius: 20px;
     background: var(--white);
 }
 
@@ -483,7 +510,7 @@ button.bill {
 .modal-box input {
     width: 100%;
     font-size: var(--font-md);
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: var(--spacing-sm);
     border: 2px solid var(--light-gray);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
@@ -497,7 +524,7 @@ button.bill {
 
 /* Subh Labh Logo */
 .subh-labh-logo {
-    width: 250px;
+    width: 200px;
     margin-bottom: var(--spacing-lg);
 }
 
@@ -541,30 +568,38 @@ button.bill {
 }
 
 .settings-header {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-bottom: 2px solid;
 }
 
 .settings-header h1 {
-    font-size: var(--font-xxl);
-    color: var(--dark-text);
+    text-align: center;
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 35px;
 }
 
 .setting-item {
     width: 100%;
-    margin-bottom: var(--spacing-lg);
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .setting-item label {
     display: block;
     margin-bottom: var(--spacing-sm);
-    color: var(--gray-text);
+    color: var(--dark-text);
     font-weight: 600;
-    font-size: var(--font-lg);
+    font-size: var(--font-md);
+}
+
+.setting-item input {
+    padding: 12px;
 }
 
 .setting-item select {
@@ -588,14 +623,13 @@ button.bill {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    /* gap: 10px; */
     justify-content: space-between;
 }
 
 .update-settings,
 .close-settings {
     width: 100%;
-    margin-top: var(--spacing-sm);
     padding: 12px;
     background: var(--primary-gradient);
     color: var(--white);
@@ -607,7 +641,10 @@ button.bill {
     transition: transform var(--transition-fast);
 }
 
-.close-settings { background: linear-gradient(135deg, #ea6666 0%, #dc5858 100%); }
+.close-settings { 
+    margin-top: var(--spacing-sm);
+    background: linear-gradient(135deg, #ea6666 0%, #dc5858 100%); 
+}
 
 .update-settings:active,
 .close-settings:active {

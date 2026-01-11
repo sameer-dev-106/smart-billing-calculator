@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Billing Calculator | Sameer</title>
+    <link rel="shortcut icon" href="./assets/img/calculator-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,7 +15,7 @@
         <!-- ========================================
                 CALCULATOR SCREEN
         ======================================== -->
-        <section class="calculator-screen" id="calculatorScreen">
+        <section class="calculator-screen active" id="calculatorScreen">
 
             <!-- Header with shop name and settings -->
             <header class="calc-header">
@@ -86,7 +87,7 @@
         <!-- ========================================
             BILL SCREEN
         ======================================== -->
-        <section class="bill-screen" id="billScreen">
+        <section class="bill-screen " id="billScreen">
 
             <!-- Bill Header with Shop Details -->
             <header class="bill-header">
@@ -94,17 +95,20 @@
                 <!-- Shop Name and Logo -->
                 <div class="shop-details">
                     <div class="logo">
-                        <img src="./assets/img/logo.png" alt="Shop Logo">
+                        <img src="./assets/img/bill-logo.png" alt="Ganesh ji Image">
                     </div>
-                    <h1 id="billShopName">Lilar Kariyana Store</h1>
+                    <div>
+                        <h1 id="billShopName">shop name</h1>
+                        <!-- Bill Date and Time -->
+                        <div class="bill-date" id="billDate">11/1/2026 11:32:48 am</div>
+                    </div>
                 </div>
 
-                <!-- Bill Date and Time -->
-                <div class="bill-date" id="billDate">11/1/2026 11:32:48 am</div>
 
                 <!-- Customer Information -->
                 <div class="customer-info">
                     <div class="customer-name" id="billCustomerName">Customer Name</div>
+                    <p class="total-items">Items: <span id="totalItems">0</span></p>
                 </div>
             </header>
 
@@ -126,8 +130,8 @@
                 </div>
 
                 <div class="summary-row">
-                    <span id="pehleKaLabel">Pehle ka:</span>
-                    <span id="pehleKaValue">0</span>
+                    <span id="pehelKaLabel">Pehel ka:</span>
+                    <span id="pehelKaValue">0</span>
                 </div>
 
                 <div class="summary-row">
@@ -152,92 +156,97 @@
         <!-- ========================================
             SHOP NAME MODAL (First Time Setup)
         ======================================== -->
-        <section class="modal shop-name-modal active" id="shopNameModal">
-
-            <!-- Decorative Logo -->
-            <div class="subh-labh-logo">
-                <img src="./assets/img/shubh-labh-1.jpg" alt="Shubh Labh">
-            </div>
-
-            <!-- Modal Content -->
-            <div class="modal-box">
-                <h2>Smart Billing Calculator</h2>
-
-                <input required type="text" class="shop-name-input" placeholder="Enter Shop Name" id="shopNameInput">
-
-                <button class="save-shop-name">Save</button>
+        <section class="modal-overlay shop-name-modal " id="shopNameModal">
+            <div class="modal ">
+            
+                <!-- Decorative Logo -->
+                <div class="subh-labh-logo">
+                    <img src="./assets/img/shubh-labh-1.jpg" alt="Shubh Labh">
+                </div>
+            
+                <!-- Modal Content -->
+                <div class="modal-box">
+                    <h2>Smart Billing Calculator</h2>
+            
+                    <input required type="text" class="shop-name-input" placeholder="Enter Shop Name" id="shopNameInput">
+            
+                    <button class="save-shop-name">Save</button>
+                </div>
             </div>
         </section>
 
         <!-- ========================================
             SETTINGS MODAL
         ======================================== -->
-        <section class="modal settings-modal " id="settingsModal">
-
-            <!-- Settings Header -->
-            <div class="settings-header">
-                <h1 id="settingsTitle">Settings</h1>
+        <section class="modal-overlay settings-modal " id="settingsModal">
+            <div class="modal " >
+            
+                <!-- Settings Header -->
+                <div class="settings-header">
+                    <h1 id="settingsTitle">Settings</h1>
+                </div>
+            
+                <!-- Settings Form -->
+                <div class="modal-box">
+            
+                    <!-- Language Selection -->
+                    <div class="setting-item">
+                        <label id="languageLabel">Select Language:</label>
+                        <select id="languageSelect">
+                            <option value="hindi">Hindi (हिन्दी)</option>
+                            <option value="hinglish">Hinglish</option>
+                            <option value="english">English</option>
+                        </select>
+                    </div>
+            
+                    <!-- Shop Name Update -->
+                    <div class="setting-item">
+                        <label id="shopNameLabel">Update Shop Name</label>
+                        <input type="text" id="shopNameEdit" placeholder="Enter Shop Name">
+            
+                    </div>
+            
+                    <!-- Action Buttons -->
+                    <div class="settings-actions">
+                        <button class="update-settings">Update</button>
+                        <button class="close-settings">Close</button>
+                    </div>
+                </div>
+            
             </div>
-
-            <!-- Settings Form -->
-            <div class="modal-box">
-
-                <!-- Language Selection -->
-                <div class="setting-item">
-                    <label id="languageLabel">Select Language:</label>
-                    <select id="languageSelect">
-                        <option value="hinglish">Hindi (हिन्दी)</option>
-                        <option value="hinglish">Hinglish</option>
-                        <option value="english">English</option>
-                    </select>
-                </div>
-
-                <!-- Shop Name Update -->
-                <div class="setting-item">
-                    <label id="shopNameLabel">Update Shop Name</label>
-                    <input type="text" id="shopNameEdit" placeholder="Enter Shop Name">
-                    
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="settings-actions">
-                    <button class="update-settings">Update</button>
-                    <button class="close-settings">Close</button>
-                </div>
-            </div>
-
         </section>
 
         <!-- ========================================
             BILL INPUT MODAL (Customer Details)
         ======================================== -->
-        <section class="modal bill-input-modal" id="billInputModal">
-
-            <!-- Decorative Logo -->
-            <div class="subh-labh-logo">
-                <img src="./assets/img/shubh-labh-2.jpg" alt="Shubh Labh">
-            </div>
-
-            <!-- Modal Content -->
-            <div class="modal-box">
-                <h2>Create Bill</h2>
-
-                <!-- Customer Name Input -->
-                <input required type="text" class="customer-name-input" placeholder="Customer Name" id="customerNameInput">
-
-                <!-- Previous Balance Input -->
-                <input type="number" class="previous-amount-input" placeholder="Pehle ka (optional)"
-                    id="previousAmountInput">
-
-                <!-- Payment Input -->
-                <input type="number" class="paid-amount-input" placeholder="Jama (optional)" id="paidAmountInput">
-
-                <!-- Action Buttons -->
-                <div class="modal-action">
-                    <button class="cancel-bill">Cancel</button>
-                    <button class="confirm-bill">Create Bill</button>
+        <section class="modal-overlay bill-input-modal " id="billInputModal">
+            <div class="modal ">
+            
+                <!-- Decorative Logo -->
+                <div class="subh-labh-logo">
+                    <img src="./assets/img/shubh-labh-2.jpg" alt="Shubh Labh">
                 </div>
-
+            
+                <!-- Modal Content -->
+                <div class="modal-box">
+                    <h2>Create Bill</h2>
+            
+                    <!-- Customer Name Input -->
+                    <input required type="text" class="customer-name-input" placeholder="Customer Name" id="customerNameInput">
+            
+                    <!-- Previous Balance Input -->
+                    <input type="number" class="previous-amount-input" placeholder="Pehel ka (optional)" id="previousAmountInput">
+            
+                    <!-- Payment Input -->
+                    <input type="number" class="paid-amount-input" placeholder="Jama (optional)" id="paidAmountInput">
+            
+                    <!-- Action Buttons -->
+                    <div class="modal-action">
+                        <button class="cancel-bill">Cancel</button>
+                        <button class="confirm-bill">Create Bill</button>
+                    </div>
+            
+                </div>
             </div>
         </section>
 
