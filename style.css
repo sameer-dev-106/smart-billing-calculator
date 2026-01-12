@@ -250,7 +250,6 @@ button.operator {
     font-size: var(--font-xl);
     font-weight: 700;
     background-color: var(--btn-operator);
-    padding-bottom: 10px;
     color: var(--black);
 }
 
@@ -263,7 +262,6 @@ button.delete {
 
 button.equal {
     font-size: var(--font-xl);
-    padding-bottom: 10px;
 }
 
 button.bill {
