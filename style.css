@@ -1,5 +1,5 @@
 /* ========================================
-    CSS VARIABLES - Easy Customization
+CSS VARIABLES - Easy Customization
 ======================================== */
 :root {
     /* Primary Colors */
@@ -27,7 +27,6 @@
     --btn-bill: rgb(230, 19, 19);
 
     /* === CALCULATOR BUTTON CUSTOMIZATION === */
-    /* Number Buttons (0-9, .) */
     --btn-number-weight: 600;
     --btn-radius: 50%;
 
@@ -64,7 +63,7 @@
 }
 
 /* ========================================
-    RESET & BASE STYLES
+RESET & BASE STYLES
 ======================================== */
 * {
     margin: 0;
@@ -81,7 +80,7 @@ body {
 }
 
 /* ========================================
-    MAIN CONTAINER
+MAIN CONTAINER
 ======================================== */
 main {
     width: 100dvw;
@@ -90,27 +89,24 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* position: relative; */
     background: var(--primary-gradient);
 }
 
 /* ========================================
-    SCREEN VISIBILITY CONTROL
+SCREEN VISIBILITY CONTROL
 ======================================== */
-/* Default: All screens hidden */
 .calculator-screen,
 .bill-screen {
     display: none;
 }
 
-/* Active: Screen visible */
 .calculator-screen.active,
 .bill-screen.active {
     display: flex;
 }
 
 /* ========================================
-    CALCULATOR SCREEN
+CALCULATOR SCREEN
 ======================================== */
 .calculator-screen {
     height: 100%;
@@ -161,7 +157,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--spacing-sm) var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
     margin: var(--spacing-sm);
     font-weight: 500;
     font-size: var(--font-sm);
@@ -170,18 +166,21 @@ main {
     box-shadow: var(--shadow-md);
 }
 
-.total-box {
+.calc-items-label,
+.calc-kul-rakam-label {
     font-size: var(--font-md);
     font-weight: 600;
     color: var(--primary-color);
 }
 
-.calc-total,
-.calc-items {
+.calc-kul-rakam-value,
+.calc-items-value {
+    font-size: var(--font-md);
+    font-weight: 600;
     color: var(--dark-text);
 }
 
-/* Calculator Display (Expression) */
+/* Calculator Display */
 .calc-display {
     flex: 1;
     min-width: 360px;
@@ -226,18 +225,13 @@ main {
     width: 100%;
 }
 
-/* ===== CALCULATOR BUTTONS - CUSTOMIZABLE ===== */
-
-/* Base styles for all buttons */
+/* Calculator Buttons */
 .calc-keypad button {
-    /* Default number button styles */
     width: 74px;
     height: 74px;
     font-size: 37px;
     font-weight: var(--btn-number-weight);
     border-radius: var(--btn-radius);
-
-    /* Common styles */
     color: var(--white);
     background-color: var(--btn-bg);
     border: none;
@@ -252,7 +246,6 @@ main {
     transform: scale(0.9);
 }
 
-/* Operator Buttons (+, -, ×, ÷) - CUSTOMIZABLE */
 button.operator {
     font-size: var(--font-xl);
     font-weight: 700;
@@ -261,13 +254,11 @@ button.operator {
     color: var(--black);
 }
 
-/* Equal Button (=) - CUSTOMIZABLE */
-/* Clear & Delete Buttons - CUSTOMIZABLE */
 button.equal,
 button.clear,
-button.delete { 
+button.delete {
     font-size: var(--font-lg);
-    background-color: var(--btn-special); 
+    background-color: var(--btn-special);
 }
 
 button.equal {
@@ -275,7 +266,6 @@ button.equal {
     padding-bottom: 10px;
 }
 
-/* Bill Button - CUSTOMIZABLE */
 button.bill {
     width: 160px;
     font-size: var(--font-lg);
@@ -286,8 +276,25 @@ button.bill {
     color: var(--white);
 }
 
+.calc-btn.operator[value="+"] {
+    background: #22c55e;
+}
+
+.calc-btn.operator[value="-"] {
+    background: #ef4444;
+}
+
+.calc-btn.operator[value="×"] {
+    background: #facc15;
+    color: var(--black);
+}
+
+.calc-btn.operator[value="÷"] {
+    background: #3b82f6;
+}
+
 /* ========================================
-    BILL SCREEN
+BILL SCREEN
 ======================================== */
 .bill-screen {
     width: 100%;
@@ -332,6 +339,10 @@ button.bill {
     object-fit: cover;
     object-position: center;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
 }
 
 .shop-details .logo img {
@@ -464,9 +475,8 @@ button.bill {
 }
 
 /* ========================================
-    MODAL BASE STYLES
+MODAL BASE STYLES
 ======================================== */
-
 .modal-overlay {
     width: 100%;
     height: 100%;
@@ -479,6 +489,7 @@ button.bill {
     align-items: center;
     justify-content: center;
     user-select: none;
+    z-index: 1000;
 }
 
 .modal-overlay.active {
@@ -538,6 +549,8 @@ button.bill {
 .subh-labh-logo {
     width: 200px;
     margin-bottom: var(--spacing-lg);
+    font-size: 60px;
+    text-align: center;
 }
 
 .subh-labh-logo img {
@@ -545,15 +558,14 @@ button.bill {
     height: auto;
 }
 
-/* ========================================
-    SHOP NAME MODAL
-======================================== */
+/* Shop Name Modal */
 .shop-name-modal {
     justify-content: space-evenly;
 }
 
 .save-shop-name {
-    padding: var(--spacing-sm) 100px;
+    width: 100%;
+    padding: var(--spacing-sm);
     border: none;
     border-radius: var(--radius-md);
     font-size: var(--font-lg);
@@ -572,14 +584,12 @@ button.bill {
     transform: scale(0.95);
 }
 
-/* ========================================
-    SETTINGS MODAL
-======================================== */
+/* Settings Modal */
 .settings-modal {
     justify-content: space-around;
 }
 
-.settings-modal .modal{
+.settings-modal .modal {
     padding: var(--spacing-xl);
     gap: var(--spacing-lg);
 }
@@ -590,7 +600,6 @@ button.bill {
     align-items: center;
     justify-content: center;
     border-bottom: 2px solid;
-    /* margin-bottom: 20px; */
 }
 
 .settings-header h1 {
@@ -641,7 +650,6 @@ button.bill {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* gap: 10px; */
     justify-content: space-between;
 }
 
@@ -659,9 +667,9 @@ button.bill {
     transition: transform var(--transition-fast);
 }
 
-.close-settings { 
+.close-settings {
     margin-top: var(--spacing-sm);
-    background: linear-gradient(135deg, #ea6666 0%, #dc5858 100%); 
+    background: linear-gradient(135deg, #ea6666 0%, #dc5858 100%);
 }
 
 .update-settings:active,
@@ -669,9 +677,7 @@ button.bill {
     transform: scale(0.95);
 }
 
-/* ========================================
-    BILL INPUT MODAL
-======================================== */
+/* Bill Input Modal */
 .bill-input-modal {
     justify-content: center;
 }
@@ -706,8 +712,25 @@ button.bill {
     color: var(--white);
 }
 
+/* Scrollbar Styling */
+.bill-items::-webkit-scrollbar,
+.calc-display::-webkit-scrollbar {
+    width: 6px;
+}
+
+.bill-items::-webkit-scrollbar-track,
+.calc-display::-webkit-scrollbar-track {
+    background: var(--light-bg);
+}
+
+.bill-items::-webkit-scrollbar-thumb,
+.calc-display::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
 /* ========================================
-    RESPONSIVE DESIGN - Desktop/Tablet
+RESPONSIVE DESIGN
 ======================================== */
 @media (min-width: 500px) {
     main {
@@ -726,12 +749,10 @@ button.bill {
         box-shadow: var(--shadow-lg);
     }
 
-
     .modal-overlay {
         top: 3.2%;
     }
 
-    /* Calculator specific adjustments */
     .calculator-screen {
         min-width: 400px;
     }
@@ -741,31 +762,22 @@ button.bill {
     }
 }
 
-/* ========================================
-    ADDITIONAL RESPONSIVE BREAKPOINTS
-======================================== */
-
-/* Landscape mode adjustments */
 @media (max-height: 600px) and (orientation: landscape) {
     .calc-display {
         font-size: clamp(20px, 8vw, 36px);
     }
 }
-/* ========================================
-    SCROLLBAR STYLING
-======================================== */
-.bill-items::-webkit-scrollbar,
-.calc-display::-webkit-scrollbar {
-    width: 6px;
-}
 
-.bill-items::-webkit-scrollbar-track,
-.calc-display::-webkit-scrollbar-track {
-    background: var(--light-bg);
-}
+/* Print Styles */
+@media print {
 
-.bill-items::-webkit-scrollbar-thumb,
-.calc-display::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 10px;
+    .bill-actions,
+    .settings-btn {
+        display: none !important;
+    }
+
+    .bill-screen {
+        box-shadow: none;
+        border-radius: 0;
+    }
 }

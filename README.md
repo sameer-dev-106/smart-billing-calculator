@@ -1,5 +1,7 @@
 # Smart Billing Calculator
 
+🔗 Live App: https://sameer-dev-106.github.io/smart-billing-calculator/
+
 A mobile-first smart billing calculator built for small shopkeepers.
 This app solves the biggest problem of normal calculators:
 you cannot verify what items were added to reach the final total.
@@ -19,43 +21,47 @@ In real shops this causes:
 - no way to verify the bill
 
 Smart Billing Calculator fixes this by:
-- tracking each added value as an item
-- showing a full bill
+- tracking each entered value as a bill item
+- running a real calculator engine internally
+- showing a full bill before printing
 - supporting previous balance (pehle ka) and payment (jama)
-- working even after page reload using localStorage
+- preventing data loss using localStorage
 
 ---
 
 ## 📱 App Flow
 
-1. **First time setup**  
-   User enters shop name which is saved permanently.
+1. **First time setup**
+User enters shop name which is saved permanently.
 
-2. **Calculator Mode**  
-   User enters numbers like a normal calculator.  
-   The screen shows:
-   - current expression  
-   - total amount  
-   - item count  
+2. **Calculator Mode**
+User enters numbers like a real calculator.
+The screen shows:
+- live expression
+- running total (Kul Rakam)
+- item count
 
-3. **Create Bill**  
-   When user clicks Bill, a form opens asking:
-   - Customer Name (required)
-   - Pehle ka (optional)
-   - Jama (optional)
+Totals are updated when operators are pressed,
+just like a real physical calculator.
 
-4. **Bill Mode**  
-   The app shows a receipt-style bill with:
-   - shop name  
-   - date and time  
-   - customer name  
-   - item list  
-   - total  
-   - previous balance  
-   - payment  
-   - final balance  
+3. **Create Bill**
+When user clicks Bill, a form opens asking:
+- Customer Name (required)
+- Pehle ka (optional)
+- Jama (optional)
 
-Only the item list scrolls.  
+4. **Bill Mode**
+The app shows a receipt-style bill with:
+- shop name
+- date and time
+- customer name
+- item list (with operators and values)
+- total
+- previous balance
+- payment
+- final balance
+
+Only the item list scrolls.
 The summary always stays visible.
 
 ---
@@ -63,11 +69,11 @@ The summary always stays visible.
 ## 🌐 Language Support
 
 The app supports:
-- Hindi  
-- Hinglish  
-- English  
+- Hindi
+- Hinglish
+- English
 
-Language can be changed from the Settings screen.  
+Language can be changed from the Settings screen.
 The selected language is saved in localStorage.
 
 ---
@@ -75,20 +81,20 @@ The selected language is saved in localStorage.
 ## 💾 Data Storage
 
 The app uses localStorage to save:
-- Shop name  
-- Selected language  
-- Current calculation and bill state  
+- Shop name
+- Selected language
 
-This prevents data loss if the page reloads.
+Calculation data stays in memory so users can freely
+start new bills without old data mixing.
 
 ---
 
 ## 🛠 Tech Stack
 
-- HTML  
-- CSS  
-- Vanilla JavaScript  
-- LocalStorage  
+- HTML
+- CSS
+- Vanilla JavaScript
+- LocalStorage
 
 This version will later be converted to React.
 
@@ -97,24 +103,27 @@ This version will later be converted to React.
 ## 🎯 Project Goal
 
 To create a real shop-ready billing calculator that:
-- prevents calculation mistakes  
-- makes billing transparent  
-- works on any phone  
-- feels like a real app, not a demo  
+- behaves like a real calculator
+- prevents calculation mistakes
+- makes billing transparent
+- works on any phone
+- feels like a real product, not a demo
 
 ---
 
 ## 📦 Project Status
 
-- UI and design completed  
-- Screens and modals built  
-- JavaScript logic in progress  
+- UI and modals completed
+- Calculator engine built
+- Operator and equal handling fixed
+- Bill generation working
+- Language system implemented
 
-Future plans:
-- React version  
-- Bill history  
-- Export or print bill  
-- PWA offline support  
+Next planned upgrades:
+- Bill history
+- Daily totals
+- Export and print improvements
+- React version
 
 ---
 
@@ -122,4 +131,4 @@ Future plans:
 
 **Sameer**
 
-Built with a real problem in mind, not just for demo purposes.
+Built to solve a real shop problem, not just to show code.

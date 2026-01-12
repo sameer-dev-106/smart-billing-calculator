@@ -4,32 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Billing Calculator | Sameer</title>
     <link rel="shortcut icon" href="./assets/img/calculator-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <title>Smart Billing Calculator | Sameer</title>
 </head>
 
 <body>
     <main>
-
         <!-- ========================================
                 CALCULATOR SCREEN
         ======================================== -->
-        <section class="calculator-screen active" id="calculatorScreen">
-
+        <section class="calculator-screen active">
             <!-- Header with shop name and settings -->
             <header class="calc-header">
-                <h1 id="shopNameDisplay">Smart Billing Calculator</h1>
+                <h1 class="shop-name-display">Smart Billing Calculator</h1>
                 <button class="settings-btn" aria-label="Settings">⚙️</button>
             </header>
 
             <!-- Total and Items Count Display -->
             <div class="total-items-box">
                 <div class="total-box">
-                    Kul Rakam: <span class="calc-total">00</span>
+                    <span class="calc-kul-rakam-label">कुल रकम:</span>
+                    <span class="calc-kul-rakam-value">0</span>
                 </div>
                 <div class="items-box">
-                    Items: <span class="calc-items">0</span>
+                    <span class="calc-items-label">आइटम:</span>
+                    <span class="calc-items-value">0</span>
                 </div>
             </div>
 
@@ -40,138 +40,122 @@
 
             <!-- Calculator Keypad -->
             <div class="calc-keypad">
-
                 <!-- Row 1: Bill, Clear, Delete -->
                 <div class="btn-div">
-                    <button class="bill" aria-label="Create Bill">Bill</button>
-                    <button class="clear" aria-label="Clear All">C</button>
-                    <button class="delete" aria-label="Delete Last">DE</button>
+                    <button class="calc-btn bill" aria-label="Create Bill">बिल</button>
+                    <button class="calc-btn clear" aria-label="Clear All">AC</button>
+                    <button class="calc-btn delete" aria-label="Delete Last">DE</button>
                 </div>
 
                 <!-- Row 2: 7, 8, 9, ÷ -->
                 <div class="btn-div">
-                    <button>7</button>
-                    <button>8</button>
-                    <button>9</button>
-                    <button class="operator" aria-label="Divide">÷</button>
+                    <button class="calc-btn num" value="7">7</button>
+                    <button class="calc-btn num" value="8">8</button>
+                    <button class="calc-btn num" value="9">9</button>
+                    <button class="calc-btn operator" value="÷" aria-label="Divide">÷</button>
                 </div>
 
                 <!-- Row 3: 4, 5, 6, × -->
                 <div class="btn-div">
-                    <button>4</button>
-                    <button>5</button>
-                    <button>6</button>
-                    <button class="operator" aria-label="Multiply">×</button>
+                    <button class="calc-btn num" value="4">4</button>
+                    <button class="calc-btn num" value="5">5</button>
+                    <button class="calc-btn num" value="6">6</button>
+                    <button class="calc-btn operator" value="×" aria-label="Multiply">×</button>
                 </div>
 
-                <!-- Row 4: 3, 2, 1, − -->
+                <!-- Row 4: 1, 2, 3, − -->
                 <div class="btn-div">
-                    <button>3</button>
-                    <button>2</button>
-                    <button>1</button>
-                    <button class="operator" aria-label="Subtract">−</button>
+                    <button class="calc-btn num" value="1">1</button>
+                    <button class="calc-btn num" value="2">2</button>
+                    <button class="calc-btn num" value="3">3</button>
+                    <button class="calc-btn operator" value="-" aria-label="Subtract">−</button>
                 </div>
 
                 <!-- Row 5: 0, ., =, + -->
                 <div class="btn-div">
-                    <button>0</button>
-                    <button>.</button>
-                    <button class="equal" aria-label="Calculate">=</button>
-                    <button class="operator" aria-label="Add">+</button>
+                    <button class="calc-btn num" value="0">0</button>
+                    <button class="calc-btn num" value=".">.</button>
+                    <button class="calc-btn equal" value="=" aria-label="Calculate">=</button>
+                    <button class="calc-btn operator" value="+" aria-label="Add">+</button>
                 </div>
-
             </div>
-
         </section>
 
         <!-- ========================================
             BILL SCREEN
         ======================================== -->
-        <section class="bill-screen " id="billScreen">
-
+        <section class="bill-screen">
             <!-- Bill Header with Shop Details -->
             <header class="bill-header">
-
                 <!-- Shop Name and Logo -->
                 <div class="shop-details">
-                    <div class="logo">
-                        <img src="./assets/img/bill-logo.png" alt="Ganesh ji Image">
-                    </div>
-                    <div>
-                        <h1 id="billShopName">shop name</h1>
+                    <div class="logo"><img src="./assets/img/bill-logo.png" alt="Ganesh ji Image"></div>
+                    <div class="container">
+                        <h1 class="bill-shop-name">Shop Name</h1>
                         <!-- Bill Date and Time -->
-                        <div class="bill-date" id="billDate">11/1/2026 11:32:48 am</div>
+                        <div class="bill-date"></div>
                     </div>
                 </div>
 
-
                 <!-- Customer Information -->
                 <div class="customer-info">
-                    <div class="customer-name" id="billCustomerName">Customer Name</div>
-                    <p class="total-items">Items: <span id="totalItems">0</span></p>
+                    <div class="customer-name">Customer Name</div>
+                    <div class="items-box">
+                        <span class="bill-items-label">आइटम:</span>
+                        <span class="bill-items-value">0</span>
+                    </div>
                 </div>
             </header>
 
             <!-- Bill Items List (Scrollable) -->
-            <div class="bill-items" id="billItems">
-                <!-- Items will be dynamically added here via JavaScript -->
-                <div class="bill-item">
-                    <span class="item-number">1.</span>
-                    <span class="item-amount">0</span>
-                </div>
+            <div class="bill-items">
+                <!-- Items will be dynamically added here -->
             </div>
 
             <!-- Bill Summary (Fixed at Bottom) -->
             <div class="bill-summary">
-
                 <div class="summary-row">
-                    <span id="kulRakamLabel">Kul Rakam:</span>
-                    <span id="kulRakamValue">0</span>
+                    <span class="kul-rakam-label">कुल रकम:</span>
+                    <span class="kul-rakam-value">0</span>
                 </div>
 
                 <div class="summary-row">
-                    <span id="pehelKaLabel">Pehel ka:</span>
-                    <span id="pehelKaValue">0</span>
+                    <span class="pehel-ka-label">पहले का:</span>
+                    <span class="pehel-ka-value">0</span>
                 </div>
 
                 <div class="summary-row">
-                    <span id="jamaLabel">Jama:</span>
-                    <span id="jamaValue">0</span>
+                    <span class="jama-label">जमा:</span>
+                    <span class="jama-value">0</span>
                 </div>
 
                 <div class="summary-row total">
-                    <span id="kulBakayaLabel">Kul Bakaya:</span>
-                    <span id="kulBakayaValue">0</span>
+                    <span class="kul-bakaya-label">कुल बकाया:</span>
+                    <span class="kul-bakaya-value">0</span>
                 </div>
-
             </div>
 
             <!-- Bill Action Buttons -->
             <div class="bill-actions">
-                <button class="new-bill-btn" id="newBillBtn">New Bill</button>
-                <button class="print-btn" id="printBillBtn">Print</button>
+                <button class="new-bill-btn">नया बिल</button>
+                <button class="print-btn" onclick="window.print()">प्रिंट</button>
             </div>
         </section>
 
         <!-- ========================================
             SHOP NAME MODAL (First Time Setup)
         ======================================== -->
-        <section class="modal-overlay shop-name-modal " id="shopNameModal">
+        <section class="modal-overlay shop-name-modal">
             <h2 class="calc-name">Smart Billing Calculator</h2>
-            <div class="modal ">
-            
+            <div class="modal">
                 <!-- Decorative Logo -->
-                <div class="subh-labh-logo">
-                    <img src="./assets/img/shubh-labh-1.jpg" alt="Shubh Labh">
-                </div>
-            
+                <div class="subh-labh-logo"><img src="./assets/img/shubh-labh-1.jpg" alt="Shubh Labh"></div>
+
                 <!-- Modal Content -->
                 <div class="modal-box">
-                    <h2 id="shopModalTitle">Apni dukaan ka naam enter karo</h2>
-            
-                    <input required type="text" class="shop-name-input" placeholder="Enter Shop Name" id="shopNameInput">
-            
-                    <button class="save-shop-name">Save</button>
+                    <h2 class="shop-modal-title">अपने दुकान का नाम दर्ज करें</h2>
+                    <input required type="text" class="shop-name-input" placeholder="दुकान का नाम">
+                    <button class="save-shop-name">सहेजें</button>
                 </div>
             </div>
         </section>
@@ -179,80 +163,71 @@
         <!-- ========================================
             SETTINGS MODAL
         ======================================== -->
-        <section class="modal-overlay settings-modal " id="settingsModal">
+        <section class="modal-overlay settings-modal">
             <h2 class="calc-name">Smart Billing Calculator</h2>
-            <div class="modal " >
-            
+            <div class="modal">
                 <!-- Settings Header -->
                 <div class="settings-header">
-                    <h1 id="settingsTitle">Settings</h1>
+                    <h1 class="settings-title">सेटिंग्स</h1>
                 </div>
-            
+
                 <!-- Settings Form -->
                 <div class="modal-box">
-            
                     <!-- Language Selection -->
                     <div class="setting-item">
-                        <label id="languageLabel">Select Language:</label>
-                        <select id="languageSelect">
+                        <label class="language-label">भाषा चुनें:</label>
+                        <select class="language-select">
                             <option value="hindi">Hindi (हिन्दी)</option>
                             <option value="hinglish">Hinglish</option>
                             <option value="english">English</option>
                         </select>
                     </div>
-            
+
                     <!-- Shop Name Update -->
                     <div class="setting-item">
-                        <label id="shopNameLabel">Update Shop Name</label>
-                        <input type="text" id="shopNameEdit" placeholder="Enter Shop Name">
-            
+                        <label class="shop-name-label">दुकान का नाम:</label>
+                        <input type="text" class="shop-name-edit" placeholder="दुकान का नाम">
                     </div>
-            
+
                     <!-- Action Buttons -->
                     <div class="settings-actions">
-                        <button class="update-settings">Update</button>
-                        <button class="close-settings">Close</button>
+                        <button class="update-settings">अपडेट करें</button>
+                        <button class="close-settings">बंद करें</button>
                     </div>
                 </div>
-            
             </div>
         </section>
 
         <!-- ========================================
             BILL INPUT MODAL (Customer Details)
         ======================================== -->
-        <section class="modal-overlay bill-input-modal " id="billInputModal">
+        <section class="modal-overlay bill-input-modal">
             <h2 class="calc-name">Smart Billing Calculator</h2>
-            <div class="modal ">
-            
+            <div class="modal">
                 <!-- Decorative Logo -->
-                <div class="subh-labh-logo">
-                    <img src="./assets/img/shubh-labh-2.jpg" alt="Shubh Labh">
-                </div>
-            
+                <div class="subh-labh-logo"><img src="./assets/img/shubh-labh-2.jpg" alt="Shubh Labh"></div>
+
                 <!-- Modal Content -->
                 <div class="modal-box">
-                    <h2>Create Bill</h2>
-            
+                    <h2 class="bill-modal-title">बिल बनाएं</h2>
+
                     <!-- Customer Name Input -->
-                    <input required type="text" class="customer-name-input" placeholder="Customer Name" id="customerNameInput">
-            
+                    <input required type="text" class="customer-name-input" placeholder="ग्राहक का नाम *">
+
                     <!-- Previous Balance Input -->
-                    <input type="number" class="previous-amount-input" placeholder="Pehel ka (optional)" id="previousAmountInput">
-            
+                    <input type="number" class="pehel-ka-input" placeholder="पहले का (वैकल्पिक)">
+
                     <!-- Payment Input -->
-                    <input type="number" class="paid-amount-input" placeholder="Jama (optional)" id="paidAmountInput">
-            
+                    <input type="number" class="jama-input" placeholder="जमा (वैकल्पिक)">
+
                     <!-- Action Buttons -->
                     <div class="modal-action">
-                        <button class="cancel-bill">Cancel</button>
-                        <button class="confirm-bill">Create Bill</button>
+                        <button class="cancel-bill">रद्द करें</button>
+                        <button class="confirm-bill">बिल बनाएं</button>
                     </div>
-            
                 </div>
             </div>
         </section>
-
     </main>
 
     <script src="script.js"></script>
