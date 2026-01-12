@@ -772,32 +772,35 @@ RESPONSIVE DESIGN
     PRINT FIX FOR MOBILE & PDF
     =========================== */
 @media print {
-body {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    background: #6f6bdc !important; /* tumhara purple */
-}
+    body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        background: #6f6bdc !important; /* tumhara purple */
+    }
 
-main {
-    background: #6f6bdc !important;
-}
+    main {
+        background: #6f6bdc !important;
+    }
 
-.calculator-screen,
-.settings-modal,
-.shop-name-modal {
-    display: none !important;
-}
+    .calculator-screen,
+    .settings-modal,
+    .shop-name-modal {
+        display: none !important;
+    }
 
-.bill-screen {
-    display: block !important;
-    background: transparent !important;
-}
+    .bill-screen {
+        border-radius: 20px !important;
+    }
 
-.bill-header,
-.bill-summary,
-.bill-item {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-}
+    .bill-summary { 
+        padding-bottom: 20px !important;
+    }
+
+    .bill-header,
+    .bill-summary,
+    .bill-item {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
 }
 
