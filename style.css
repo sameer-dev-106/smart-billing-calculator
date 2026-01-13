@@ -336,6 +336,7 @@ BILL SCREEN
     background-color: #fff;
     object-fit: cover;
     object-position: center;
+    user-select: none;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -400,6 +401,7 @@ BILL SCREEN
     color: var(--primary-color);
     font-weight: 700;
     font-size: var(--font-lg);
+    user-select: none;
 }
 
 .item-amount {
@@ -455,6 +457,7 @@ BILL SCREEN
     font-size: var(--font-sm);
     font-weight: bold;
     cursor: pointer;
+    user-select: none;
     transition: transform var(--transition-fast);
 }
 
@@ -530,6 +533,7 @@ MODAL BASE STYLES
 
 .modal-box input {
     width: 100%;
+    user-select: text;
     font-size: var(--font-md);
     padding: var(--spacing-sm);
     border: 2px solid var(--light-gray);
