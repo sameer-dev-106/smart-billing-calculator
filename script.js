@@ -182,6 +182,8 @@ const calc = {
 function init() {
     loadState();
 
+    applyShopName();
+
     // Show shop name modal if no shop name exists
     if (!appState.shopName) {
         shopNameModal.classList.add('active');
@@ -225,7 +227,12 @@ function saveShopName() {
 
     appState.shopName = name;
     saveAppState();
+    applyShopName();
     shopNameModal.classList.remove('active');
+}
+
+function applyShopName() {
+    const name = appState.shopName || "Smart Billing Calculator";
     shopNameDisplay.textContent = name;
     billShopName.textContent = name;
 }
@@ -392,7 +399,7 @@ function updateDisplay(isEqual = false) {
 
     // Update shop name if not set
     if (!appState.shopName) {
-    shopNameDisplay.textContent = 'Smart Billing Calculator';
+        applyShopName();
     }
 }
 
@@ -489,8 +496,7 @@ function updateSettings() {
 
     if (newName) {
         appState.shopName = newName;
-        shopNameDisplay.textContent = newName;
-        billShopName.textContent = newName;
+        applyShopName();
     }
 
     if (appState.language !== languageSelect.value) {
