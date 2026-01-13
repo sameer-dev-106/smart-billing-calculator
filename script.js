@@ -176,6 +176,12 @@ const calc = {
     justCalculated: false
     };
 
+    const OPERATORS = ["+", "-", "×", "÷"];
+
+    // edit expression variables
+    let expression = "";
+    let cursoreIndex = 0;
+
 // ========================================
 // INITIALIZATION
 // ========================================
@@ -240,6 +246,10 @@ function applyShopName() {
 // ========================================
 // CALCULATOR OPERATIONS
 // ========================================
+function renderExpression() {
+    expressionDisplay.textContent = expression || "0";
+}
+
 function applyOperation(a, b, op) {
     b = Number(b);
 
@@ -270,6 +280,7 @@ function appendNumber(num) {
     if (num === "." && calc.currentNumber.includes(".")) return;
 
     calc.currentNumber += num;
+    expression += num;
     updateDisplay();
 }
 
@@ -308,6 +319,7 @@ function appendOperator(op) {
     }
 
     calc.currentOperator = op;
+    expression += op;
     calc.justCalculated = false;
     updateDisplay();
 }
@@ -318,28 +330,32 @@ function calculateEqual() {
         return;
     }
 
-// Calculate final result
-    if (calc.currentOperator === null) {
-        calc.currentTotal = Number(calc.currentNumber);
-    } else {
-        calc.currentTotal = applyOperation(
-            calc.currentTotal,
-            calc.currentNumber,
-            calc.currentOperator
-        );
-    }
+    const parsedItems = parseExpressionToItems(expression);
 
-    // Store final step
-    calc.items.push({
-        op: calc.currentOperator,
-        value: Number(calc.currentNumber)
-    });
+    if (parsedItems.length === 0) return;
+
+    calc.items = parsedItems;
+    calc.currentTotal = 0;
+    calc.currentOperator = null;
+
+// Calculate final result
+    calc.items.forEach(item => {
+        if (item.op === "") {
+            calc.currentTotal = item.value;
+        } else {
+            calc.currentTotal = applyOperation(
+                calc.currentTotal,
+                item.value,
+                item.op
+            );
+        }
+    })
 
     calc.currentNumber = "";
-    calc.currentOperator = null;
+    // calc.currentOperator = null;
     calc.justCalculated = true;
-
     updateDisplay(true);
+    expression = formatNumber(calc.currentTotal);
 }
 
 function clearAll() {
@@ -348,11 +364,49 @@ function clearAll() {
     calc.currentOperator = null;
     calc.items = [];
     calc.justCalculated = false;
+    expression = "";
     updateDisplay();
 }
 
 function backspace() {
-    calc.currentNumber = calc.currentNumber.slice(0, -1);
+    if (!expression) return;
+
+    expression = expression.slice(0,-1);
+
+    calc.currentNumber = "";
+    calc.currentOperator = null;
+    calc.currentTotal = 0;
+    calc.justCalculated = false;
+
+    if (!expression) {
+        updateDisplay();
+        return;
+    }
+
+    const parsedItems =parseExpressionToItems(expression);
+    calc.items = parsedItems;
+
+    parsedItems.forEach(item => {
+        if (item.op === "") {
+            calc.currentTotal = item.value;
+        } else {
+            calc.currentTotal = applyOperation(
+                calc.currentTotal,
+                item.value,
+                item.op
+            );
+        }
+    });
+
+    const lastChar = expression[expression.length - 1];
+
+    if (!OPERATORS.includes(lastChar)) {
+        calc.currentNumber = parsedItems[parsedItems.length -1].value.toString();
+        calc.items.pop();
+    } else {
+        calc.currentOperator = lastChar;
+    }
+
     updateDisplay();
 }
 
@@ -363,34 +417,44 @@ function formatNumber(num) {
         return num % 1 === 0 ? num.toString() : num.toFixed(2);
 }
 
-function updateDisplay(isEqual = false) {
-    let text = "";
+function parseExpressionToItems(exre) {
+    const items = [];
+    let currentNumber = "";
+    let currentOp = "";
 
-    // Build expression from items
-    calc.items.forEach(item => {
-        if (item.op) {
-            text += `${item.op} ${item.value} `;
-        } else {
-            text += `${item.value} `;
-        }
-    });
+    for (let i = 0; i < exre.length; i++) {
+        const char = exre[i];
 
-    // Add current operator or number
-    if (calc.currentOperator && calc.currentNumber === "") {
-        text += `${calc.currentOperator} `;
-    } else if (calc.currentNumber) {
-        if (calc.currentOperator) {
-            text += `${calc.currentOperator} ${calc.currentNumber}`;
+        if (OPERATORS.includes(char)) {
+            if (currentNumber !== "") {
+                items.push({
+                    op: currentOp,
+                    value: Number(currentNumber)
+                });
+                currentNumber = "";
+            }
+
+            currentOp = char;
         } else {
-            text += `${calc.currentNumber}`;
+            currentNumber += char;
         }
     }
 
-    // Update expression display
+    if (currentNumber !== "") {
+        items.push({
+            op: currentOp,
+            value: Number(currentNumber)
+        });
+    }
+
+    return items;
+}
+
+function updateDisplay(isEqual = false) {
     if (isEqual) {
         expressionDisplay.textContent = formatNumber(calc.currentTotal);
     } else {
-        expressionDisplay.textContent = text.trim() || "0";
+        expressionDisplay.textContent = expression || "0";
     }
 
     // Update totals and item count
@@ -472,6 +536,7 @@ function newBill() {
 
     // Reset calculator
     clearAll();
+    expression = "";
 
     // Switch to calculator screen
     billScreen.classList.remove('active');
