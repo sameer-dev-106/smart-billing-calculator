@@ -3,11 +3,12 @@
 🔗 Live App:  
 https://sameer-dev-106.github.io/smart-billing-calculator/
 
-A mobile-first smart billing calculator built for small shopkeepers.  
+A mobile-first smart billing calculator built for small shopkeepers.
+
 This app solves the biggest problem of normal calculators:  
 you cannot verify what items were added to reach the final total.
 
-This project separates calculation and billing so every shopkeeper  
+Smart Billing Calculator separates calculation and billing so every shopkeeper  
 can confidently generate a correct and transparent bill.
 
 ---
@@ -26,7 +27,8 @@ Smart Billing Calculator fixes this by:
 - using a real calculator engine internally
 - showing a full bill before printing
 - supporting previous balance (pehle ka) and payment (jama)
-- preventing data loss using localStorage
+- preventing accidental actions using confirmation popups
+- saving user preferences using localStorage
 
 ---
 
@@ -45,20 +47,29 @@ The screen shows:
 - running total (Kul Rakam)
 - item count
 
-Totals update when operators are pressed,  
-just like a real calculator used in shops.
+Totals update naturally as operators are used,  
+just like calculators used in real shops.
 
 ---
 
-### 3️⃣ Create Bill
+### 3️⃣ Safe Finalization
+- Pressing `=` asks for confirmation before finalizing the bill
+- Accidental key presses do not lock the bill
+- Users are clearly informed before starting a new bill
+
+---
+
+### 4️⃣ Create Bill
 When user clicks **Bill**, a form opens asking:
 - Customer Name (required)
 - Pehle ka (optional)
 - Jama (optional)
 
+Billing is blocked unless calculation is finalized correctly.
+
 ---
 
-### 4️⃣ Bill Mode
+### 5️⃣ Bill Mode
 The app shows a receipt-style bill with:
 - shop name
 - date and time
@@ -70,7 +81,7 @@ The app shows a receipt-style bill with:
 - final balance
 
 Only the item list scrolls.  
-The summary section always stays visible.
+The summary section always stays visible and print-safe.
 
 ---
 
@@ -122,17 +133,20 @@ To build a real shop-ready billing calculator that:
 ## 📦 Project Status
 
 ### ✅ Completed
-- UI and modals
 - Calculator engine
 - Expression-based input system
 - Strong backspace handling
-- Operator and equal handling
+- Safe equal confirmation flow
+- Common confirm and alert popup system
 - Bill generation
 - Language system
 - Print-friendly bill layout
+- Responsive mobile-first UI
 
 ### 🔜 Planned
-- Live total preview while typing
+- Bill item delete
+- Item name support
+- Quantity and price-based billing
 - Bill history
 - Daily totals
 - Export and print improvements

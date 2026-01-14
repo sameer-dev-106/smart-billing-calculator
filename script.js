@@ -20,6 +20,7 @@ const translations = {
         updateBtn: 'अपडेट करें',
         closeBtn: 'बंद करें',
         cancelBtn: 'रद्द करें',
+        confirmBtn: 'पुष्टि करें',
         kulRakamLabel: 'कुल रकम:',
         pehelKaLabel: 'पहले का:',
         jamaLabel: 'जमा:',
@@ -28,38 +29,49 @@ const translations = {
         alertDivideByZero: '0 से भाग नहीं कर सकते',
         alertEnterNumber: 'कृपया संख्या दर्ज करें',
         alertAddItems: 'कृपया पहले आइटम जोड़ें',
+        alertPressEqualFirst: 'कृपया पहले "=" दबाकर बिल फाइनल करें',
         alertEnterCustomerName: 'कृपया ग्राहक का नाम दर्ज करें',
-        alertShopNameUpdated: 'दुकान का नाम अपडेट हो गया'
-        },
+        alertShopNameUpdated: 'दुकान का नाम अपडेट हो गया',
+        equalConfirmModalTitle: 'बिल फाइनल करें?',
+        equalConfirmModalMsg: `= दबाने पर बिल फाइनल हो जाएगा।<br> बाद में आइटम बदले नहीं जा सकेंगे।`,
+        newBillConfirmTitle: 'नया बिल शुरू करें?',
+        newBillConfirmMsg: 'मौजूदा बिल साफ हो जाएगा। यह प्रक्रिया वापस नहीं होगी।',
+    },
     hinglish: {
-            shopModalTitle: 'Apni dukaan ka naam enter karo',
-            shopSaveBtn: 'Save karo',
-            billModalTitle: 'Bill banao',
-            customerPlaceholder: 'Customer ka naam *',
-            pehelKaPlaceholder: 'Pehle ka (optional)',
-            jamaPlaceholder: 'Jama (optional)',
-            billCreateBtn: 'Bill banao',
-            itemCountLabel: 'Items:',
-            billBtn: 'Bill',
-            newBillBtn: 'Naya bill',
-            printBillBtn: 'Print',
-            settingsTitle: 'Settings',
-            languageLabel: 'Language select karo:',
-            shopNameLabel: 'Shop ka naam:',
-            updateBtn: 'Update karo',
-            closeBtn: 'Band karo',
-            cancelBtn: 'Cancel karo',
-            kulRakamLabel: 'Kul rakam:',
-            pehelKaLabel: 'Pehle ka:',
-            jamaLabel: 'Jama:',
-            kulBakayaLabel: 'Kul bakaya:',
-            alertEnterShopName: 'Please shop ka naam dalo',
-            alertDivideByZero: 'Zero se divide nahi hota',
-            alertEnterNumber: 'Koi number dalo pehle',
-            alertAddItems: 'Pehle items add karo',
-            alertEnterCustomerName: 'Customer ka naam dalo',
-            alertShopNameUpdated: 'Shop ka naam update ho gaya'
-        },
+        shopModalTitle: 'Apni dukaan ka naam enter karo',
+        shopSaveBtn: 'Save karo',
+        billModalTitle: 'Bill banao',
+        customerPlaceholder: 'Customer ka naam *',
+        pehelKaPlaceholder: 'Pehle ka (optional)',
+        jamaPlaceholder: 'Jama (optional)',
+        billCreateBtn: 'Bill banao',
+        itemCountLabel: 'Items:',
+        billBtn: 'Bill',
+        newBillBtn: 'Naya bill',
+        printBillBtn: 'Print',
+        settingsTitle: 'Settings',
+        languageLabel: 'Language select karo:',
+        shopNameLabel: 'Shop ka naam:',
+        updateBtn: 'Update karo',
+        closeBtn: 'Band karo',
+        cancelBtn: 'Cancel karo',
+        confirmBtn: 'Confirm karo',
+        kulRakamLabel: 'Kul rakam:',
+        pehelKaLabel: 'Pehle ka:',
+        jamaLabel: 'Jama:',
+        kulBakayaLabel: 'Kul bakaya:',
+        alertEnterShopName: 'Please shop ka naam dalo',
+        alertDivideByZero: 'Zero se divide nahi hota',
+        alertEnterNumber: 'Koi number dalo pehle',
+        alertAddItems: 'Pehle items add karo',
+        alertPressEqualFirst: 'Please pehle "=" dabao phir bill banao',
+        alertEnterCustomerName: 'Customer ka naam dalo',
+        alertShopNameUpdated: 'Shop ka naam update ho gaya',
+        equalConfirmModalTitle: 'Bill finalize kare?',
+        equalConfirmModalMsg: `= dabane par bill final ho jayega.<br> Baad me items edit nahi ho payenge.`,
+        newBillConfirmTitle: 'Naya bill shuru kare?',
+        newBillConfirmMsg: 'Current bill clear ho jayega. Ye action undo nahi hoga.',
+    },
     english: {
         shopModalTitle: 'Enter Your Shop Name',
         shopSaveBtn: 'Save',
@@ -78,6 +90,7 @@ const translations = {
         updateBtn: 'Update',
         closeBtn: 'Close',
         cancelBtn: 'Cancel',
+        confirmBtn: 'Confirm',
         kulRakamLabel: 'Total Amount:',
         pehelKaLabel: 'Previous Balance:',
         jamaLabel: 'Payment:',
@@ -86,10 +99,15 @@ const translations = {
         alertDivideByZero: 'Cannot divide by zero',
         alertEnterNumber: 'Enter a number first',
         alertAddItems: 'Please add items first',
+        alertPressEqualFirst: 'Please press "=" first to finalize the bill',
         alertEnterCustomerName: 'Please enter customer name',
-        alertShopNameUpdated: 'Shop name updated'
-        }
-    };
+        alertShopNameUpdated: 'Shop name updated',
+        equalConfirmModalTitle: 'Finalize Bill?',
+        equalConfirmModalMsg: `Pressing = will finalize the bill.<br> Items cannot be edited later.`,
+        newBillConfirmTitle: 'Naya bill shuru kare?',
+        newBillConfirmMsg: 'Current bill clear ho jayega. Ye action undo nahi hoga.',
+    }
+};
 
 // ========================================
 // DOM ELEMENTS - All elements stored in variables
@@ -103,6 +121,8 @@ const billScreen = document.querySelector('.bill-screen');
 const shopNameModal = document.querySelector('.shop-name-modal');
 const billInputModal = document.querySelector('.bill-input-modal');
 const settingsModal = document.querySelector('.settings-modal');
+const confirmModal = document.querySelector('.confirm-modal');
+const infoModal = document.querySelector('.info-modal');
 
 // Display Elements
 const shopNameDisplay = document.querySelector('.shop-name-display');
@@ -152,6 +172,9 @@ const newBillButton = document.querySelector('.new-bill-btn');
 const settingsButton = document.querySelector('.settings-btn');
 const closeSettingsButton = document.querySelector('.close-settings');
 const updateSettingsButton = document.querySelector('.update-settings');
+const confirmBtn = document.querySelector('.confirm-btn');
+const cancelBtn = document.querySelector('.cancel-btn');
+const infoOkBtn = document.querySelector('.info-ok-btn');
 
 // Modal Title Elements
 const shopModalTitle = document.querySelector('.shop-modal-title');
@@ -159,6 +182,11 @@ const billModalTitle = document.querySelector('.bill-modal-title');
 const settingsTitle = document.querySelector('.settings-title');
 const languageLabel = document.querySelector('.language-label');
 const shopNameLabel = document.querySelector('.shop-name-label');
+const confirmModalTitle = document.querySelector('.confirm-modal-title');
+
+// Equal Confirm Modal Message
+const confirmModalMsg = document.querySelector('.confirm-modal-msg');
+const infoMsg = document.querySelector('.info-modal-msg');
 
 // ========================================
 // STATE MANAGEMENT
@@ -197,7 +225,7 @@ function init() {
 
     applyLanguage();
     updateDisplay();
-    }
+}
 
 // ========================================
 // STATE PERSISTENCE
@@ -207,18 +235,18 @@ function loadState() {
         const saved = JSON.parse(localStorage.getItem('smartBillingState')) || { };
         appState.shopName = saved.shopName || "";
         appState.language = saved.language || "hindi";
-        } catch (error) {
-            console.error('Error loading state:', error);
-        }
+    } catch (error) {
+        console.error('Error loading state:', error);
     }
+}
 
-    function saveAppState() {
-        try {
-            localStorage.setItem('smartBillingState', JSON.stringify(appState));
-        } catch (error) {
-            console.error('Error saving state:', error);
-        }
+function saveAppState() {
+    try {
+        localStorage.setItem('smartBillingState', JSON.stringify(appState));
+    } catch (error) {
+        console.error('Error saving state:', error);
     }
+}
 
 // ========================================
 // SHOP NAME MANAGEMENT
@@ -227,7 +255,7 @@ function saveShopName() {
     const name = shopNameInput.value.trim();
 
     if (!name) {
-        alert(translations[appState.language].alertEnterShopName);
+        openInfoPopup(translations[appState.language].alertEnterShopName);
     return;
     }
 
@@ -259,7 +287,7 @@ function applyOperation(a, b, op) {
         case "×": return a * b;
         case "÷":
             if (b === 0) {
-                alert(translations[appState.language].alertDivideByZero);
+                openInfoPopup(translations[appState.language].alertDivideByZero);
                 return a;
             }
             return a / b;
@@ -400,10 +428,6 @@ function appendOperator(op) {
 }
 
 function calculateEqual() {
-    if (calc.currentNumber === "") {
-        alert(translations[appState.language].alertEnterNumber);
-        return;
-    }
 
     const parsedItems = parseExpressionToItems(expression);
 
@@ -489,7 +513,7 @@ function backspace() {
 // DISPLAY UPDATES
 // ========================================
 function formatNumber(num) {
-        return num % 1 === 0 ? num.toString() : num.toFixed(2);
+    return num % 1 === 0 ? num.toString() : num.toFixed(2);
 }
 
 function updateDisplay(isEqual = false) {
@@ -515,14 +539,69 @@ function updateDisplay(isEqual = false) {
     }
 }
 
+function openInfoPopup(message) {
+    infoMsg.textContent = message;
+    infoModal.classList.add('active');
+}
+
+function openNewBillConfirm() {
+    const t = translations[appState.language];
+    confirmModalTitle.textContent = t.newBillConfirmTitle;
+    confirmModalMsg.textContent = t.newBillConfirmMsg;
+
+    // RESET first
+    confirmBtn.onclick = null;
+    cancelBtn.onclick = null;
+
+    // SET new behavior
+    confirmBtn.onclick = () => {
+        newBill();
+        confirmModal.classList.remove('active');
+    };
+
+    cancelBtn.onclick = () => {
+        confirmModal.classList.remove('active')
+    }
+
+    confirmModal.classList.add('active')
+}
+
+function equalConfirm() {
+    const t = translations[appState.language];
+    confirmModalTitle.textConten = t.equalConfirmModalTitle;
+    confirmModalMsg.innerHTML = t.equalConfirmModalMsg;
+
+    // RESET first
+    confirmBtn.onclick = null;
+    cancelBtn.onclick = null;
+
+    // SET new behavior
+    confirmBtn.onclick = () => {
+        calculateEqual();
+        confirmModal.classList.remove('active');
+    };
+
+    cancelBtn.onclick = () => {
+        confirmModal.classList.remove('active')
+    }
+
+    confirmModal.classList.add('active')
+}
+
 // ========================================
 // BILL MANAGEMENT
 // ========================================
 function openBillModal() {
-    if (calc.items.length === 0) {
-        alert(translations[appState.language].alertAddItems);
+    if (calc.currentNumber !== "") {
+        openInfoPopup(translations[appState.language].alertPressEqualFirst);
         return;
     }
+    
+    if (calc.items.length === 0) {
+        openInfoPopup(translations[appState.language].alertAddItems);
+        return;
+    }
+    
     billInputModal.classList.add('active');
 }
 
@@ -530,7 +609,7 @@ function createBill() {
     const customerName = customerNameInput.value.trim();
 
     if (!customerName) {
-        alert(translations[appState.language].alertEnterCustomerName);
+        openInfoPopup(translations[appState.language].alertEnterCustomerName);
         return;
     }
 
@@ -589,7 +668,7 @@ function newBill() {
     // Switch to calculator screen
     billScreen.classList.remove('active');
     calculatorScreen.classList.add('active');
-    }
+}
 
 // ========================================
 // SETTINGS MANAGEMENT
@@ -621,9 +700,10 @@ function updateSettings() {
     settingsModal.classList.remove('active');
 
     if (newName) {
-        alert(translations[appState.language].alertShopNameUpdated);
+        openInfoPopup(translations[appState.language].alertShopNameUpdated);
     }
 }
+
 
 // ========================================
 // LANGUAGE MANAGEMENT
@@ -652,6 +732,10 @@ function applyLanguage() {
     pehelKaInput.placeholder = t.pehelKaPlaceholder;
     jamaInput.placeholder = t.jamaPlaceholder;
 
+    // Confrim Modal Buttons
+    confirmBtn.textContent = t.confirmBtn;
+    cancelBtn.textContent = t.cancelBtn;
+
     // Buttons
     saveShopNameButton.textContent = t.shopSaveBtn;
     confirmBillButton.textContent = t.billCreateBtn;
@@ -679,8 +763,23 @@ operatorButtons.forEach(btn => {
 btn.addEventListener('click', () => appendOperator(btn.value));
 });
 
+// Popup button
+infoOkBtn.addEventListener('click', () => {
+    infoModal.classList.remove('active');
+});
+
 // Calculator control buttons
-equalButton.addEventListener('click', calculateEqual);
+equalButton.addEventListener('click', () => {
+    if (!expression || calc.currentNumber === "") {
+        openInfoPopup(translations[appState.language].alertEnterNumber);
+        return
+    }
+
+    if (calc.currentOperator === null) return;
+
+    equalConfirm();
+});
+
 clearButton.addEventListener('click', clearAll);
 deleteButton.addEventListener('click', backspace);
 
@@ -693,7 +792,7 @@ confirmBillButton.addEventListener('click', createBill);
 cancelBillButton.addEventListener('click', () => {
     billInputModal.classList.remove('active');
 });
-newBillButton.addEventListener('click', newBill);
+newBillButton.addEventListener('click', openNewBillConfirm);
 
 // Settings
 settingsButton.addEventListener('click', openSettings);

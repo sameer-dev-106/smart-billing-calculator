@@ -686,6 +686,8 @@ MODAL BASE STYLES
 
 .modal-action {
     display: flex;
+    align-items: center;
+    justify-content: space-evenly;
     gap: var(--spacing-md);
     margin-top: var(--spacing-sm);
 }
@@ -713,6 +715,61 @@ MODAL BASE STYLES
     background-color: var(--black);
     color: var(--white);
 }
+
+/* Info Popup  */
+.alert-logo {
+    width: 200px;
+    margin-bottom: var(--spacing-lg);
+    font-size: 20px;
+    text-align: center;
+}
+
+.alert-logo img {
+    width: 100%;
+    height: auto;
+}
+
+.info-modal-msg {
+    font-size: var(--font-md);
+    font-weight: 600;
+}
+
+.modal-action,
+.modal-box {
+    width: 100%;
+}
+
+.info-ok-btn {
+    width: 100%;
+    background-color: var(--danger-color);
+    color: var(--white);
+}
+/* ========================================
+EQUAL CONFIRM POPUP
+======================================== */
+.confirm-modal .confirm-modal-title {
+    font-size: var(--font-lg);
+    font-weight: 700;
+    text-align: center;
+}
+
+.confirm-modal-msg {
+    font-size: var(--font-sm);
+    text-align: center;
+    color: var(--gray-text);
+    line-height: 1.4;
+}
+
+.confirm-btn {
+    background-color: var(--success-color);
+    color: var(--white);
+}
+
+.cancel-btn {
+    background-color: var(--danger-color);
+    color: var(--white);
+}
+
 
 /* Scrollbar Styling */
 .bill-items::-webkit-scrollbar,
