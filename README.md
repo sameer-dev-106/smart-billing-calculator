@@ -1,6 +1,6 @@
 # Smart Billing Calculator
 
-🔗 Live App:  
+🔗 **Live App:**  
 https://sameer-dev-106.github.io/smart-billing-calculator/
 
 A mobile-first smart billing calculator built for small shopkeepers.
@@ -69,12 +69,25 @@ Billing is blocked unless calculation is finalized correctly.
 
 ---
 
-### 5️⃣ Bill Mode
+### 5️⃣ Item Name (Optional but Recommended)
+Before generating the final bill, the user is asked to optionally  
+add names for each bill item.
+
+- Each calculated item is shown with its amount
+- User can enter item names in a dedicated screen
+- Items can be skipped safely with clear confirmation
+- Default item names are applied automatically if skipped
+
+This ensures clean bills without forcing extra work.
+
+---
+
+### 6️⃣ Bill Mode
 The app shows a receipt-style bill with:
 - shop name
 - date and time
 - customer name
-- item list (operators and values)
+- item list (item name, operator, value)
 - total amount
 - previous balance
 - payment
@@ -138,14 +151,18 @@ To build a real shop-ready billing calculator that:
 - Strong backspace handling
 - Safe equal confirmation flow
 - Common confirm and alert popup system
+- Step-by-step bill creation flow
+- Optional item name support
+- Default item name fallback system
 - Bill generation
-- Language system
+- Language system (Hindi, Hinglish, English)
 - Print-friendly bill layout
 - Responsive mobile-first UI
 
+---
+
 ### 🔜 Planned
 - Bill item delete
-- Item name support
 - Quantity and price-based billing
 - Bill history
 - Daily totals
@@ -156,7 +173,10 @@ To build a real shop-ready billing calculator that:
 
 ## 👤 Author
 
-Sameer
+**Sameer**
 
 Built to solve a real shop problem,  
 not just to show code.
+
+🔗 Live Demo:  
+https://sameer-dev-106.github.io/smart-billing-calculator/

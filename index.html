@@ -17,8 +17,11 @@
         <section class="calculator-screen active">
             <!-- Header with shop name and settings -->
             <header class="calc-header">
-                <h1 class="shop-name-display">Smart Billing Calculator</h1>
+                <h1 class="shop-name-display"></h1>
                 <button class="settings-btn" aria-label="Settings">⚙️</button>
+                <small class="app-author">
+                    Built by Sameer
+                </small>
             </header>
 
             <!-- Total and Items Count Display -->
@@ -140,13 +143,24 @@
                 <button class="new-bill-btn">नया बिल</button>
                 <button class="print-btn" onclick="window.print()">प्रिंट</button>
             </div>
+
+            <!-- name branding -->
+            <div class="bill-footer">
+                <small>
+                    Powered by Smart Billing Calculator · Built by Sameer
+                </small>
+            </div>
         </section>
 
         <!-- ========================================
             SHOP NAME MODAL (First Time Setup)
         ======================================== -->
         <section class="modal-overlay shop-name-modal">
-            <h2 class="calc-name">Smart Billing Calculator</h2>
+            <h2 class="calc-name">
+                Smart Billing Calculator
+                <span class="byline">- Built by Sameer</span>
+            </h2>
+
             <div class="modal">
                 <!-- Decorative Logo -->
                 <div class="subh-labh-logo"><img src="./assets/img/shubh-labh-1.jpg" alt="Shubh Labh"></div>
@@ -164,7 +178,11 @@
             SETTINGS MODAL
         ======================================== -->
         <section class="modal-overlay settings-modal">
-            <h2 class="calc-name">Smart Billing Calculator</h2>
+            <h2 class="calc-name">
+                Smart Billing Calculator
+                <span class="byline">- Built by Sameer</span>
+            </h2>
+
             <div class="modal">
                 <!-- Settings Header -->
                 <div class="settings-header">
@@ -202,10 +220,14 @@
             BILL INPUT MODAL (Customer Details)
         ======================================== -->
         <section class="modal-overlay bill-input-modal">
-            <h2 class="calc-name">Smart Billing Calculator</h2>
+            <h2 class="calc-name">
+                Smart Billing Calculator
+                <span class="byline">- Built by Sameer</span>
+            </h2>
+
             <div class="modal">
                 <!-- Decorative Logo -->
-                <div class="subh-labh-logo"><img src="./assets/img/shubh-labh-2.jpg" alt="Shubh Labh"></div>
+                <!-- <div class="subh-labh-logo"><img src="./assets/img/shubh-labh-2.jpg" alt="Shubh Labh"></div> -->
 
                 <!-- Modal Content -->
                 <div class="modal-box">
@@ -230,20 +252,49 @@
         </section>
 
         <!-- ========================================
+            ITEM NAME MODAL
+        ======================================== -->
+        <section class="modal-overlay item-name-modal">
+            <h2 class="calc-name">
+                Smart Billing Calculator
+                <span class="byline">- Built by Sameer</span>
+            </h2>
+
+            <div class="modal">
+                <!-- Modal Content -->
+                <div class="modal-box">
+                    <h2 class="item-name-title">Itmes ke naam add kare (optional)</h2>
+
+                    <!-- Items List (Scrollable) -->
+                    <div class="item-name-list">
+                        <!-- Items Input will be dynamically added here -->
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="modal-action item-name">
+                        <button class="save-items-btn">Save & Continue</button>
+                        <button class="skip-items-btn">Skip</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================
             CONFIRM POPUP
         ======================================== -->
         <section class="modal-overlay confirm-modal">
-            <h2 class="calc-name">Smart Billing Calculator</h2>
-            <div class="modal">
-                <!-- Decorative Logo -->
-                <div class="alert-logo"><img src="https://thumbs.dreamstime.com/b/red-triangle-caution-warning-alert-sign-vector-illustration-isolated-white-background-be-careful-do-not-stop-symbol-web-82145994.jpg" alt="alert logo"></div>
+            <h2 class="calc-name">
+                Smart Billing Calculator
+                <span class="byline">- Built by Sameer</span>
+            </h2>
 
+            <div class="modal">
 
                 <!-- Modal Content -->
                 <div class="modal-box">
                     <h2 class="confirm-modal-title"></h2>
                     <p class="confirm-modal-msg"></p>
-        
+
                     <!-- Action Buttons -->
                     <div class="modal-action">
                         <button class="confirm-btn">Confirm</button>
@@ -257,9 +308,15 @@
             AlERT POPUP
         ======================================== -->
         <section class="modal-overlay info-modal">
+            <h2 class="calc-name">
+                Smart Billing Calculator
+                <span class="byline">- Built by Sameer</span>
+            </h2>
             <div class="modal">
                 <!-- Decorative Logo -->
-                <div class="alert-logo"><img src="https://thumbs.dreamstime.com/b/red-triangle-caution-warning-alert-sign-vector-illustration-isolated-white-background-be-careful-do-not-stop-symbol-web-82145994.jpg" alt="alert-logo"></div>
+                <div class="alert-logo"><img
+                        src="./assets/img/alert-logo.png"
+                        alt="alert-logo"></div>
 
                 <!-- Modal Content -->
                 <div class="modal-box">

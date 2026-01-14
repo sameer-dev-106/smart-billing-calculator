@@ -29,6 +29,7 @@ const translations = {
         alertDivideByZero: '0 से भाग नहीं कर सकते',
         alertEnterNumber: 'कृपया संख्या दर्ज करें',
         alertAddItems: 'कृपया पहले आइटम जोड़ें',
+        alertSkipItemName: "आइटम के नाम छोड़े जा रहे हैं। बिल डिफ़ॉल्ट आइटम नामों के साथ जेनरेट किया जाएगा।",
         alertPressEqualFirst: 'कृपया पहले "=" दबाकर बिल फाइनल करें',
         alertEnterCustomerName: 'कृपया ग्राहक का नाम दर्ज करें',
         alertShopNameUpdated: 'दुकान का नाम अपडेट हो गया',
@@ -64,6 +65,7 @@ const translations = {
         alertDivideByZero: 'Zero se divide nahi hota',
         alertEnterNumber: 'Koi number dalo pehle',
         alertAddItems: 'Pehle items add karo',
+        alertSkipItemName: "Item names skip ho rahe hain. Bill default item names ke saath banega.",
         alertPressEqualFirst: 'Please pehle "=" dabao phir bill banao',
         alertEnterCustomerName: 'Customer ka naam dalo',
         alertShopNameUpdated: 'Shop ka naam update ho gaya',
@@ -99,6 +101,7 @@ const translations = {
         alertDivideByZero: 'Cannot divide by zero',
         alertEnterNumber: 'Enter a number first',
         alertAddItems: 'Please add items first',
+        alertSkipItemName: "Item names are being skipped. Bill will be generated with default item names.",
         alertPressEqualFirst: 'Please press "=" first to finalize the bill',
         alertEnterCustomerName: 'Please enter customer name',
         alertShopNameUpdated: 'Shop name updated',
@@ -121,6 +124,7 @@ const billScreen = document.querySelector('.bill-screen');
 const shopNameModal = document.querySelector('.shop-name-modal');
 const billInputModal = document.querySelector('.bill-input-modal');
 const settingsModal = document.querySelector('.settings-modal');
+const itemNameModal = document.querySelector('.item-name-modal');
 const confirmModal = document.querySelector('.confirm-modal');
 const infoModal = document.querySelector('.info-modal');
 
@@ -131,6 +135,7 @@ const customerBillName = document.querySelector('.customer-name');
 const expressionDisplay = document.querySelector('.expression');
 const billDateDisplay = document.querySelector('.bill-date');
 const billItemsContainer = document.querySelector('.bill-items');
+const itemNameList = document.querySelector('.item-name-list');
 
 // Calculator Display Elements
 const calcKulRakamValue = document.querySelector('.calc-kul-rakam-value');
@@ -168,6 +173,8 @@ const billButton = document.querySelector('.calc-btn.bill');
 const saveShopNameButton = document.querySelector('.save-shop-name');
 const confirmBillButton = document.querySelector('.confirm-bill');
 const cancelBillButton = document.querySelector('.cancel-bill');
+const saveItemsBtn = document.querySelector('.save-items-btn');
+const skipItemsBtn = document.querySelector('.skip-items-btn');
 const newBillButton = document.querySelector('.new-bill-btn');
 const settingsButton = document.querySelector('.settings-btn');
 const closeSettingsButton = document.querySelector('.close-settings');
@@ -306,6 +313,8 @@ function parseExpressionToItems(exre) {
         if (OPERATORS.includes(char)) {
             if (currentNumber !== "") {
                 items.push({
+                    id: items.length + 1,
+                    name: "",
                     op: currentOp,
                     value: Number(currentNumber)
                 });
@@ -320,6 +329,8 @@ function parseExpressionToItems(exre) {
 
     if (currentNumber !== "") {
         items.push({
+            id: items.length + 1,
+            name: "",
             op: currentOp,
             value: Number(currentNumber)
         });
@@ -589,6 +600,45 @@ function equalConfirm() {
 }
 
 // ========================================
+// ITEMS NAME MANAGEMENT
+// ========================================
+function openItemNameScreen() {
+    itemNameList.innerHTML = "";
+
+    calc.items.forEach((item, index) => {
+        const row = document.createElement("div");
+        row.className = "item-name-row";
+
+        row.innerHTML = `
+            <div class="input-container-box">
+                <span>${index + 1}.</span>
+                <input 
+                    class="item-name-input"
+                    type="text"
+                    placeholder="Item name"
+                    data-index="${index}"
+                    value="${item.name || ""}"
+                >
+            </div>
+            <span>${item.op} ${formatNumber(item.value)}</span>
+        `;
+
+        itemNameList.appendChild(row);
+    });
+
+    itemNameModal.classList.add("active");
+}
+
+function saveItemNames() {
+    const inputs = document.querySelectorAll('.item-name-input')
+
+    inputs.forEach(input => {
+        const index = Number(input.dataset.index);
+        calc.items[index].name = input.value.trim();
+    });
+}
+
+// ========================================
 // BILL MANAGEMENT
 // ========================================
 function openBillModal() {
@@ -608,11 +658,6 @@ function openBillModal() {
 function createBill() {
     const customerName = customerNameInput.value.trim();
 
-    if (!customerName) {
-        openInfoPopup(translations[appState.language].alertEnterCustomerName);
-        return;
-    }
-
     const pehelKa = parseFloat(pehelKaInput.value) || 0;
     const jama = parseFloat(jamaInput.value) || 0;
     const kulRakam = calc.currentTotal;
@@ -631,9 +676,13 @@ function createBill() {
     // Generate bill items HTML
     let itemHtml = "";
     calc.items.forEach((item, i) => {
+        const itemName = item.name && item.name.length > 0 ? item.name : `Item ${i + 1}`;
     itemHtml += `
         <div class="bill-item">
-            <span class="item-number">${i + 1}.</span>
+            <div class="bill-item-name">
+                <span class="item-number">${i + 1}.</span>
+                <span class="item-name">${itemName}</span>
+            </div>
             <span class="item-amount">${item.op} ${formatNumber(item.value)}</span>
         </div>
         `;
@@ -755,12 +804,12 @@ function applyLanguage() {
 
 // Number buttons
 numberButtons.forEach(btn => {
-btn.addEventListener('click', () => appendNumber(btn.value));
+    btn.addEventListener('click', () => appendNumber(btn.value));
 });
 
 // Operator buttons
 operatorButtons.forEach(btn => {
-btn.addEventListener('click', () => appendOperator(btn.value));
+    btn.addEventListener('click', () => appendOperator(btn.value));
 });
 
 // Popup button
@@ -786,9 +835,36 @@ deleteButton.addEventListener('click', backspace);
 // Shop name
 saveShopNameButton.addEventListener('click', saveShopName);
 
+// Item input name
+saveItemsBtn.addEventListener("click", () => {
+    saveItemNames();
+    itemNameModal.classList.remove("active")
+    createBill();
+});
+
+skipItemsBtn.addEventListener("click", () => {
+    openInfoPopup(translations[appState.language].alertSkipItemName);
+
+    infoOkBtn.onclick = () => {
+        infoModal.classList.remove("active");
+        itemNameModal.classList.remove("active");
+        createBill();
+    }
+})
+
 // Bill creation
 billButton.addEventListener('click', openBillModal);
-confirmBillButton.addEventListener('click', createBill);
+confirmBillButton.addEventListener('click', () => {
+    const customerName = customerNameInput.value.trim();
+
+    if (!customerName) {
+        openInfoPopup(translations[appState.language].alertEnterCustomerName);
+        return;
+    }
+
+    billInputModal.classList.remove('active');
+    openItemNameScreen();
+});
 cancelBillButton.addEventListener('click', () => {
     billInputModal.classList.remove('active');
 });

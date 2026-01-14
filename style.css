@@ -121,10 +121,17 @@ CALCULATOR SCREEN
 .calc-header {
     background: var(--primary-gradient);
     color: var(--white);
-    padding: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-sm);
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.app-author {
+    position: absolute;
+    top: 0%;
+    font-size: 12px;
+    opacity: 0.7;
 }
 
 .calc-header h1 {
@@ -397,17 +404,17 @@ BILL SCREEN
     box-shadow: var(--shadow-sm);
 }
 
-.item-number {
+.bill-item-name {
     color: var(--primary-color);
     font-weight: 700;
-    font-size: var(--font-lg);
+    font-size: var(--font-md);
     user-select: none;
 }
 
 .item-amount {
     color: var(--black);
     font-weight: 700;
-    font-size: var(--font-lg);
+    font-size: var(--font-md);
 }
 
 /* Bill Summary */
@@ -475,6 +482,12 @@ BILL SCREEN
     color: var(--white);
 }
 
+.bill-footer {
+    text-align: center;
+    background-color: #fff;
+    padding-bottom: 4px;
+}
+
 /* ========================================
 MODAL BASE STYLES
 ======================================== */
@@ -499,6 +512,7 @@ MODAL BASE STYLES
 
 .modal {
     max-width: 320px;
+    max-height: 580px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -510,9 +524,12 @@ MODAL BASE STYLES
 }
 
 .modal-overlay .calc-name {
+    max-width: 250px;
+    text-align: center;
     position: fixed;
     top: 3%;
     color: #fff;
+    font-size: 20px;
     padding: 10px;
     background: rgba(255, 255, 255, 0.249);
     border-radius: 10px;
@@ -745,6 +762,55 @@ MODAL BASE STYLES
     color: var(--white);
 }
 /* ========================================
+ITEM NAME MODAL
+======================================== */
+.item-name-modal {
+    justify-content: center;
+}
+
+.modal .modal-box .item-name-list {
+    width: 100%;
+    max-height: 350px;
+    flex: 1;
+    overflow-y: auto;
+    word-break: break-all;
+    padding: 5px;
+}
+
+.modal-box .item-name-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-radius: var(--radius-md);
+}
+
+.modal-box .item-name-input {
+    padding: 4px;
+    max-width: 160px;
+    width: auto;
+}
+
+.item-name-row span {
+    font-size: var(--font-md);
+    font-weight: 500;
+}
+
+.modal-action.item-name {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-action.item-name button {
+    width: 100%;
+    color: var(--white);
+}
+
+.save-items-btn { background-color: var(--success-color) }
+.skip-items-btn { background-color: var(--danger-color) }
+
+/* ========================================
 EQUAL CONFIRM POPUP
 ======================================== */
 .confirm-modal .confirm-modal-title {
@@ -795,6 +861,8 @@ RESPONSIVE DESIGN
     main {
         padding: var(--spacing-lg);
     }
+
+    .app-author { top: 4%; }
 
     .calculator-screen,
     .bill-screen,
@@ -877,6 +945,7 @@ RESPONSIVE DESIGN
     /* 🔥 MOST IMPORTANT PART */
     .bill-items {
         height: auto !important;
+        min-height: 300px !important;
         max-height: none !important;
         overflow: visible !important;
         padding-bottom: 0 !important;
@@ -890,6 +959,9 @@ RESPONSIVE DESIGN
         margin-top: 20px !important;
         page-break-before: auto !important;
         page-break-inside: avoid !important;
+    }
+
+    .bill-footer {
         border-bottom-left-radius: 20px !important;
         border-bottom-right-radius: 20px !important;
     }
