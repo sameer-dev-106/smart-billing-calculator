@@ -244,7 +244,7 @@ function applyShopName() {
 }
 
 // ========================================
-// CALCULATOR OPERATIONS
+// CALCULATOR CORE LOGIC
 // ========================================
 function renderExpression() {
     expressionDisplay.textContent = expression || "0";
@@ -264,9 +264,68 @@ function applyOperation(a, b, op) {
             }
             return a / b;
         default: return a;
+    }
+}
+
+function parseExpressionToItems(exre) {
+    const items = [];
+    let currentNumber = "";
+    let currentOp = "";
+
+    for (let i = 0; i < exre.length; i++) {
+        const char = exre[i];
+
+        if (OPERATORS.includes(char)) {
+            if (currentNumber !== "") {
+                items.push({
+                    op: currentOp,
+                    value: Number(currentNumber)
+                });
+                currentNumber = "";
+            }
+
+            currentOp = char;
+        } else {
+            currentNumber += char;
         }
     }
 
+    if (currentNumber !== "") {
+        items.push({
+            op: currentOp,
+            value: Number(currentNumber)
+        });
+    }
+
+    return items;
+}
+
+function calculateLiveTotal() {
+    if (!expression) return 0;
+
+    const parsedItems = parseExpressionToItems(expression);
+    if (parsedItems.length === 0) return 0;
+
+    let total = 0;
+
+    parsedItems.forEach(item => {
+        if (item.op === "") {
+            total = item.value;
+        } else {
+            total = applyOperation(
+                total,
+                item.value,
+                item.op
+            );
+        }
+    });
+
+    return total;
+}
+
+// ========================================
+// CALCULATOR ACTIONS
+// ========================================
 function appendNumber(num) {
     // Reset after calculation
     if (calc.justCalculated) {
@@ -433,39 +492,6 @@ function formatNumber(num) {
         return num % 1 === 0 ? num.toString() : num.toFixed(2);
 }
 
-function parseExpressionToItems(exre) {
-    const items = [];
-    let currentNumber = "";
-    let currentOp = "";
-
-    for (let i = 0; i < exre.length; i++) {
-        const char = exre[i];
-
-        if (OPERATORS.includes(char)) {
-            if (currentNumber !== "") {
-                items.push({
-                    op: currentOp,
-                    value: Number(currentNumber)
-                });
-                currentNumber = "";
-            }
-
-            currentOp = char;
-        } else {
-            currentNumber += char;
-        }
-    }
-
-    if (currentNumber !== "") {
-        items.push({
-            op: currentOp,
-            value: Number(currentNumber)
-        });
-    }
-
-    return items;
-}
-
 function updateDisplay(isEqual = false) {
     if (isEqual) {
         expressionDisplay.textContent = formatNumber(calc.currentTotal);
@@ -474,7 +500,13 @@ function updateDisplay(isEqual = false) {
     }
 
     // Update totals and item count
-    calcKulRakamValue.textContent = formatNumber(calc.currentTotal);
+    if (calc.justCalculated) {
+        calcKulRakamValue.textContent = formatNumber(calc.currentTotal);
+    } else {
+        const liveTotal = calculateLiveTotal();
+        calcKulRakamValue.textContent = formatNumber(liveTotal);
+    }
+
     calcItemsValue.textContent = calc.items.filter(i => i.value !== 0).length;
 
     // Update shop name if not set
