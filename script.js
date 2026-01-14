@@ -273,7 +273,9 @@ function appendNumber(num) {
         calc.currentTotal = 0;
         calc.items = [];
         calc.currentOperator = null;
+        currentNumber = "";
         calc.justCalculated = false;
+        expression = "";
     }
 
     // Prevent multiple decimal points
@@ -291,10 +293,12 @@ function appendOperator(op) {
         calc.currentTotal = 0;
         calc.items = [];
         calc.justCalculated = false;
+        expression = calc.currentNumber;
     }
 
     // Need at least one number
-    if (calc.currentNumber === "" && calc.items.length === 0) return;
+    if (expression === "") return;
+    // if (calc.currentNumber === "" && calc.items.length === 0) return;
 
     if (calc.currentNumber !== "") {
         // First number becomes total
@@ -318,8 +322,20 @@ function appendOperator(op) {
         calc.currentNumber = "";
     }
 
+    const lastChar = expression.slice(-1);
+
+    if (OPERATORS.includes(lastChar)) {
+        // same operator → do nothing
+        if (lastChar === op) return;
+
+        // different operator → replace
+        expression = expression.slice(0, -1) + op;
+    } else {
+        expression += op;
+        
+    }
+
     calc.currentOperator = op;
-    expression += op;
     calc.justCalculated = false;
     updateDisplay();
 }
@@ -336,7 +352,6 @@ function calculateEqual() {
 
     calc.items = parsedItems;
     calc.currentTotal = 0;
-    calc.currentOperator = null;
 
 // Calculate final result
     calc.items.forEach(item => {
@@ -352,10 +367,11 @@ function calculateEqual() {
     })
 
     calc.currentNumber = "";
-    // calc.currentOperator = null;
+    calc.currentOperator = null;
     calc.justCalculated = true;
-    updateDisplay(true);
+
     expression = formatNumber(calc.currentTotal);
+    updateDisplay(true);
 }
 
 function clearAll() {
