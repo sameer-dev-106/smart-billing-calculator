@@ -130,7 +130,8 @@ CALCULATOR SCREEN
 
 .app-author {
     position: absolute;
-    top: 0%;
+    top: 0.7%;
+    left: 40%;
     font-size: 12px;
     opacity: 0.7;
 }
@@ -557,6 +558,7 @@ MODAL BASE STYLES
     color: var(--dark-text);
 }
 
+
 .modal-box input {
     width: 100%;
     user-select: text;
@@ -571,6 +573,30 @@ MODAL BASE STYLES
 .modal-box input:focus {
     outline: none;
     border-color: var(--primary-color);
+}
+
+.modal-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+}
+
+.modal-action button {
+    width: 100%;
+    border: none;
+    padding: var(--spacing-md) 18px;
+    border-radius: var(--radius-md);
+    font-size: var(--font-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+}
+
+.modal-action button:active {
+    transform: scale(0.95);
 }
 
 /* Subh Labh Logo */
@@ -710,35 +736,13 @@ MODAL BASE STYLES
     justify-content: center;
 }
 
-.modal-action {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-sm);
-}
-
-.modal-action button {
-    border: none;
-    padding: var(--spacing-md) 18px;
-    border-radius: var(--radius-md);
-    font-size: var(--font-md);
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform var(--transition-fast);
-}
-
-.modal-action button:active {
-    transform: scale(0.95);
-}
-
 .cancel-bill {
     background-color: var(--danger-color);
     color: var(--white);
 }
 
 .confirm-bill {
-    background-color: var(--black);
+    background-color: var(--success-color);
     color: var(--white);
 }
 
@@ -862,13 +866,9 @@ RESPONSIVE DESIGN
         padding: var(--spacing-lg);
     }
 
-    .app-author { top: 4%; }
-
     .calculator-screen,
     .bill-screen,
-    .shop-name-modal,
-    .settings-modal,
-    .bill-input-modal {
+    .modal-overlay {
         overflow: hidden;
         width: 400px;
         height: 780px;
