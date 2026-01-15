@@ -33,6 +33,8 @@ const translations = {
         alertPressEqualFirst: 'कृपया पहले "=" दबाकर बिल फाइनल करें',
         alertEnterCustomerName: 'कृपया ग्राहक का नाम दर्ज करें',
         alertShopNameUpdated: 'दुकान का नाम अपडेट हो गया',
+        alertLanguageUpdated: 'भाषा हिन्दी में बदल दी गई है',
+        alertShopNameAndLanguageUpdated: 'दुकान का नाम और भाषा अपडेट हो गई है',
         equalConfirmModalTitle: 'बिल फाइनल करें?',
         equalConfirmModalMsg: `= दबाने पर बिल फाइनल हो जाएगा।<br> बाद में आइटम बदले नहीं जा सकेंगे।`,
         newBillConfirmTitle: 'नया बिल शुरू करें?',
@@ -69,6 +71,8 @@ const translations = {
         alertPressEqualFirst: 'Please pehle "=" dabao phir bill banao',
         alertEnterCustomerName: 'Customer ka naam dalo',
         alertShopNameUpdated: 'Shop ka naam update ho gaya',
+        alertLanguageUpdated: 'Language hinglish me update ho gayi',
+        alertShopNameAndLanguageUpdated: "Shop name aur language dono update ho gaye",
         equalConfirmModalTitle: 'Bill finalize kare?',
         equalConfirmModalMsg: `= dabane par bill final ho jayega.<br> Baad me items edit nahi ho payenge.`,
         newBillConfirmTitle: 'Naya bill shuru kare?',
@@ -105,6 +109,8 @@ const translations = {
         alertPressEqualFirst: 'Please press "=" first to finalize the bill',
         alertEnterCustomerName: 'Please enter customer name',
         alertShopNameUpdated: 'Shop name updated',
+        alertLanguageUpdated: 'Language changed to Engilsh',
+        alertShopNameAndLanguageUpdated: "Shop name and language updated",
         equalConfirmModalTitle: 'Finalize Bill?',
         equalConfirmModalMsg: `Pressing = will finalize the bill.<br> Items cannot be edited later.`,
         newBillConfirmTitle: 'Naya bill shuru kare?',
@@ -733,23 +739,47 @@ function closeSettings() {
 }
 
 function updateSettings() {
-    const newName = shopNameEdit.value.trim();
+    const prevName = appState.shopName;
+    const prevLanguage = appState.language;
 
-    if (newName) {
+    const newName = shopNameEdit.value.trim();
+    const newLanguage = languageSelect.value;
+
+    const nameChanged = newName !== "" && newName !== prevName;
+    const languageChanged = newLanguage !== prevLanguage;
+
+    if (!nameChanged && !languageChanged) {
+        settingsModal.classList.remove('active');
+        return;
+    }
+
+    // Apply change
+    if (nameChanged) {
         appState.shopName = newName;
         applyShopName();
     }
 
-    if (appState.language !== languageSelect.value) {
-        appState.language = languageSelect.value;
+    if (languageChanged) {
+        appState.language = newLanguage;
         applyLanguage();
     }
 
     saveAppState();
     settingsModal.classList.remove('active');
 
-    if (newName) {
-        openInfoPopup(translations[appState.language].alertShopNameUpdated);
+    if (nameChanged && languageChanged) {
+        openInfoPopup(translations[appState.language].alertShopNameAndLanguageUpdated);
+        return;
+    }
+
+    if (nameChanged) {
+        openInfoPopup(translations[appState.language].alertShopNameUpdated)
+        return;
+    }
+
+    if (languageChanged) {
+        openInfoPopup(translations[appState.language].alertLanguageUpdated);
+        return;
     }
 }
 
@@ -819,12 +849,17 @@ infoOkBtn.addEventListener('click', () => {
 
 // Calculator control buttons
 equalButton.addEventListener('click', () => {
-    if (!expression || calc.currentNumber === "") {
+    if (!expression) {
         openInfoPopup(translations[appState.language].alertEnterNumber);
         return
     }
 
-    if (calc.currentOperator === null) return;
+    const lastChar = expression.slice(-1)
+
+    if (OPERATORS.includes(lastChar)){
+        openInfoPopup(translations[appState.language].alertEnterNumber);
+        return;
+    } 
 
     equalConfirm();
 });

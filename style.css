@@ -119,6 +119,7 @@ CALCULATOR SCREEN
 
 /* Calculator Header */
 .calc-header {
+    user-select: none;
     background: var(--primary-gradient);
     color: var(--white);
     padding: var(--spacing-md) var(--spacing-sm);
@@ -326,6 +327,7 @@ BILL SCREEN
 }
 
 .shop-details {
+    user-select: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -343,7 +345,6 @@ BILL SCREEN
     background-color: #fff;
     object-fit: cover;
     object-position: center;
-    user-select: none;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -408,7 +409,15 @@ BILL SCREEN
     color: var(--primary-color);
     font-weight: 700;
     font-size: var(--font-md);
-    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.bill-item-name .item-name {
+    max-width: 200px !important;
+    color: var(--dark-text);
 }
 
 .item-amount {
@@ -734,21 +743,12 @@ MODAL BASE STYLES
 }
 
 /* Info Popup  */
-.alert-logo {
-    width: 200px;
-    margin-bottom: var(--spacing-lg);
-    font-size: 20px;
-    text-align: center;
-}
-
-.alert-logo img {
-    width: 100%;
-    height: auto;
-}
-
 .info-modal-msg {
     font-size: var(--font-md);
     font-weight: 600;
+    text-align: center;
+    line-height: 1.4;
+    margin: 10px 0;
 }
 
 .modal-action,
@@ -796,13 +796,13 @@ ITEM NAME MODAL
     font-weight: 500;
 }
 
-.modal-action.item-name {
+.modal-action.item-name-btn {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.modal-action.item-name button {
+.modal-action.item-name-btn button {
     width: 100%;
     color: var(--white);
 }
@@ -945,7 +945,7 @@ RESPONSIVE DESIGN
     /* 🔥 MOST IMPORTANT PART */
     .bill-items {
         height: auto !important;
-        min-height: 300px !important;
+        min-height: 400px !important;
         max-height: none !important;
         overflow: visible !important;
         padding-bottom: 0 !important;
