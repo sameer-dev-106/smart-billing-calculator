@@ -28,7 +28,7 @@ Smart Billing Calculator fixes this by:
 - showing a full bill before printing
 - supporting previous balance (pehle ka) and payment (jama)
 - preventing accidental actions using confirmation popups
-- saving user preferences using localStorage
+- saving bills and calculations locally for reference
 
 ---
 
@@ -52,14 +52,27 @@ just like calculators used in real shops.
 
 ---
 
-### 3️⃣ Safe Finalization
-- Pressing `=` asks for confirmation before finalizing the bill
+### 3️⃣ Calculator History
+After pressing `=`, each calculation is saved automatically.
+
+- History shows expressions like `20+30-10`
+- Final result is clearly visible
+- History opens in a dedicated modal
+- Old calculations can be restored back into the calculator
+- History can be cleared safely
+
+This helps users quickly reuse or verify calculations.
+
+---
+
+### 4️⃣ Safe Finalization
+- Pressing `=` asks for confirmation before finalizing the calculation
 - Accidental key presses do not lock the bill
 - Users are clearly informed before starting a new bill
 
 ---
 
-### 4️⃣ Create Bill
+### 5️⃣ Create Bill
 When user clicks **Bill**, a form opens asking:
 - Customer Name (required)
 - Pehle ka (optional)
@@ -69,7 +82,7 @@ Billing is blocked unless calculation is finalized correctly.
 
 ---
 
-### 5️⃣ Item Name (Optional but Recommended)
+### 6️⃣ Item Name (Optional but Recommended)
 Before generating the final bill, the user is asked to optionally  
 add names for each bill item.
 
@@ -82,7 +95,7 @@ This ensures clean bills without forcing extra work.
 
 ---
 
-### 6️⃣ Bill Mode
+### 7️⃣ Bill Mode
 The app shows a receipt-style bill with:
 - shop name
 - date and time
@@ -95,6 +108,17 @@ The app shows a receipt-style bill with:
 
 Only the item list scrolls.  
 The summary section always stays visible and print-safe.
+
+---
+
+### 8️⃣ Bill History
+Every finalized bill is saved automatically.
+
+- Bills are stored locally on the device
+- Bill History opens as a separate screen
+- Each entry shows customer name, date, and final amount
+- Old bills can be reviewed anytime
+- Data remains safe even after page reload
 
 ---
 
@@ -115,9 +139,11 @@ The selected language is saved in localStorage.
 The app uses localStorage to save:
 - Shop name
 - Selected language
+- Bill history
+- Calculator history
 
-Calculation data stays in memory so users can freely  
-start new bills without old data mixing.
+Calculator state resets for new bills,  
+but history remains available for reference.
 
 ---
 
@@ -150,6 +176,8 @@ To build a real shop-ready billing calculator that:
 - Expression-based input system
 - Strong backspace handling
 - Safe equal confirmation flow
+- Calculator history with restore support
+- Bill history with persistent storage
 - Common confirm and alert popup system
 - Step-by-step bill creation flow
 - Optional item name support
@@ -162,10 +190,10 @@ To build a real shop-ready billing calculator that:
 ---
 
 ### 🔜 Planned
-- Bill item delete
+- Bill item edit and delete
 - Quantity and price-based billing
-- Bill history
-- Daily totals
+- Daily totals and reports
+- Invoice layout and QR payment support
 - Export and print improvements
 - React version
 

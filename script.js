@@ -125,8 +125,10 @@ const translations = {
 // Screens
 const calculatorScreen = document.querySelector('.calculator-screen');
 const billScreen = document.querySelector('.bill-screen');
+const historyScreen = document.querySelector('.history-screen');
 
 // Modals
+const calcHistoryModal = document.querySelector('.calc-history-modal');
 const shopNameModal = document.querySelector('.shop-name-modal');
 const billInputModal = document.querySelector('.bill-input-modal');
 const settingsModal = document.querySelector('.settings-modal');
@@ -183,6 +185,10 @@ const saveItemsBtn = document.querySelector('.save-items-btn');
 const skipItemsBtn = document.querySelector('.skip-items-btn');
 const newBillButton = document.querySelector('.new-bill-btn');
 const settingsButton = document.querySelector('.settings-btn');
+const openBillHistoryButton = document.querySelector('.bill-history-btn');
+const closeBillHistoryButton = document.querySelector('.close-bill-history');
+const openCalcHistoryButton = document.querySelector('.calc-history-btn');
+const closeCalcHistoryButton = document.querySelector('.close-calc-history');
 const closeSettingsButton = document.querySelector('.close-settings');
 const updateSettingsButton = document.querySelector('.update-settings');
 const confirmBtn = document.querySelector('.confirm-btn');
@@ -221,13 +227,29 @@ const calc = {
 
     // edit expression variables
     let expression = "";
+    let newExpression = "";
     let cursoreIndex = 0;
+
+    // Calculator Container
+    let calcHistory = [];
+
+    // Bill History Container
+    let billHistory = [];
+
+    // LocalStorage key for Calculator history
+    const CALC_HISTORY_KEY = "smartBillingCalcHistory";
+
+    // LocalStorage key for BIll history
+    const BILL_STORAGE_KEY = "smartBillingBills"
+
 
 // ========================================
 // INITIALIZATION
 // ========================================
 function init() {
     loadState();
+    loadCalcHistory();
+    loadBillHistory();
 
     applyShopName();
 
@@ -261,6 +283,40 @@ function saveAppState() {
     }
 }
 
+function loadCalcHistory() {
+    try {
+        calcHistory = JSON.parse(
+            localStorage.getItem(CALC_HISTORY_KEY)
+        ) || [];
+    } catch (e) {
+        calcHistory = [];
+    }
+}
+
+function saveCalcHistroy() {
+    localStorage.setItem(
+        CALC_HISTORY_KEY,
+        JSON.stringify(calcHistory)
+    );
+}
+
+function loadBillHistory() {
+    try {
+        billHistory = JSON.parse(
+            localStorage.getItem(BILL_STORAGE_KEY)
+        ) || [];
+    } catch (e) {
+        billHistory = [];
+    }
+}
+
+function saveBillHistory() {
+    localStorage.setItem(
+        BILL_STORAGE_KEY,
+        JSON.stringify(billHistory)
+    );
+}
+
 // ========================================
 // SHOP NAME MANAGEMENT
 // ========================================
@@ -287,10 +343,6 @@ function applyShopName() {
 // ========================================
 // CALCULATOR CORE LOGIC
 // ========================================
-function renderExpression() {
-    expressionDisplay.textContent = expression || "0";
-}
-
 function applyOperation(a, b, op) {
     b = Number(b);
 
@@ -470,8 +522,23 @@ function calculateEqual() {
     calc.currentOperator = null;
     calc.justCalculated = true;
 
+    newExpression = expression;
     expression = formatNumber(calc.currentTotal);
     updateDisplay(true);
+
+    // ======================
+    // SAVE CALCULATOR HISTORY
+    // ======================
+    const calcHistoryItem = {
+        id: "CALC_" + Date.now(),
+        experssion: newExpression,
+        total: calc.currentTotal,
+        itemCount: calc.items.length,
+        time: new Date().toLocaleDateString('hi-IN')
+    }
+
+    calcHistory.push(calcHistoryItem);
+    saveCalcHistroy();
 }
 
 function clearAll() {
@@ -524,6 +591,62 @@ function backspace() {
     }
 
     updateDisplay();
+}
+
+// ========================================
+// RENDER DISPLAY
+// ========================================
+function renderExpression() {
+    expressionDisplay.textContent = expression || "0";
+}
+
+function renderBillHistory() {
+    const list = document.querySelector('.history-list');
+    list.innerHTML = "";
+    
+    billHistory.forEach(bill => {
+        const div = document.createElement('div');
+        div.className = "history-item";
+
+        div.innerHTML = `
+            <div class="history-name-container">
+                <span class="name">${bill.customerName}</span>
+                <span>${bill.date} ${bill.time}</span>
+            </div>
+            <div class="amount">${bill.summary.kulBakaya}</div>
+        `;
+
+        list.appendChild(div);
+    });
+}
+
+function renderCalcHistory() {
+    const list = document.querySelector('.calc-history-list');
+    list.innerHTML = "";
+
+    calcHistory.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "calc-history-item";
+
+        div.innerHTML = `
+            <div class="calc-history-exp">
+                ${item.experssion}
+            </div>
+            <div class="calc-history-total">
+                = ${item.total}
+            </div>
+        `;
+
+        div.ondblclick = () => {
+            expression = item.expression;
+            calc.currentTotal = item.total;
+            calc.items = parseExpressionToItems(expression);
+            calc.justCalculated = true;
+            updateDisplay(true);
+        };
+
+        list.appendChild(div);
+    });
 }
 
 // ========================================
@@ -704,6 +827,37 @@ function createBill() {
     jamaValue.textContent = formatNumber(jama);
     kulBakayaValue.textContent = formatNumber(kulBakaya);
 
+    // ======================
+    // SAVE BILL TO HISTORY
+    // ======================
+    const billObject = {
+        id: "BILL_" + Date.now(),
+
+        date: dateStr,
+        time: timeStr,
+
+        shop: {
+            shopName: appState.shopName
+        },
+
+        customerName: customerName,
+
+        items: calc.items.map(item => ({
+            name: item.name || "",
+            op: item.op,
+            value: item.value
+        })),
+
+        summary: {
+            kulRakam: kulRakam,
+            pehelKa: pehelKa,
+            jama: jama,
+            kulBakaya: kulBakaya
+        }
+    };
+    billHistory.push(billObject);
+    saveBillHistory();
+
     // Switch to bill screen
     billInputModal.classList.remove('active');
     calculatorScreen.classList.remove('active');
@@ -723,6 +877,32 @@ function newBill() {
     // Switch to calculator screen
     billScreen.classList.remove('active');
     calculatorScreen.classList.add('active');
+}
+
+// ========================================
+// BILL HISTORY MANAGEMENT
+// ========================================
+function openBillHistory() {
+    renderBillHistory();
+    calculatorScreen.classList.remove('active');
+    billScreen.classList.remove('active');
+    settingsModal.classList.remove('active');
+    historyScreen.classList.add('active');
+}
+
+function closeBillHistory() {
+    historyScreen.classList.remove('active')
+    calculatorScreen.classList.add('active')
+}
+
+function openCalcHistory() {
+    renderCalcHistory();
+    settingsModal.classList.remove('active');
+    calcHistoryModal.classList.add('active');
+}
+
+function closeCalcHistory() {
+    calcHistoryModal.classList.remove('active')
 }
 
 // ========================================
@@ -904,6 +1084,14 @@ cancelBillButton.addEventListener('click', () => {
     billInputModal.classList.remove('active');
 });
 newBillButton.addEventListener('click', openNewBillConfirm);
+
+// Calculator history 
+openCalcHistoryButton.addEventListener('click', openCalcHistory);
+closeCalcHistoryButton.addEventListener('click', closeCalcHistory);
+
+// Bill history 
+openBillHistoryButton.addEventListener('click', openBillHistory);
+closeBillHistoryButton.addEventListener('click', closeBillHistory);
 
 // Settings
 settingsButton.addEventListener('click', openSettings);
