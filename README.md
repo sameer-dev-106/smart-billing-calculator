@@ -186,6 +186,9 @@ To build a real shop-ready billing calculator that:
 - Language system (Hindi, Hinglish, English)
 - Print-friendly bill layout
 - Responsive mobile-first UI
+- Calculator history with restore support
+- Bill history with safe open confirmation
+- Clear history with confirmation and success feedback
 
 ---
 
@@ -195,6 +198,9 @@ To build a real shop-ready billing calculator that:
 - Daily totals and reports
 - Invoice layout and QR payment support
 - Export and print improvements
+- Shop owner profile and UPI setup
+- First-time app onboarding flow
+- Bill sharing via WhatsApp
 - React version
 
 ---

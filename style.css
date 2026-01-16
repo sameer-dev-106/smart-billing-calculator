@@ -69,6 +69,8 @@ RESET & BASE STYLES
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-user-select: none;
+    user-select: none;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
@@ -97,14 +99,25 @@ SCREEN VISIBILITY CONTROL
 ======================================== */
 .calculator-screen,
 .bill-screen,
-.history-screen {
+.history-screen,
+.settings-screen {
     display: none;
 }
 
 .calculator-screen.active,
 .bill-screen.active,
-.history-screen.active {
+.history-screen.active,
+.settings-screen.active {
     display: flex;
+}
+
+input,
+textarea,
+.expression,
+.calc-kul-rakam-value,
+.calc-items-value {
+    -webkit-user-select: text;
+    user-select: text;
 }
 
 /* ========================================
@@ -170,7 +183,7 @@ CALCULATOR SCREEN
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-md);
     margin: var(--spacing-sm);
     font-weight: 500;
     font-size: var(--font-sm);
@@ -271,6 +284,10 @@ button.clear,
 button.delete {
     font-size: var(--font-lg);
     background-color: var(--btn-special);
+}
+
+button.delete {
+    font-size: 35px;
 }
 
 button.equal {
@@ -510,6 +527,7 @@ BILL HISTORY SCREEN
     height: 100%;
     width: 100%;
     background: #f5f5f5;
+    position: relative;
 }
 
 .history-header {
@@ -544,7 +562,7 @@ BILL HISTORY SCREEN
     font-weight: 600;
 }
 
-.close-bill-history {
+.close-bill-history-btn {
     background: rgba(255, 255, 255, 0.2);
     border: none;
     color: var(--white);
@@ -554,12 +572,13 @@ BILL HISTORY SCREEN
     font-size: var(--font-md);
     font: 900;
     cursor: pointer;
-    transition: background var(--transition-normal);
+    transition: transform var(--transition-normal);
 }
 
 .history-list {
     flex: 1;
     overflow-y: auto;
+    word-break: break-all;
     padding: var(--spacing-sm);
     background: var(--light-bg);
 }
@@ -574,6 +593,10 @@ BILL HISTORY SCREEN
     margin-bottom: var(--spacing-md);
     border-radius: var(--radius-md);
     box-sizing: var(--shadow-sm);
+}
+
+.history-item:active {
+    scale: 0.95;
 }
 
 .history-name-container {
@@ -603,7 +626,7 @@ BILL HISTORY SCREEN
     justify-content: center;
 }
 
-.clear-history-btn {
+.clear-bill-history-btn {
     width: 80%;
     border: none;
     padding: var(--spacing-md) 18px;
@@ -616,9 +639,222 @@ BILL HISTORY SCREEN
     transition: transform var(--transition-fast);
 }
 
-.clear-history-btn:active {
+.clear-bill-history-btn:active {
     transform: scale(0.95);
 }
+
+/* ========================================
+SETTIING MODAL STYLES
+======================================== */
+.settings-screen {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    background: var(--light-bg);
+    position: relative;
+}
+
+.settings-header {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: var(--spacing-md) var(--spacing-sm);
+    /* padding-top: 5px; */
+    color: var(--white);
+    background: var(--primary-gradient);
+}
+
+.close-settings {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: var(--white);
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-round);
+    font-size: var(--font-md);
+    font: 900;
+    cursor: pointer;
+    transition: transform var(--transition-normal);
+
+}
+
+.settings-box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.setting-items {
+    flex: 1;
+    max-height: 500px;
+    overflow-y: auto;
+    word-break: break-all;
+    width: 100%;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.setting-item h2 {
+    text-align: center;
+    border-bottom: 2px solid;
+    margin: 15px;
+}
+
+.setting-item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.setting-item label {
+    display: block;
+    padding-left: 10px;
+    margin-bottom: var(--spacing-sm);
+    color: var(--dark-text);
+    font-weight: 600;
+    font-size: var(--font-md);
+}
+
+.setting-item input {
+    width: 100%;
+    user-select: text;
+    font-size: var(--font-md);
+    padding: var(--spacing-sm);
+    margin-bottom: 10px;
+    border: 2px solid var(--light-gray);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--transition-normal);
+}
+
+.setting-item input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+
+.setting-item select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--light-gray);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-sm);
+    background: var(--white);
+    cursor: pointer;
+    transition: border-color var(--transition-normal);
+}
+
+.setting-item select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.settings-actions {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--light-bg);
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.update-settings {
+    width: 100%;
+    padding: 12px;
+    background: var(--success-color);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-md);
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+}
+
+.bill-history-btn,
+.calc-history-btn {
+    width: 100%;
+    font-size: var(--font-md);
+    font-weight: bold;
+    color: var(--white);
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 10px;
+    cursor: pointer;
+    transition: transform var(--transition-normal);
+}
+
+.bill-history-btn:active,
+.calc-history-btn:active,
+.update-settings:active,
+.close-settings:active {
+    transform: scale(0.95);
+}
+
+.coming-soon-wrapper {
+    position: relative;
+}
+
+.coming-soon-overlay {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(2px);
+    background: rgba(147, 146, 146, 0.071);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    z-index: 5;
+    user-select: none;
+}
+
+.user-details-content {
+    margin: 30px 0;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* OLD: .reset-action */
+.reset-app-section {
+    border-top: 1px solid #eee;
+    padding-top: 16px;
+    margin-bottom: 150px;
+}
+
+/* OLD: .resert-app */
+.reset-app-btn {
+    background: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+/* OLD: .description */
+.reset-description {
+    font-size: 22px;
+    opacity: 0.7;
+    margin-top: 6px;
+}
+
+
 
 /* ========================================
 MODAL BASE STYLES
@@ -760,7 +996,7 @@ Caculator History MODAL STYLES
     border-bottom: 3px solid var(--black);
 }
 
-.close-calc-history {
+.close-calc-history-btn {
     position: absolute;
     top: -20%;
     right: 0;
@@ -775,7 +1011,7 @@ Caculator History MODAL STYLES
     transition: transform var(--transition-normal);
 }
 
-.close-calc-history:active {
+.close-calc-history-btn:active {
     transform: scale(0.95);
 }
 
@@ -814,7 +1050,7 @@ Caculator History MODAL STYLES
     font-weight: bold;
 }
 
-.modal-action .clear-calc-history {
+.modal-action .clear-calc-history-btn {
     background: var(--danger-color);
     color: #fff;
     font-weight: 700;
@@ -847,130 +1083,6 @@ SHOP NAME MODAL STYLES
 }
 
 .save-shop-name:active {
-    transform: scale(0.95);
-}
-
-/* ========================================
-SETTIING MODAL STYLES
-======================================== */
-.settings-modal {
-    justify-content: space-around;
-}
-
-.settings-modal .modal {
-    padding: var(--spacing-xl);
-    gap: var(--spacing-lg);
-}
-
-.settings-header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 2px solid;
-}
-
-.settings-header h1 {
-    text-align: center;
-    width: 100%;
-    padding: 5px 10px;
-    font-size: 35px;
-}
-
-.open-history-btns {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.bill-history-btn,
-.calc-history-btn {
-    width: 100%;
-    font-size: var(--font-sm);
-    font-weight: bold;
-    color: var(--white);
-    background: var(--primary-gradient);
-    border: none;
-    border-radius: var(--radius-md);
-    padding: 10px;
-    cursor: pointer;
-    transition: transform var(--transition-normal);
-}
-
-.bill-history-btn:active,
-.calc-history-btn:active {
-    transform: scale(0.95);
-}
-
-.setting-item {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.setting-item label {
-    display: block;
-    margin-bottom: var(--spacing-sm);
-    color: var(--dark-text);
-    font-weight: 600;
-    font-size: var(--font-md);
-}
-
-.setting-item input {
-    padding: 12px;
-}
-
-.setting-item select {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid var(--light-gray);
-    border-radius: var(--radius-sm);
-    font-size: var(--font-sm);
-    background: var(--white);
-    cursor: pointer;
-    transition: border-color var(--transition-normal);
-}
-
-.setting-item select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-}
-
-.settings-actions {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.update-settings,
-.close-settings {
-    width: 100%;
-    padding: 12px;
-    background: var(--success-color);
-    color: var(--white);
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: var(--font-md);
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform var(--transition-fast);
-}
-
-.close-settings {
-    margin-top: var(--spacing-sm);
-    background: var(--danger-color);
-}
-
-.bill-history-btn:active,
-.update-settings:active,
-.close-settings:active {
     transform: scale(0.95);
 }
 
@@ -1116,6 +1228,8 @@ RESPONSIVE DESIGN
 
     .calculator-screen,
     .bill-screen,
+    .history-screen,
+    .settings-screen,
     .modal-overlay {
         overflow: hidden;
         width: 400px;

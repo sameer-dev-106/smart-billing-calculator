@@ -36,9 +36,23 @@ const translations = {
         alertLanguageUpdated: 'भाषा हिन्दी में बदल दी गई है',
         alertShopNameAndLanguageUpdated: 'दुकान का नाम और भाषा अपडेट हो गई है',
         equalConfirmModalTitle: 'बिल फाइनल करें?',
-        equalConfirmModalMsg: `= दबाने पर बिल फाइनल हो जाएगा।<br> बाद में आइटम बदले नहीं जा सकेंगे।`,
+        equalConfirmModalMsg: `= दबाने पर बिल फाइनल हो जाएगा। <br> बाद में आइटम बदले नहीं जा सकेंगे।`,
         newBillConfirmTitle: 'नया बिल शुरू करें?',
+        confirmOpenBillTitle: "बिल खोलें?",
+        confirmOpenBillMsg: "क्या आप यह पुराना बिल खोलना चाहते हैं? इसमें कोई बदलाव नहीं किया जा सकेगा।",
+        alertHistoryBillLocked: "पुराने बिल में बदलाव नहीं किया जा सकता।",
         newBillConfirmMsg: 'मौजूदा बिल साफ हो जाएगा। यह प्रक्रिया वापस नहीं होगी।',
+        resetDescription: `सारा डेटा सफलतापूर्वक साफ हो गया है। <br> ऐप फिर से शुरू किया जा रहा है।`,
+        resetConfirmTitle: "सारा डेटा साफ करें?",
+        resetConfirmMsg: `यह ऐप का पूरा डेटा मिटा देगा। <br> यह प्रक्रिया वापस नहीं होगी।`,
+        resetSuccessMsg: `सारा डेटा सफलतापूर्वक साफ हो गया है। <br> ऐप फिर से शुरू किया जा रहा है।`,
+        confirmClearHistoryTitle: "इतिहास मिटाएं?",
+        confirmClearBillHistoryMsg: "सभी पुराने बिल स्थायी रूप से मिटा दिए जाएंगे।",
+        confirmClearCalcHistoryMsg: "सभी पुराने कैलकुलेटर रिकॉर्ड मिटा दिए जाएंगे।",
+        billHistoryCleared: "बिल इतिहास सफलतापूर्वक मिटा दिया गया।",
+        calcHistoryCleared: "कैलकुलेटर इतिहास सफलतापूर्वक मिटा दिया गया।",
+        noBillHistory: "कोई बिल इतिहास उपलब्ध नहीं है।",
+        noCalcHistory: "कोई कैलकुलेटर इतिहास उपलब्ध नहीं है।",
     },
     hinglish: {
         shopModalTitle: 'Apni dukaan ka naam enter karo',
@@ -76,7 +90,21 @@ const translations = {
         equalConfirmModalTitle: 'Bill finalize kare?',
         equalConfirmModalMsg: `= dabane par bill final ho jayega.<br> Baad me items edit nahi ho payenge.`,
         newBillConfirmTitle: 'Naya bill shuru kare?',
+        confirmOpenBillTitle: "Bill open kare?",
+        confirmOpenBillMsg: "Kya aap ye purana bill open karna chahte ho? Isme koi change nahi ho payega.",
+        alertHistoryBillLocked: "Purane bill me change nahi kar sakte.",
         newBillConfirmMsg: 'Current bill clear ho jayega. Ye action undo nahi hoga.',
+        confirmClearHistoryTitle: "History clear kare?",
+        resetDescription: `Saara data successfully clear ho gaya hai. <br> App dobara start ho raha hai.`,
+        resetConfirmTitle: "Saara data clear kare?",
+        resetConfirmMsg: `Ye app ka poora data delete kar dega. <br> Ye action undo nahi hoga.`,
+        resetSuccessMsg: `Saara data successfully clear ho gaya hai. <br> App dobara start ho raha hai.`,
+        confirmClearBillHistoryMsg: "Saare purane bills permanently delete ho jayenge.",
+        confirmClearCalcHistoryMsg: "Saara calculator history permanently delete ho jayega.",
+        billHistoryCleared: "Bill history clear ho gayi.",
+        calcHistoryCleared: "Calculator history clear ho gayi.",
+        noBillHistory: "Koi bill history available nahi hai.",
+        noCalcHistory: "Koi calculator history available nahi hai.",
     },
     english: {
         shopModalTitle: 'Enter Your Shop Name',
@@ -113,8 +141,22 @@ const translations = {
         alertShopNameAndLanguageUpdated: "Shop name and language updated",
         equalConfirmModalTitle: 'Finalize Bill?',
         equalConfirmModalMsg: `Pressing = will finalize the bill.<br> Items cannot be edited later.`,
-        newBillConfirmTitle: 'Naya bill shuru kare?',
+        newBillConfirmTitle: 'Start A New Bill?',
+        confirmOpenBillTitle: "Open bill?",
+        confirmOpenBillMsg: "Do you want to open this old bill? Editing will be disabled.",
+        alertHistoryBillLocked: "Old bills cannot be edited.",
         newBillConfirmMsg: 'Current bill clear ho jayega. Ye action undo nahi hoga.',
+        confirmClearHistoryTitle: "Clear history?",
+        resetDescription: `All data has been cleared successfully. <br> Restarting the app.`,
+        resetConfirmTitle: "Reset App Data?",
+        resetConfirmMsg: `This will delete all app data. <br> This action cannot be undone.`,
+        resetSuccessMsg: `All data has been cleared successfully. <br> Restarting the app.`,
+        confirmClearBillHistoryMsg: "All saved bills will be permanently deleted.",
+        confirmClearCalcHistoryMsg: "All calculator history will be permanently deleted.",
+        billHistoryCleared: "Bill history cleared successfully.",
+        calcHistoryCleared: "Calculator history cleared successfully.",
+        noBillHistory: "No bill history available.",
+        noCalcHistory: "No calculator history available.",
     }
 };
 
@@ -126,12 +168,12 @@ const translations = {
 const calculatorScreen = document.querySelector('.calculator-screen');
 const billScreen = document.querySelector('.bill-screen');
 const historyScreen = document.querySelector('.history-screen');
+const settingsScreen = document.querySelector('.settings-screen');
 
 // Modals
 const calcHistoryModal = document.querySelector('.calc-history-modal');
 const shopNameModal = document.querySelector('.shop-name-modal');
 const billInputModal = document.querySelector('.bill-input-modal');
-const settingsModal = document.querySelector('.settings-modal');
 const itemNameModal = document.querySelector('.item-name-modal');
 const confirmModal = document.querySelector('.confirm-modal');
 const infoModal = document.querySelector('.info-modal');
@@ -170,6 +212,7 @@ const pehelKaInput = document.querySelector('.pehel-ka-input');
 const jamaInput = document.querySelector('.jama-input');
 const languageSelect = document.querySelector('.language-select');
 const shopNameEdit = document.querySelector('.shop-name-edit');
+const resetDescription = document.querySelector('.reset-description');
 
 // Buttons
 const numberButtons = document.querySelectorAll('.calc-btn.num');
@@ -186,9 +229,12 @@ const skipItemsBtn = document.querySelector('.skip-items-btn');
 const newBillButton = document.querySelector('.new-bill-btn');
 const settingsButton = document.querySelector('.settings-btn');
 const openBillHistoryButton = document.querySelector('.bill-history-btn');
-const closeBillHistoryButton = document.querySelector('.close-bill-history');
+const closeBillHistoryButton = document.querySelector('.close-bill-history-btn');
+const clearBillHistoryButton = document.querySelector('.clear-bill-history-btn');
 const openCalcHistoryButton = document.querySelector('.calc-history-btn');
-const closeCalcHistoryButton = document.querySelector('.close-calc-history');
+const closeCalcHistoryButton = document.querySelector('.close-calc-history-btn');
+const clearCalcHistoryButton = document.querySelector('.clear-calc-history-btn');
+const resetAppBtn = document.querySelector('.reset-app-btn');
 const closeSettingsButton = document.querySelector('.close-settings');
 const updateSettingsButton = document.querySelector('.update-settings');
 const confirmBtn = document.querySelector('.confirm-btn');
@@ -212,7 +258,7 @@ const infoMsg = document.querySelector('.info-modal-msg');
 // ========================================
 const appState = {
     shopName: "",
-    language: "hindi"
+    language: "hinglish"
     };
 
 const calc = {
@@ -240,8 +286,18 @@ const calc = {
     const CALC_HISTORY_KEY = "smartBillingCalcHistory";
 
     // LocalStorage key for BIll history
-    const BILL_STORAGE_KEY = "smartBillingBills"
+    const BILL_HISTORY_KEY = "smartBillingBills"
 
+    // old bill lock flage for edit items
+    let isHistoryBillOpen = false;
+
+    // jahanfuture me edit feature aayega
+    // if (isHistoryBillOpen) {
+    //     openInfoPopup(
+    //         translations[appState.language].alertHistoryBillLocked
+    //     );
+    //     return;
+    // }
 
 // ========================================
 // INITIALIZATION
@@ -303,7 +359,7 @@ function saveCalcHistroy() {
 function loadBillHistory() {
     try {
         billHistory = JSON.parse(
-            localStorage.getItem(BILL_STORAGE_KEY)
+            localStorage.getItem(BILL_HISTORY_KEY)
         ) || [];
     } catch (e) {
         billHistory = [];
@@ -312,9 +368,37 @@ function loadBillHistory() {
 
 function saveBillHistory() {
     localStorage.setItem(
-        BILL_STORAGE_KEY,
+        BILL_HISTORY_KEY,
         JSON.stringify(billHistory)
     );
+}
+
+// ========================================
+// RESET APP MANAGEMENT
+// ========================================
+function resetAppData() {
+    const t = translations[appState.language];
+
+    confirmModalTitle.textContent = t.resetConfirmTitle;
+    confirmModalMsg.innerHTML = t.resetConfirmMsg;
+
+    confirmBtn.onclick = () => {
+        localStorage.clear();
+
+        confirmModal.classList.remove('active');
+
+        openInfoPopup(t.resetSuccessMsg);
+
+        infoOkBtn.onclick = () => {
+            location.reload();
+        };
+    };
+
+    cancelBtn.onclick = () => {
+        confirmModal.classList.remove('active');
+    };
+
+    confirmModal.classList.add('active');
 }
 
 // ========================================
@@ -522,8 +606,6 @@ function calculateEqual() {
     calc.currentOperator = null;
     calc.justCalculated = true;
 
-    newExpression = expression;
-    expression = formatNumber(calc.currentTotal);
     updateDisplay(true);
 
     // ======================
@@ -531,13 +613,14 @@ function calculateEqual() {
     // ======================
     const calcHistoryItem = {
         id: "CALC_" + Date.now(),
-        experssion: newExpression,
+        expression: expression,
         total: calc.currentTotal,
         itemCount: calc.items.length,
-        time: new Date().toLocaleDateString('hi-IN')
+        date: new Date().toLocaleDateString('hi-IN'),
+        time: new Date().toLocaleTimeString('hi-IN')
     }
 
-    calcHistory.push(calcHistoryItem);
+    calcHistory.unshift(calcHistoryItem);
     saveCalcHistroy();
 }
 
@@ -616,6 +699,18 @@ function renderBillHistory() {
             <div class="amount">${bill.summary.kulBakaya}</div>
         `;
 
+        div.addEventListener('click', () => {
+            const t = translations[appState.language];
+
+            openConfirmModal(
+                t.confirmOpenBillTitle,
+                t.confirmOpenBillMsg,
+                () => {
+                    showBillFromHistory(bill);
+                }
+            );
+        })
+
         list.appendChild(div);
     });
 }
@@ -630,20 +725,18 @@ function renderCalcHistory() {
 
         div.innerHTML = `
             <div class="calc-history-exp">
-                ${item.experssion}
+                ${item.expression}
             </div>
             <div class="calc-history-total">
                 = ${item.total}
             </div>
+            <h3>Items: ${item.itemCount}</h3>
+            <p>${item.date} ${item.time}</p>
         `;
 
-        div.ondblclick = () => {
-            expression = item.expression;
-            calc.currentTotal = item.total;
-            calc.items = parseExpressionToItems(expression);
-            calc.justCalculated = true;
-            updateDisplay(true);
-        };
+        div.addEventListener('click', () => {
+            restoreCalcFromHistory(item);
+        })
 
         list.appendChild(div);
     });
@@ -679,15 +772,37 @@ function updateDisplay(isEqual = false) {
     }
 }
 
+// ========================================
+// CONFIRM AND INFO POPUP MODALS
+// ========================================
 function openInfoPopup(message) {
     infoMsg.textContent = message;
     infoModal.classList.add('active');
 }
 
+function openConfirmModal(title, message, onConfirm) {
+    confirmModalTitle.textContent = title;
+    confirmModalMsg.innerHTML = message;
+
+    confirmBtn.onclick = null;
+    cancelBtn.onclick = null;
+
+    confirmBtn.onclick = () => {
+        onConfirm();
+        confirmModal.classList.remove('active');
+    }
+
+    cancelBtn.onclick = () => {
+        confirmModal.classList.remove('active');
+    }
+
+    confirmModal.classList.add('active');
+}
+
 function openNewBillConfirm() {
     const t = translations[appState.language];
     confirmModalTitle.textContent = t.newBillConfirmTitle;
-    confirmModalMsg.textContent = t.newBillConfirmMsg;
+    confirmModalMsg.innerHTML = t.newBillConfirmMsg;
 
     // RESET first
     confirmBtn.onclick = null;
@@ -708,7 +823,7 @@ function openNewBillConfirm() {
 
 function equalConfirm() {
     const t = translations[appState.language];
-    confirmModalTitle.textConten = t.equalConfirmModalTitle;
+    confirmModalTitle.textContent = t.equalConfirmModalTitle;
     confirmModalMsg.innerHTML = t.equalConfirmModalMsg;
 
     // RESET first
@@ -842,8 +957,8 @@ function createBill() {
 
         customerName: customerName,
 
-        items: calc.items.map(item => ({
-            name: item.name || "",
+        items: calc.items.map((item, idx)=> ({
+            name: item.name || `item ${idx + 1}`,
             op: item.op,
             value: item.value
         })),
@@ -855,7 +970,7 @@ function createBill() {
             kulBakaya: kulBakaya
         }
     };
-    billHistory.push(billObject);
+    billHistory.unshift(billObject);
     saveBillHistory();
 
     // Switch to bill screen
@@ -865,6 +980,8 @@ function createBill() {
 }
 
 function newBill() {
+    // new bill edit
+    isHistoryBillOpen = false;
     // Clear inputs
     customerNameInput.value = '';
     pehelKaInput.value = '';
@@ -881,13 +998,53 @@ function newBill() {
 
 // ========================================
 // BILL HISTORY MANAGEMENT
-// ========================================
+// ======================================== 
 function openBillHistory() {
+    const t = translations[appState.language];
+    
+    if (billHistory.length === 0) {
+        openInfoPopup(t.noBillHistory);
+        return;
+    }
+
     renderBillHistory();
     calculatorScreen.classList.remove('active');
     billScreen.classList.remove('active');
-    settingsModal.classList.remove('active');
+    settingsScreen.classList.remove('active');
     historyScreen.classList.add('active');
+}
+
+function showBillFromHistory(bill) {
+    // old bill locked
+    isHistoryBillOpen = true;
+
+    // header
+    billShopName.textContent = bill.shop.shopName;
+    customerBillName.textContent = bill.customerName;
+    billDateDisplay.textContent = `${bill.date} ${bill.time}`
+
+    // items
+    billItemsContainer.innerHTML = '';
+    bill.items.forEach((item, idx) => {
+        billItemsContainer.innerHTML += `
+            <div class="bill-item">
+                <div class="bill-item-name">
+                    <span class="item-number">${idx + 1}.</span>
+                    <span class="item-name">${item.name}</span>
+                </div>
+                <span class="item-amount">${item.op} ${formatNumber(item.value)}</span>
+            </div>
+        `;
+    });
+
+    // summary 
+    kulRakamValue.textContent = bill.summary.kulRakam;
+    pehelKaValue.textContent = bill.summary.pehelKa;
+    jamaValue.textContent = bill.summary.jama;
+    kulBakayaValue.textContent = bill.summary.kulBakaya;
+
+    historyScreen.classList.remove('active');
+    billScreen.classList.add('active');
 }
 
 function closeBillHistory() {
@@ -895,14 +1052,80 @@ function closeBillHistory() {
     calculatorScreen.classList.add('active')
 }
 
+function clearBillHistory() {
+    const t = translations[appState.language];
+
+    if (billHistory.length === 0) {
+        openInfoPopup(t.noBillHistory);
+        return;
+    }
+
+    openConfirmModal(
+        t.confirmClearHistoryTitle,
+        t.confirmClearBillHistoryMsg,
+        () => {
+            billHistory = [];
+            localStorage.removeItem(BILL_HISTORY_KEY);
+            renderBillHistory();
+            openInfoPopup(t.billHistoryCleared);
+        }
+    );
+}
+
+// ========================================
+// CALCULATOR HISTORY MANAGEMENT
+// ======================================== 
 function openCalcHistory() {
+    const t = translations[appState.language];
+
+    if (calcHistory.length === 0) {
+        openInfoPopup(t.noCalcHistory);
+        return;
+    }
+
     renderCalcHistory();
-    settingsModal.classList.remove('active');
+    settingsScreen.classList.remove('active');
+    calculatorScreen.classList.add('active');
     calcHistoryModal.classList.add('active');
+}
+
+function restoreCalcFromHistory(historyItem) {
+    calcHistoryModal.classList.remove('active');
+
+    expression = historyItem.expression;
+    calc.items = parseExpressionToItems(expression);
+    calc.currentTotal = historyItem.total;
+
+    calc.currentNumber = ""
+    calc.currentOperator = null;
+    calc.justCalculated = true;
+
+    updateDisplay(false);
 }
 
 function closeCalcHistory() {
     calcHistoryModal.classList.remove('active')
+}
+
+function clearCalcHistory() {
+    const t = translations[appState.language];
+
+    if (calcHistory.length === 0) {
+        openInfoPopup(t.noCalcHistory);
+        return;
+    }
+
+    openConfirmModal(
+        t.confirmClearHistoryTitle,
+        t.confirmClearCalcHistoryMsg,
+        () => {
+            calcHistory = [];
+            localStorage.getItem(CALC_HISTORY_KEY);
+            renderCalcHistory();
+            openInfoPopup(t.calcHistoryCleared);
+            calcHistoryModal.classList.remove('active');
+        }
+    )
 }
 
 // ========================================
@@ -911,11 +1134,13 @@ function closeCalcHistory() {
 function openSettings() {
     shopNameEdit.value = appState.shopName;
     languageSelect.value = appState.language;
-    settingsModal.classList.add('active');
+    calculatorScreen.classList.remove('active')
+    settingsScreen.classList.add('active');
 }
 
 function closeSettings() {
-    settingsModal.classList.remove('active');
+    calculatorScreen.classList.add('active')
+    settingsScreen.classList.remove('active');
 }
 
 function updateSettings() {
@@ -929,7 +1154,7 @@ function updateSettings() {
     const languageChanged = newLanguage !== prevLanguage;
 
     if (!nameChanged && !languageChanged) {
-        settingsModal.classList.remove('active');
+        // settingsScreen.classList.remove('active');
         return;
     }
 
@@ -945,7 +1170,8 @@ function updateSettings() {
     }
 
     saveAppState();
-    settingsModal.classList.remove('active');
+    // settingsScreen.classList.remove('active');
+    // calculatorScreen.classList.add('active')
 
     if (nameChanged && languageChanged) {
         openInfoPopup(translations[appState.language].alertShopNameAndLanguageUpdated);
@@ -986,6 +1212,9 @@ function applyLanguage() {
     languageLabel.textContent = t.languageLabel;
     shopNameLabel.textContent = t.shopNameLabel;
 
+    // Reset Description
+    resetDescription.innerHTML = t.resetDescription;
+
     // Placeholders
     customerNameInput.placeholder = t.customerPlaceholder;
     pehelKaInput.placeholder = t.pehelKaPlaceholder;
@@ -1001,7 +1230,6 @@ function applyLanguage() {
     cancelBillButton.textContent = t.cancelBtn;
     newBillButton.textContent = t.newBillBtn;
     updateSettingsButton.textContent = t.updateBtn;
-    closeSettingsButton.textContent = t.closeBtn;
     billButton.textContent = t.billBtn;
     document.querySelector('.print-btn').textContent = t.printBillBtn;
 
@@ -1088,15 +1316,21 @@ newBillButton.addEventListener('click', openNewBillConfirm);
 // Calculator history 
 openCalcHistoryButton.addEventListener('click', openCalcHistory);
 closeCalcHistoryButton.addEventListener('click', closeCalcHistory);
+clearCalcHistoryButton.addEventListener('click', clearCalcHistory);
 
 // Bill history 
 openBillHistoryButton.addEventListener('click', openBillHistory);
 closeBillHistoryButton.addEventListener('click', closeBillHistory);
+clearBillHistoryButton.addEventListener('click', clearBillHistory);
+
 
 // Settings
 settingsButton.addEventListener('click', openSettings);
 closeSettingsButton.addEventListener('click', closeSettings);
 updateSettingsButton.addEventListener('click', updateSettings);
+
+// Reset
+resetAppBtn.addEventListener('click', resetAppData);
 
 // Initialize app
 init();

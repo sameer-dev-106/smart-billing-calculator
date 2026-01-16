@@ -27,11 +27,11 @@
             <!-- Total and Items Count Display -->
             <div class="total-items-box">
                 <div class="total-box">
-                    <span class="calc-kul-rakam-label">कुल रकम:</span>
+                    <span class="calc-kul-rakam-label">Kul Rakam:</span>
                     <span class="calc-kul-rakam-value">0</span>
                 </div>
                 <div class="items-box">
-                    <span class="calc-items-label">आइटम:</span>
+                    <span class="calc-items-label">Items:</span>
                     <span class="calc-items-value">0</span>
                 </div>
             </div>
@@ -45,9 +45,9 @@
             <div class="calc-keypad">
                 <!-- Row 1: Bill, Clear, Delete -->
                 <div class="btn-div">
-                    <button class="calc-btn bill" aria-label="Create Bill">बिल</button>
+                    <button class="calc-btn bill" aria-label="Create Bill">Bill</button>
                     <button class="calc-btn clear" aria-label="Clear All">AC</button>
-                    <button class="calc-btn delete" aria-label="Delete Last">DE</button>
+                    <button class="calc-btn delete" aria-label="Delete Last">⌫</button>
                 </div>
 
                 <!-- Row 2: 7, 8, 9, ÷ -->
@@ -104,7 +104,7 @@
                 <div class="customer-info">
                     <div class="customer-name">Customer Name</div>
                     <div class="items-box">
-                        <span class="bill-items-label">आइटम:</span>
+                        <span class="bill-items-label">Items:</span>
                         <span class="bill-items-value">0</span>
                     </div>
                 </div>
@@ -118,30 +118,30 @@
             <!-- Bill Summary (Fixed at Bottom) -->
             <div class="bill-summary">
                 <div class="summary-row">
-                    <span class="kul-rakam-label">कुल रकम:</span>
+                    <span class="kul-rakam-label">Kul Rakam:</span>
                     <span class="kul-rakam-value">0</span>
                 </div>
 
                 <div class="summary-row">
-                    <span class="pehel-ka-label">पहले का:</span>
+                    <span class="pehel-ka-label">Pehel ka:</span>
                     <span class="pehel-ka-value">0</span>
                 </div>
 
                 <div class="summary-row">
-                    <span class="jama-label">जमा:</span>
+                    <span class="jama-label">Jama:</span>
                     <span class="jama-value">0</span>
                 </div>
 
                 <div class="summary-row total">
-                    <span class="kul-bakaya-label">कुल बकाया:</span>
+                    <span class="kul-bakaya-label">Kul Bakaya:</span>
                     <span class="kul-bakaya-value">0</span>
                 </div>
             </div>
 
             <!-- Bill Action Buttons -->
             <div class="bill-actions">
-                <button class="new-bill-btn">नया बिल</button>
-                <button class="print-btn" onclick="window.print()">प्रिंट</button>
+                <button class="new-bill-btn">New Bill</button>
+                <button class="print-btn" onclick="window.print()">Print</button>
             </div>
 
             <!-- name branding -->
@@ -157,12 +157,9 @@
         ======================================== -->
         <section class="history-screen">
             <header class="history-header">
-                <small class="app-author">
-                    Built by Sameer Lilar
-                </small>
                 <div class="history-navbar">
-                    <h1>Bill History</h1>
-                    <button class="close-bill-history">✕</button>
+                    <h1 class="history-title">Bill History</h1>
+                    <button class="close-bill-history-btn">✕</button>
                 </div>
 
                 <div class="history-labal">
@@ -170,7 +167,7 @@
                     <p>Total</p>
                 </div>
             </header>
-            
+
 
             <div class="history-list">
                 <!-- Bills dynamically added here -->
@@ -178,8 +175,83 @@
 
             <!-- Action Button -->
             <div class="history-actions">
-                <button class="clear-history-btn">Clear All History</button>
+                <button class="clear-bill-history-btn">Clear All History</button>
             </div>
+        </section>
+
+        <!-- ========================================
+            SETTINGS SCREEN
+        ======================================== -->
+        <section class="settings-screen">
+            <!-- Settings Header -->
+            <header class="settings-header">
+                <small class="app-author">
+                    Built by Sameer Lilar
+                </small>
+                <h1 class="settings-title">Setting</h1>
+                <button class="close-settings">✕</button>
+            </header>
+
+                <!-- Settings Form -->
+                <div class="settings-box">
+
+                    <div class="setting-items">
+                        <!-- Language Selection -->
+                        <div class="setting-item basic-settings">
+                            <h2>Basic Settings</h2>
+                            <label class="language-label">Language Select karo:</label>
+                            <select class="language-select">
+                                <option value="hindi">Hindi (हिन्दी)</option>
+                                <option value="hinglish">Hinglish</option>
+                                <option value="english">English</option>
+                            </select>
+                            
+                            <!-- Shop Name Update -->
+                            <label class="shop-name-label">Shop ka Naam</label>
+                            <input type="text" class="shop-name-edit" placeholder="Enter Shop Name">
+                        </div>
+                        
+                        <div class="setting-item user-details-wrapper coming-soon-wrapper">
+                        
+                            <div class="coming-soon-overlay">
+                                <h2>Coming Soon</h2>
+                            </div>
+                        
+                            <div class="user-details-content">
+                                <label>Shop Owner Name</label>
+                                <input type="text" disabled>
+                        
+                                <label>Mobile Number</label>
+                                <input type="text" disabled>
+                        
+                                <label>UPI ID</label>
+                                <input type="text" disabled>
+                            </div>
+                        
+                        </div>
+
+                        <div class="reset-app-section">
+                            <h2>Reset App Data</h2>
+                            <button class="reset-app-btn">Reset</button>
+                            <p class="reset-description">
+                                Ye option saara saved data delete kar dega
+                                jaise shop name, language, bill history aur calculator history.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <!-- Action Buttons -->
+                        <div class="settings-actions">
+                            <!-- Update settings -->
+                            <button class="update-settings">Update Karo</button>
+
+                            <!-- Open bill history screen buttom -->
+                            <button class="bill-history-btn">View Bill History</button>
+                            <!-- Open calculator history modal buttom -->
+                            <button class="calc-history-btn">View Calculator History</button>
+                    </div>
+                </div>
         </section>
 
         <!-- ========================================
@@ -193,20 +265,20 @@
             <div class="modal">
                 <header class="calc-history-header">
                     <h3>Calulator History</h3>
-                    <button class="close-calc-history">✕</button>
+                    <button class="close-calc-history-btn">✕</button>
                 </header>
-        
+
                 <!-- Modal Content -->
                 <div class="history-modal-box">
                     <div class="calc-history-list">
                         <!-- Bills dynamically added here -->
                     </div>
-        
+
                 </div>
-        
+
                 <!-- Action Buttons -->
                 <div class="modal-action">
-                    <button class="clear-calc-history">Clear history</button>
+                    <button class="clear-calc-history-btn">Clear All History</button>
                 </div>
             </div>
             </div>
@@ -230,56 +302,6 @@
                     <h2 class="shop-modal-title">अपने दुकान का नाम दर्ज करें</h2>
                     <input required type="text" class="shop-name-input" placeholder="दुकान का नाम">
                     <button class="save-shop-name">सहेजें</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================
-            SETTINGS MODAL
-        ======================================== -->
-        <section class="modal-overlay settings-modal">
-            <h2 class="calc-name">
-                Smart Billing Calculator
-                <span class="byline">- Built by Sameer</span>
-            </h2>
-
-            <div class="modal">
-                <!-- Settings Header -->
-                <div class="settings-header">
-                    <h1 class="settings-title">सेटिंग्स</h1>
-                </div>
-
-                <!-- Settings Form -->
-                <div class="modal-box">
-                    
-                    <div class="open-history-btns">
-                        <!-- Open bill history screen buttom -->
-                        <button class="bill-history-btn">View Bill History</button>
-                        <!-- Open calculator history modal buttom -->
-                        <button class="calc-history-btn">View Calculator History</button>
-                    </div>
-
-                    <!-- Language Selection -->
-                    <div class="setting-item">
-                        <label class="language-label">भाषा चुनें:</label>
-                        <select class="language-select">
-                            <option value="hindi">Hindi (हिन्दी)</option>
-                            <option value="hinglish">Hinglish</option>
-                            <option value="english">English</option>
-                        </select>
-                    </div>
-
-                    <!-- Shop Name Update -->
-                    <div class="setting-item">
-                        <label class="shop-name-label">दुकान का नाम:</label>
-                        <input type="text" class="shop-name-edit" placeholder="दुकान का नाम">
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="settings-actions">
-                        <button class="update-settings">अपडेट करें</button>
-                        <button class="close-settings">बंद करें</button>
-                    </div>
                 </div>
             </div>
         </section>
