@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./assets/img/calculator-logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
     <title>Smart Billing Calculator | Sameer</title>
 </head>
@@ -47,7 +48,7 @@
                 <div class="btn-div">
                     <button class="calc-btn bill" aria-label="Create Bill">Bill</button>
                     <button class="calc-btn clear" aria-label="Clear All">AC</button>
-                    <button class="calc-btn delete" aria-label="Delete Last">⌫</button>
+                    <button class="calc-btn delete" aria-label="Delete Last"><i class="ri-delete-back-2-line"></i></button>
                 </div>
 
                 <!-- Row 2: 7, 8, 9, ÷ -->
@@ -316,57 +317,63 @@
             </h2>
 
             <div class="modal">
-                <!-- Decorative Logo -->
-                <!-- <div class="subh-labh-logo"><img src="./assets/img/shubh-labh-2.jpg" alt="Shubh Labh"></div> -->
 
                 <!-- Modal Content -->
                 <div class="modal-box">
-                    <h2 class="bill-modal-title">बिल बनाएं</h2>
+                    <h2 class="bill-modal-title">Bill Banye</h2>
 
                     <!-- Customer Name Input -->
-                    <input required type="text" class="customer-name-input" placeholder="ग्राहक का नाम *">
+                    <input required type="text" class="customer-name-input" placeholder="Customer ka naam *">
 
                     <!-- Previous Balance Input -->
-                    <input type="number" class="pehel-ka-input" placeholder="पहले का (वैकल्पिक)">
+                    <input type="number" class="pehel-ka-input" placeholder="Pehel ka (optional)">
 
                     <!-- Payment Input -->
-                    <input type="number" class="jama-input" placeholder="जमा (वैकल्पिक)">
+                    <input type="number" class="jama-input" placeholder="Jama (optional)">
 
                     <!-- Action Buttons -->
                     <div class="modal-action">
-                        <button class="confirm-bill">बिल बनाएं</button>
-                        <button class="cancel-bill">रद्द करें</button>
+                        <button class="confirm-bill">Bill banao</button>
+                        <button class="cancel-bill">Cancel karo</button>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ========================================
-            ITEM NAME MODAL
+            ITEM NAME SCREEN
         ======================================== -->
-        <section class="modal-overlay item-name-modal">
-            <h2 class="calc-name">
-                Smart Billing Calculator
-                <span class="byline">- Built by Sameer</span>
-            </h2>
+        <section class="item-name-screen ">
+            <header class="item-name-header">
+                <h1 class="item-name-title">Itmes ke naam add kare (optional)</h1>
+                <div class="item-name-inputs-labal">
+                    <p class="item-id-labal">No.</p>
+                    <p class="item-name-labal">Items Name</p>
+                    <p class="item-operator-labal">Operator</p>
+                    <p class="item-value-labal">Value</p>
+                </div>
+            </header>
 
-            <div class="modal">
-                <!-- Modal Content -->
-                <div class="modal-box">
-                    <h2 class="item-name-title">Itmes ke naam add kare (optional)</h2>
-
+            <div class="items-inputs-container">
+                    
                     <!-- Items List (Scrollable) -->
-                    <div class="item-name-list">
+                    <div class="item-name-list add-item">
                         <!-- Items Input will be dynamically added here -->
+                        
+                        <!-- Add Items Input will be dynamically added here -->
                     </div>
 
+                    <!-- ADD ITEM BUTTON -->
+                    <div class="add-item-actions">
+                        <button class="add-item-btn">+ Add Item </button>
+                    </div>
+
+                </div>
                     <!-- Action Buttons -->
-                    <div class="modal-action item-name-btn">
+                    <div class="item-name-action-btn">
                         <button class="save-items-btn">Save & Continue</button>
                         <button class="skip-items-btn">Skip</button>
                     </div>
-                </div>
-            </div>
         </section>
 
         <!-- ========================================

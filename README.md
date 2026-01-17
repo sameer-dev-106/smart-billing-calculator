@@ -35,7 +35,7 @@ Smart Billing Calculator fixes this by:
 ## 📱 App Flow
 
 ### 1️⃣ First Time Setup
-User enters shop name, which is saved permanently.
+User enters shop name, which is saved permanently on the device.
 
 ---
 
@@ -59,7 +59,7 @@ After pressing `=`, each calculation is saved automatically.
 - Final result is clearly visible
 - History opens in a dedicated modal
 - Old calculations can be restored back into the calculator
-- History can be cleared safely
+- History can be cleared safely with confirmation
 
 This helps users quickly reuse or verify calculations.
 
@@ -88,6 +88,7 @@ add names for each bill item.
 
 - Each calculated item is shown with its amount
 - User can enter item names in a dedicated screen
+- Additional items can be added if required
 - Items can be skipped safely with clear confirmation
 - Default item names are applied automatically if skipped
 
@@ -118,7 +119,7 @@ Every finalized bill is saved automatically.
 - Bill History opens as a separate screen
 - Each entry shows customer name, date, and final amount
 - Old bills can be reviewed anytime
-- Data remains safe even after page reload
+- Bills are locked to prevent accidental changes
 
 ---
 
@@ -142,7 +143,7 @@ The app uses localStorage to save:
 - Bill history
 - Calculator history
 
-Calculator state resets for new bills,  
+Calculator resets for new bills,  
 but history remains available for reference.
 
 ---
@@ -178,26 +179,27 @@ To build a real shop-ready billing calculator that:
 - Safe equal confirmation flow
 - Calculator history with restore support
 - Bill history with persistent storage
-- Common confirm and alert popup system
+- Bill history safe open confirmation
+- Clear history with confirm and success feedback
 - Step-by-step bill creation flow
 - Optional item name support
+- Add item support in item screen
 - Default item name fallback system
+- Bill item delete with recalculation
 - Bill generation
 - Language system (Hindi, Hinglish, English)
 - Print-friendly bill layout
 - Responsive mobile-first UI
-- Calculator history with restore support
-- Bill history with safe open confirmation
-- Clear history with confirmation and success feedback
 
 ---
 
 ### 🔜 Planned
-- Bill item edit and delete
+- Single bill delete from history
+- Bill history search (customer name / number)
 - Quantity and price-based billing
 - Daily totals and reports
 - Invoice layout and QR payment support
-- Export and print improvements
+- Bill sharing via WhatsApp
 - Shop owner profile and UPI setup
 - First-time app onboarding flow
 - Bill sharing via WhatsApp

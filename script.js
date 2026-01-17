@@ -42,6 +42,11 @@ const translations = {
         confirmOpenBillMsg: "क्या आप यह पुराना बिल खोलना चाहते हैं? इसमें कोई बदलाव नहीं किया जा सकेगा।",
         alertHistoryBillLocked: "पुराने बिल में बदलाव नहीं किया जा सकता।",
         newBillConfirmMsg: 'मौजूदा बिल साफ हो जाएगा। यह प्रक्रिया वापस नहीं होगी।',
+        confirmItemNameFinalizeTitle: "आगे बढ़ें?",
+        confirmItemNameFinalizeMsg: "इसके बाद आप आइटम जोड़ या हटाने के अलावा कुछ भी बदल नहीं पाएंगे।",
+        confirmDeleteItemTitle: "आइटम हटाएं?",
+        confirmDeleteItemMsg: "यह आइटम बिल से हटा दिया जाएगा।",
+        itemDeletedSuccess: "आइटम हटा दिया गया",
         resetDescription: `यह विकल्प सभी सेव किया हुआ डेटा मिटा देगा <br> जैसे दुकान का नाम, भाषा, बिल हिस्ट्री और कैलकुलेटर हिस्ट्री।`,
         resetConfirmTitle: "सारा डेटा साफ करें?",
         resetConfirmMsg: `यह ऐप का पूरा डेटा मिटा देगा। <br> यह प्रक्रिया वापस नहीं होगी।`,
@@ -94,6 +99,11 @@ const translations = {
         confirmOpenBillMsg: "Kya aap ye purana bill open karna chahte ho? Isme koi change nahi ho payega.",
         alertHistoryBillLocked: "Purane bill me change nahi kar sakte.",
         newBillConfirmMsg: 'Current bill clear ho jayega. Ye action undo nahi hoga.',
+        confirmItemNameFinalizeTitle: "Aage badhe?",
+        confirmItemNameFinalizeMsg: "Iske baad aap sirf item add ya delete kar paoge, edit nahi.",
+        confirmDeleteItemTitle: "Item delete kare?",
+        confirmDeleteItemMsg: "Ye item bill se hata diya jayega.",
+        itemDeletedSuccess: "Item delete ho gaya",
         confirmClearHistoryTitle: "History clear kare?",
         resetDescription: `Ye option saara saved data delete kar dega <br> jaise shop name, language, bill history aur calculator history.`,
         resetConfirmTitle: "Saara data clear kare?",
@@ -146,6 +156,11 @@ const translations = {
         confirmOpenBillMsg: "Do you want to open this old bill? Editing will be disabled.",
         alertHistoryBillLocked: "Old bills cannot be edited.",
         newBillConfirmMsg: 'Current bill clear ho jayega. Ye action undo nahi hoga.',
+        confirmItemNameFinalizeTitle: "Continue?",
+        confirmItemNameFinalizeMsg: "After this, only add or delete is allowed. Editing will be disabled.",
+        confirmDeleteItemTitle: "Delete item?",
+        confirmDeleteItemMsg: "This item will be removed from the bill.",
+        itemDeletedSuccess: "Item deleted successfully",
         confirmClearHistoryTitle: "Clear history?",
         resetDescription: `This option will remove all saved data <br> including shop name, language, bill history and calculator history.`,
         resetConfirmTitle: "Reset App Data?",
@@ -169,12 +184,12 @@ const calculatorScreen = document.querySelector('.calculator-screen');
 const billScreen = document.querySelector('.bill-screen');
 const historyScreen = document.querySelector('.history-screen');
 const settingsScreen = document.querySelector('.settings-screen');
+const itemNameScreen = document.querySelector('.item-name-screen');
 
 // Modals
 const calcHistoryModal = document.querySelector('.calc-history-modal');
 const shopNameModal = document.querySelector('.shop-name-modal');
 const billInputModal = document.querySelector('.bill-input-modal');
-const itemNameModal = document.querySelector('.item-name-modal');
 const confirmModal = document.querySelector('.confirm-modal');
 const infoModal = document.querySelector('.info-modal');
 
@@ -186,6 +201,7 @@ const expressionDisplay = document.querySelector('.expression');
 const billDateDisplay = document.querySelector('.bill-date');
 const billItemsContainer = document.querySelector('.bill-items');
 const itemNameList = document.querySelector('.item-name-list');
+const addItemSctions = document.querySelector('.add-item-actions');
 
 // Calculator Display Elements
 const calcKulRakamValue = document.querySelector('.calc-kul-rakam-value');
@@ -224,6 +240,7 @@ const billButton = document.querySelector('.calc-btn.bill');
 const saveShopNameButton = document.querySelector('.save-shop-name');
 const confirmBillButton = document.querySelector('.confirm-bill');
 const cancelBillButton = document.querySelector('.cancel-bill');
+const addItemBtn = document.querySelector('.add-item-btn');
 const saveItemsBtn = document.querySelector('.save-items-btn');
 const skipItemsBtn = document.querySelector('.skip-items-btn');
 const newBillButton = document.querySelector('.new-bill-btn');
@@ -291,13 +308,7 @@ const calc = {
     // old bill lock flage for edit items
     let isHistoryBillOpen = false;
 
-    // jahanfuture me edit feature aayega
-    // if (isHistoryBillOpen) {
-    //     openInfoPopup(
-    //         translations[appState.language].alertHistoryBillLocked
-    //     );
-    //     return;
-    // }
+    let currentBillId = null;
 
 // ========================================
 // INITIALIZATION
@@ -325,7 +336,7 @@ function loadState() {
     try {
         const saved = JSON.parse(localStorage.getItem('smartBillingState')) || { };
         appState.shopName = saved.shopName || "";
-        appState.language = saved.language || "hindi";
+        appState.language = saved.language || "hinglish";
     } catch (error) {
         console.error('Error loading state:', error);
     }
@@ -683,6 +694,45 @@ function renderExpression() {
     expressionDisplay.textContent = expression || "0";
 }
 
+function renderItemInputList() {
+    itemNameList.innerHTML = "";
+
+    calc.items.forEach((item, index) => {
+        const row = document.createElement("div");
+        row.className = "item-name-row";
+
+        row.innerHTML = `
+            <div class="input-container-box">
+                <span>${index + 1}.</span>
+                <input 
+                    class="item-name-input"
+                    type="text"
+                    placeholder="Item name"
+                    data-index="${index}"
+                    value="${item.name || ""}"
+                >
+            </div>
+
+            <span>${item.op}</span>
+
+            <input 
+                class="item-value-input"
+                type="number"
+                placeholder="Item name"
+                data-index="${index}"
+                value="${item.value}"
+            >
+
+            <button class="delete-item-btn" data-index="${index}">
+
+            </button>
+        `;
+
+        itemNameList.appendChild(row);
+    });
+
+}
+
 function renderBillHistory() {
     const list = document.querySelector('.history-list');
     list.innerHTML = "";
@@ -724,13 +774,13 @@ function renderCalcHistory() {
         div.className = "calc-history-item";
 
         div.innerHTML = `
+            <h3>Items: ${item.itemCount}</h3>
             <div class="calc-history-exp">
                 ${item.expression}
             </div>
             <div class="calc-history-total">
                 = ${item.total}
             </div>
-            <h3>Items: ${item.itemCount}</h3>
             <p>${item.date} ${item.time}</p>
         `;
 
@@ -740,6 +790,29 @@ function renderCalcHistory() {
 
         list.appendChild(div);
     });
+}
+
+function recalculateBill() {
+    let total = 0;
+
+    calc.items.forEach(item => {
+        if (item.op === "") {
+            total = item.value;
+        } else {
+            total = applyOperation(
+                total,
+                item.value,
+                item.op
+            );
+        }
+    });
+
+    calc.currentTotal = total;
+
+    kulRakamValue.textContent = formatNumber(total);
+    billItemsValue.textContent = calc.items.length;
+
+    return total;
 }
 
 // ========================================
@@ -870,7 +943,48 @@ function openItemNameScreen() {
         itemNameList.appendChild(row);
     });
 
-    itemNameModal.classList.add("active");
+    calculatorScreen.classList.remove('active')
+    itemNameScreen.classList.add("active");
+}
+
+function addItemInItemName(params) {
+    let addRow = document.querySelector('.add-item-name-row');
+
+    if (!addRow) {
+        addRow = document.createElement('div');
+        addRow.className = 'add-item-name-row add-item';
+
+        addRow.innerHTML = `
+            <span>${calc.items.length + 1}.</span>
+
+            <div class="add-name-input-container">
+                <input 
+                    class="add-item-name-input"
+                    type="text"
+                    placeholder="Item name"
+                >
+            </div>
+
+            <div class="add-value-input-container">
+                <input 
+                    class="add-item-oprator-input"
+                    type="text"
+                    value="+"
+                    disabled
+                >
+                <input 
+                    class="add-item-value-input"
+                    type="number"
+                    placeholder="value"
+                >
+            </div>
+        `;
+
+            itemNameList.appendChild(addRow);
+        }
+
+        addRow.classList.add('add-item');
+        addItemSctions.classList.add('opened');
 }
 
 function saveItemNames() {
@@ -880,6 +994,26 @@ function saveItemNames() {
         const index = Number(input.dataset.index);
         calc.items[index].name = input.value.trim();
     });
+
+    // check add item row
+    const addName = document.querySelector('.add-item-name-input');
+    const addValue = document.querySelector('.add-item-value-input');
+
+    if (addName && addValue && addValue.value !== '') {
+        calc.items.push({
+            name: addName.value.trim(),
+            op: '+',
+            value: Number(addValue.value)
+        });
+
+        recalculateBill();
+    }
+
+    const addRow = document.querySelector('.add-item-name-row');
+    if (addRow) addRow.remove();
+
+    itemNameScreen.classList.remove('active');
+    createBill();
 }
 
 // ========================================
@@ -897,6 +1031,40 @@ function openBillModal() {
     }
     
     billInputModal.classList.add('active');
+}
+
+function renderBillItems() {
+    let itemHtml = "";
+
+    calc.items.forEach((item, i) => {
+        const itemName = item.name && item.name.length > 0
+            ? item.name
+            : `Item ${i + 1}`;
+
+        itemHtml += `
+        <div class="bill-item" data-index="${i}">
+            <div class="bill-item-name">
+                <span class="item-number">${i + 1}.</span>
+                <span class="item-name">${itemName}</span>
+            </div>
+
+            <div class="bill-item-actions">
+                <button 
+                    class="delete-bill-item" 
+                    data-index="${i}"
+                >
+                    <i class="ri-close-circle-fill"></i>
+                </button>
+            </div>
+
+            <span class="item-amount">
+                ${item.op} ${formatNumber(item.value)}
+            </span>
+        </div>
+        `;
+    });
+
+    billItemsContainer.innerHTML = itemHtml;
 }
 
 function createBill() {
@@ -917,21 +1085,8 @@ function createBill() {
     const timeStr = now.toLocaleTimeString('hi-IN');
     billDateDisplay.textContent = `${dateStr} ${timeStr}`;
 
-    // Generate bill items HTML
-    let itemHtml = "";
-    calc.items.forEach((item, i) => {
-        const itemName = item.name && item.name.length > 0 ? item.name : `Item ${i + 1}`;
-    itemHtml += `
-        <div class="bill-item">
-            <div class="bill-item-name">
-                <span class="item-number">${i + 1}.</span>
-                <span class="item-name">${itemName}</span>
-            </div>
-            <span class="item-amount">${item.op} ${formatNumber(item.value)}</span>
-        </div>
-        `;
-    });
-    billItemsContainer.innerHTML = itemHtml;
+    // Render bill items
+    renderBillItems();
 
     // Update item count
     billItemsValue.textContent = calc.items.filter(i => i.value !== 0).length;
@@ -970,6 +1125,7 @@ function createBill() {
             kulBakaya: kulBakaya
         }
     };
+    currentBillId = billObject.id;
     billHistory.unshift(billObject);
     saveBillHistory();
 
@@ -1120,7 +1276,7 @@ function clearCalcHistory() {
         t.confirmClearCalcHistoryMsg,
         () => {
             calcHistory = [];
-            localStorage.getItem(CALC_HISTORY_KEY);
+            localStorage.remove(CALC_HISTORY_KEY);
             renderCalcHistory();
             openInfoPopup(t.calcHistoryCleared);
             calcHistoryModal.classList.remove('active');
@@ -1188,7 +1344,6 @@ function updateSettings() {
         return;
     }
 }
-
 
 // ========================================
 // LANGUAGE MANAGEMENT
@@ -1271,7 +1426,6 @@ equalButton.addEventListener('click', () => {
 
     equalConfirm();
 });
-
 clearButton.addEventListener('click', clearAll);
 deleteButton.addEventListener('click', backspace);
 
@@ -1279,18 +1433,14 @@ deleteButton.addEventListener('click', backspace);
 saveShopNameButton.addEventListener('click', saveShopName);
 
 // Item input name
-saveItemsBtn.addEventListener("click", () => {
-    saveItemNames();
-    itemNameModal.classList.remove("active")
-    createBill();
-});
-
+saveItemsBtn.addEventListener("click", saveItemNames);
+addItemBtn.addEventListener('click', addItemInItemName);
 skipItemsBtn.addEventListener("click", () => {
     openInfoPopup(translations[appState.language].alertSkipItemName);
 
     infoOkBtn.onclick = () => {
         infoModal.classList.remove("active");
-        itemNameModal.classList.remove("active");
+        itemNameScreen.classList.remove("active");
         createBill();
     }
 })
@@ -1312,6 +1462,61 @@ cancelBillButton.addEventListener('click', () => {
     billInputModal.classList.remove('active');
 });
 newBillButton.addEventListener('click', openNewBillConfirm);
+
+// Bill item Delete
+billItemsContainer.addEventListener('click', (e) => {
+    const deleteBtn = e.target.closest('.delete-bill-item');
+    if (!deleteBtn) return;
+
+    if (isHistoryBillOpen) {
+        openInfoPopup(
+            translations[appState.language].alertHistoryBillLocked
+        );
+        return;
+    }
+
+    const index = Number(deleteBtn.dataset.index);
+    const t = translations[appState.language];
+
+    openConfirmModal(
+        t.confirmDeleteItemTitle,
+        t.confirmDeleteItemMsg,
+        () => {
+            const itemDiv = deleteBtn.closest('.bill-item');
+            itemDiv.classList.add('removing');
+
+            setTimeout(() => {
+                calc.items.splice(index, 1);
+
+                const newTotal = recalculateBill();
+
+                // UPDATE BILL HISTORY
+                const billIndex = billHistory.findIndex(
+                    b => b.id === currentBillId
+                );
+
+                if (billIndex !== -1) {
+                    billHistory[billIndex].items = [...calc.items];
+                    billHistory[billIndex].summary.kulRakam = newTotal;
+                    billHistory[billIndex].summary.kulBakaya =
+                        newTotal +
+                        billHistory[billIndex].summary.pehelKa -
+                        billHistory[billIndex].summary.jama;
+
+                    saveBillHistory();
+                }
+
+                renderBillItems();
+            }, 300);
+
+            // Success popup 
+            setTimeout(() => {
+                openInfoPopup(t.itemDeletedSuccess);
+            }, 500);
+
+        }
+    );
+});
 
 // Calculator history 
 openCalcHistoryButton.addEventListener('click', openCalcHistory);
