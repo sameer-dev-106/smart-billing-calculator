@@ -763,6 +763,7 @@ SETTIING MODAL STYLES
     bottom: 0;
     right: 0;
     background: var(--light-bg);
+    z-index: 9;
     width: 100%;
     padding: 20px;
     display: flex;
@@ -829,14 +830,12 @@ SETTIING MODAL STYLES
     opacity: 0.6;
 }
 
-/* OLD: .reset-action */
 .reset-app-section {
     border-top: 1px solid #eee;
     padding-top: 16px;
     margin-bottom: 150px;
 }
 
-/* OLD: .resert-app */
 .reset-app-btn {
     background: #ff4d4d;
     color: #fff;
@@ -847,13 +846,11 @@ SETTIING MODAL STYLES
     font-size: 20px;
 }
 
-/* OLD: .description */
 .reset-description {
-    font-size: 22px;
+    font-size: 15px;
     opacity: 0.7;
     margin-top: 6px;
 }
-
 
 
 /* ========================================
