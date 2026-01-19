@@ -1,66 +1,124 @@
-/* ========================================
-CSS VARIABLES - Easy Customization
-======================================== */
 :root {
-    /* Primary Colors */
+    /* ===============================
+    PREMIUM PRIMARY COLORS
+    =============================== */
     --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --primary-color: #667eea;
-    --primary-dark: #764ba2;
+    --primary-color: #4F46E5;
+    --primary-dark: #7C3AED;
 
-    /* Secondary Colors */
-    --success-color: #28a745;
-    --danger-color: #e70c37;
-    --warning-color: #ffc107;
+    /* ===============================
+    STATUS COLORS
+    =============================== */
+    --success-color: #10B981;
+    --danger-color: #DC2626;
+    --warning-color: #F59E0B;
 
-    /* Neutral Colors */
-    --white: #ffffff;
+    /* ===============================
+    NEUTRAL COLORS
+    =============================== */
+    --white:#FFFFFF;
     --black: #000000;
-    --light-bg: #eaebed;
-    --dark-text: #303034;
-    --gray-text: #666;
-    --light-gray: #ddd;
+    --light-bg: #F8FAFC;
+    --dark-text: #1E293B;
+    --light-text: #F1F5F9;
+    --gray-text: #64748B;
+    --light-gray: #dddedf;
 
-    /* Button Colors */
-    --btn-bg: #303034;
-    --btn-operator: #aaa;
-    --btn-special: darkturquoise;
-    --btn-bill: rgb(230, 19, 19);
+    /* ===============================
+    BUTTON COLORS
+    =============================== */
+    --btn-bg: #c0c0c2;
+    --btn-operator: #CBD5E1;
+    --btn-special: #4F46E5;
+    --btn-bill: #DC2626;
 
-    /* === CALCULATOR BUTTON CUSTOMIZATION === */
+    /* ===============================
+    CALCULATOR BUTTON CONFIG
+    =============================== */
     --btn-number-weight: 600;
     --btn-radius: 50%;
 
-    /* Spacing */
-    --spacing-xs: 5px;
-    --spacing-sm: 10px;
-    --spacing-md: 15px;
-    --spacing-lg: 20px;
-    --spacing-xl: 30px;
+    /* ===============================
+    SPACING (px → rem)
+    base = 16px
+    =============================== */
+    --spacing-xs: 0.3125rem;   /* 5px */
+    --spacing-sm: 0.625rem;    /* 10px */
+    --spacing-md: 0.9375rem;   /* 15px */
+    --spacing-lg: 1.25rem;     /* 20px */
+    --spacing-xl: 1.875rem;    /* 30px */
 
-    /* Border Radius */
-    --radius-sm: 8px;
-    --radius-md: 10px;
-    --radius-lg: 15px;
-    --radius-xl: 20px;
+    /* ===============================
+    BORDER RADIUS
+    =============================== */
+    --radius-sm: 0.5rem;       /* 8px */
+    --radius-md: 0.625rem;     /* 10px */
+    --radius-lg: 0.9375rem;    /* 15px */
+    --radius-xl: 1.25rem;      /* 20px */
     --radius-round: 50%;
 
-    /* Shadows */
-    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 2px 5px rgba(0, 0, 0, 0.25);
-    --shadow-lg: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* ===============================
+    SHADOWS (Premium soft)
+    =============================== */
+    --shadow-sm: 0 0.125rem 0.25rem rgba(0,0,0,0.05);
+    --shadow-md: 0 0.25rem 0.75rem rgba(0,0,0,0.08);
+    --shadow-lg: 0 0.5rem 1.5rem rgba(0,0,0,0.12);
 
-    /* Font Sizes */
-    --font-xs: 14px;
-    --font-sm: 16px;
-    --font-md: 20px;
-    --font-lg: 25px;
-    --font-xl: 45px;
-    --font-xxl: 55px;
+    /* ===============================
+    FONT SIZES (px → rem)
+    =============================== */
+    --font-xs: 0.875rem;   /* 14px */
+    --font-sm: 1rem;       /* 16px */
+    --font-md: 1.25rem;    /* 20px */
+    --font-lg: 1.5625rem;  /* 25px */
+    --font-xl: 2.8125rem;  /* 45px */
+    --font-xxl: 3.4375rem; /* 55px */
 
-    /* Transitions */
-    --transition-fast: 0.2s ease;
-    --transition-normal: 0.3s ease;
+    /* ===============================
+    TRANSITIONS
+    =============================== */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.2s ease;
 }
+/* 
+@media (prefers-color-scheme: dark) {
+    :root {
+
+        --light-bg: #0F172A;
+        --dark-text: #F1F5F9;
+        --light-text: #1E293B;
+        --gray-text: #94A3B8;
+        --light-gray: #334155;
+
+        --btn-bg: #334155;
+        --btn-operator: #475569;
+        --btn-special: #6366F1;
+        --btn-bill: #EF4444;
+
+        --primary-color: #60A5FA;
+        --primary-dark: #818CF8;
+
+        --shadow-sm: 0 0.125rem 0.25rem rgba(0,0,0,0.4);
+        --shadow-md: 0 0.25rem 0.75rem rgba(0,0,0,0.5);
+        --shadow-lg: 0 0.5rem 1.5rem rgba(0,0,0,0.6);
+    }
+} */
+
+[data-theme="dark"] {
+    --light-bg: #0F172A;
+    --dark-text: #F1F5F9;
+    --gray-text: #94A3B8;
+    --light-gray: #334155;
+
+    --btn-bg: #334155;
+    --btn-operator: #475569;
+    --btn-special: #6366F1;
+    --btn-bill: #EF4444;
+
+    --primary-color: #60A5FA;
+    --primary-dark: #818CF8;
+}
+
 
 /* ========================================
 RESET & BASE STYLES
@@ -190,7 +248,7 @@ CALCULATOR SCREEN
     font-weight: 500;
     font-size: var(--font-sm);
     border-radius: var(--radius-xl);
-    background: var(--white);
+    background: var(--light-bg);
     box-shadow: var(--shadow-md);
 }
 
@@ -234,10 +292,10 @@ CALCULATOR SCREEN
     user-select: none;
     width: 100%;
     padding: 1rem;
-    border-top: 5px solid var(--black);
+    border-top: 5px solid var(--dark-text);
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
-    background: var(--white);
+    background: var(--light-bg);
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
@@ -255,12 +313,12 @@ CALCULATOR SCREEN
 
 /* Calculator Buttons */
 .calc-keypad button {
-    width: 74px;
-    height: 74px;
-    font-size: 37px;
+    width: 4rem;
+    height: 4rem;
+    font-size: var(--font-lg);
     font-weight: var(--btn-number-weight);
     border-radius: var(--btn-radius);
-    color: var(--white);
+    color: var(--dark-text);
     background-color: var(--btn-bg);
     border: none;
     cursor: pointer;
@@ -278,13 +336,14 @@ button.operator {
     font-size: var(--font-xl);
     font-weight: 700;
     background-color: var(--btn-operator);
-    color: var(--black);
+    color: var(--white);
 }
 
 button.equal,
 button.clear,
 button.delete {
     font-size: var(--font-lg);
+    color: var(--white);
     background-color: var(--btn-special);
 }
 
@@ -316,7 +375,6 @@ button.bill {
 
 .calc-btn.operator[value="×"] {
     background: #facc15;
-    color: var(--black);
 }
 
 .calc-btn.operator[value="÷"] {
@@ -365,8 +423,8 @@ BILL SCREEN
     height: 80px;
     border-radius: var(--radius-round);
     text-align: center;
-    color: #000;
-    background-color: #fff;
+    color: var(--dark-text);
+    background-color: var(--white);
     object-fit: cover;
     object-position: center;
     overflow: hidden;
@@ -425,7 +483,8 @@ BILL SCREEN
     gap: 10px;
     padding: 2px 8px;
     margin-bottom: var(--spacing-sm);
-    background-color: var(--white);
+    color: var(--dark-text);
+    background: var(--light-gray);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
 }
@@ -499,7 +558,8 @@ BILL SCREEN
     border-top: 4px solid var(--primary-dark);
     border-top-left-radius: var(--radius-xl);
     border-top-right-radius: var(--radius-xl);
-    background: var(--white);
+    color: var(--dark-text);
+    background: var(--light-bg);
     font-size: var(--font-md);
     font-weight: 600;
 }
@@ -527,7 +587,7 @@ BILL SCREEN
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-sm);
     flex-shrink: 0;
-    background: var(--white);
+    background: var(--light-bg);
 }
 
 .bill-actions button {
@@ -557,7 +617,7 @@ BILL SCREEN
 
 .bill-footer {
     text-align: center;
-    background-color: #fff;
+    color: var(--dark-text);
     padding-bottom: 4px;
 }
 
@@ -568,7 +628,7 @@ BILL HISTORY SCREEN
     flex-direction: column;
     height: 100%;
     width: 100%;
-    background: #f5f5f5;
+    background: var(--light-bg);
     position: relative;
 }
 
@@ -630,7 +690,8 @@ BILL HISTORY SCREEN
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    background: var(--white);
+    color: var(--dark-text);
+    background: var(--light-gray);
     padding: 10px 20px;
     margin-bottom: var(--spacing-md);
     border-radius: var(--radius-md);
@@ -673,7 +734,7 @@ BILL HISTORY SCREEN
     border: none;
     padding: var(--spacing-md) 18px;
     border-radius: var(--radius-md);
-    color: var(--white);
+    color: var(--dark-text);
     background: var(--danger-color);
     font-size: var(--font-md);
     font-weight: 700;
@@ -692,6 +753,7 @@ SETTIING MODAL STYLES
     width: 100%;
     height: 100%;
     flex-direction: column;
+    color: var(--dark-text);
     background: var(--light-bg);
     position: relative;
 }
@@ -770,6 +832,8 @@ SETTIING MODAL STYLES
     user-select: text;
     font-size: var(--font-md);
     padding: var(--spacing-sm);
+    color: var(--dark-text);
+    background: var(--light-bg);
     margin-bottom: 10px;
     border: 2px solid var(--light-gray);
     border-radius: var(--radius-md);
@@ -789,7 +853,8 @@ SETTIING MODAL STYLES
     border: 2px solid var(--light-gray);
     border-radius: var(--radius-sm);
     font-size: var(--font-sm);
-    background: var(--white);
+    color: var(--dark-text);
+    background: var(--light-bg);
     cursor: pointer;
     transition: border-color var(--transition-normal);
 }
@@ -879,7 +944,7 @@ SETTIING MODAL STYLES
 
 .reset-app-btn {
     background: #ff4d4d;
-    color: #fff;
+    color: var(--white);
     border: none;
     padding: 10px;
     border-radius: 8px;
@@ -924,7 +989,8 @@ MODAL BASE STYLES
     justify-content: center;
     padding: 20px 10px;
     border-radius: 20px;
-    background: var(--white);
+    color: var(--dark-text);
+    background: var(--light-bg);
 }
 
 .modal-overlay .calc-name {
@@ -933,7 +999,7 @@ MODAL BASE STYLES
     text-align: center;
     position: fixed;
     top: 3%;
-    color: #fff;
+    color: var(--white);
     font-size: 20px;
     padding: 10px;
     background: rgba(255, 255, 255, 0.249);
@@ -960,6 +1026,8 @@ MODAL BASE STYLES
     user-select: text;
     font-size: var(--font-md);
     padding: var(--spacing-sm);
+    background: var(--light-gray);
+    color: var(--dark-text);
     border: 2px solid var(--light-gray);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
@@ -1061,7 +1129,8 @@ Caculator History MODAL STYLES
 }
 
 .calc-history-item {
-    background: var(--white);
+    color: var(--dark-text);
+    background: var(--light-gray);
     padding: 10px 20px;
     margin-bottom: var(--spacing-sm);
     border-radius: var(--radius-md);
@@ -1098,7 +1167,7 @@ Caculator History MODAL STYLES
 
 .modal-action .clear-calc-history-btn {
     background: var(--danger-color);
-    color: #fff;
+    color: var(--white);
     font-weight: 700;
     border: none;
     padding: 14px;
@@ -1178,7 +1247,7 @@ ITEM NAME SCREEEN
     flex-direction: column;
     height: 100%;
     width: 100%;
-    background: var(--white);
+    background: var(--light-bg);
     position: relative;
 }
 
@@ -1188,19 +1257,27 @@ ITEM NAME SCREEEN
     background: var(--primary-gradient);
 }
 
-.item-name-header>h1 {
+.item-name-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.item-name-navbar>h1 {
     font-size: var(--font-lg);
     margin-bottom: 10px;
     text-transform: capitalize;
-    text-align: center;
+    /* text-align: center; */
+    max-width: 250px;
 }
 
 .item-name-inputs-labal {
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-around;
     gap: 10px;
-    /* justify-content: space-between; */
     text-align: center;
     background: rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-md);
@@ -1246,7 +1323,8 @@ ITEM NAME SCREEEN
     align-items: center;
     justify-content: space-between;
     padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--light-bg);
+    color: var(--white);
+    background: var(--light-gray);
     border-radius: 10px;
 }
 
@@ -1291,13 +1369,14 @@ ITEM NAME SCREEEN
 .add-item-value-input {
     width: 100%;
     user-select: text;
+    background: var(--light-bg);
+    color: var(--white);
     font-size: var(--font-md);
     padding: var(--spacing-sm);
     border: 2px solid var(--light-gray);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
     transition: border-color var(--transition-normal);
-
 }
 
 .item-name-row span {
@@ -1305,8 +1384,7 @@ ITEM NAME SCREEEN
     font-weight: 500;
 }
 
-.item-name-action-btn,
-.add-item-actions {
+.item-name-action-btn {
     width: 100%;
     user-select: none;
     display: flex;
@@ -1319,11 +1397,21 @@ ITEM NAME SCREEEN
 }
 
 .add-item-actions {
-    margin-bottom: 200px;
+    /* background-color: crimson; */
+    padding: var(--spacing-sm);
 }
 
 .add-item-actions.opened {
     opacity: 0;
+}
+
+.add-item-btn {
+    padding: var(--spacing-xs) 0.5rem;
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.2);
+    font-size: var(--font-xs);
+    border: none;
+    border-radius: var(--radius-md);
 }
 
 .item-name-action-btn {
@@ -1341,8 +1429,7 @@ ITEM NAME SCREEEN
     justify-content: center;
 }
 
-.item-name-action-btn button,
-.add-item-btn {
+.item-name-action-btn button {
     width: 90%;
     color: var(--white);
     width: 100%;
@@ -1359,7 +1446,7 @@ ITEM NAME SCREEEN
 .add-item-btn:active {
     transform: scale(0.95);
 }
-.add-item-btn { background-color: var(--btn-bg) }
+
 .save-items-btn { background-color: var(--success-color) }
 .skip-items-btn { background-color: var(--danger-color) }
 
