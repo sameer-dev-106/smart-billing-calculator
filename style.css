@@ -734,7 +734,7 @@ BILL HISTORY SCREEN
     border: none;
     padding: var(--spacing-md) 18px;
     border-radius: var(--radius-md);
-    color: var(--dark-text);
+    color: var(--white);
     background: var(--danger-color);
     font-size: var(--font-md);
     font-weight: 700;
@@ -1323,7 +1323,7 @@ ITEM NAME SCREEEN
     align-items: center;
     justify-content: space-between;
     padding: var(--spacing-sm) var(--spacing-md);
-    color: var(--white);
+    color: var(--dark-text);
     background: var(--light-gray);
     border-radius: 10px;
 }
