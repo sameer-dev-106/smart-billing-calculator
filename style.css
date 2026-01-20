@@ -19,15 +19,19 @@
     --white:#FFFFFF;
     --black: #000000;
     --light-bg: #F8FAFC;
+    --light-gray-bg: #dddedf;
     --dark-text: #1E293B;
     --light-text: #F1F5F9;
     --gray-text: #64748B;
     --light-gray: #dddedf;
 
+    --overlay-light: rgba(255, 255, 255, 0.2);
+    --overlay-dark: rgba(0, 0, 0, 0.454);
+
     /* ===============================
     BUTTON COLORS
     =============================== */
-    --btn-bg: #c0c0c2;
+    --btn-bg: #f0f0f0;
     --btn-operator: #CBD5E1;
     --btn-special: #4F46E5;
     --btn-bill: #DC2626;
@@ -36,7 +40,6 @@
     CALCULATOR BUTTON CONFIG
     =============================== */
     --btn-number-weight: 600;
-    --btn-radius: 50%;
 
     /* ===============================
     SPACING (px → rem)
@@ -55,24 +58,31 @@
     --radius-md: 0.625rem;     /* 10px */
     --radius-lg: 0.9375rem;    /* 15px */
     --radius-xl: 1.25rem;      /* 20px */
+    --radius-2xl: 1.875rem;    /* 30px */
     --radius-round: 50%;
+
+    /* ===============================
+    FONT SIZES (px → rem)
+    =============================== */
+    --font-xs: clamp(0.6875rem, 2.5vw, 0.75rem);    /* 11px - 12px */ 
+    --font-sm: clamp(0.8125rem, 3vw, 0.875rem);     /* 13px - 14px */ 
+    --font-md: clamp(1rem, 3.5vw, 1.125rem);        /* 16px - 18px */ 
+    --font-lg: clamp(1.25rem, 4.5vw, 1.375rem);     /* 20px - 22px */ 
+    --font-xl: clamp(1.5rem, 5.5vw, 1.75rem);       /* 24px - 28px */ 
+    --font-2xl: clamp(1.75rem, 6.5vw, 2rem);        /* 28px - 32px */ 
+    --font-3xl: clamp(2rem, 8vw, 2.5rem);           /* 32px - 40px */ 
+    --font-4xl: clamp(2.5rem, 10vw, 3rem);          /* 40px - 48px */ 
+    --font-display-huge: clamp(3rem, 12vw, 4rem);   /* 48px - 64px */
 
     /* ===============================
     SHADOWS (Premium soft)
     =============================== */
     --shadow-sm: 0 0.125rem 0.25rem rgba(0,0,0,0.05);
     --shadow-md: 0 0.25rem 0.75rem rgba(0,0,0,0.08);
-    --shadow-lg: 0 0.5rem 1.5rem rgba(0,0,0,0.12);
+    --shadow-lg: 0 0 1.5rem rgba(0,0,0,0.12);
 
-    /* ===============================
-    FONT SIZES (px → rem)
-    =============================== */
-    --font-xs: 0.875rem;   /* 14px */
-    --font-sm: 1rem;       /* 16px */
-    --font-md: 1.25rem;    /* 20px */
-    --font-lg: 1.5625rem;  /* 25px */
-    --font-xl: 2.8125rem;  /* 45px */
-    --font-xxl: 3.4375rem; /* 55px */
+    --btn-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.473); 
+    --btn-shadow-active: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.15);
 
     /* ===============================
     TRANSITIONS
@@ -80,15 +90,19 @@
     --transition-fast: 0.15s ease;
     --transition-normal: 0.2s ease;
 }
-/* 
+
 @media (prefers-color-scheme: dark) {
     :root {
 
         --light-bg: #0F172A;
+        --light-gray-bg: #1a2641;
         --dark-text: #F1F5F9;
         --light-text: #1E293B;
         --gray-text: #94A3B8;
         --light-gray: #334155;
+
+        --overlay-light: rgba(255, 253, 253, 0.2);
+        --overlay-dark: rgba(73, 73, 73, 0.454);
 
         --btn-bg: #334155;
         --btn-operator: #475569;
@@ -98,11 +112,11 @@
         --primary-color: #60A5FA;
         --primary-dark: #818CF8;
 
-        --shadow-sm: 0 0.125rem 0.25rem rgba(0,0,0,0.4);
-        --shadow-md: 0 0.25rem 0.75rem rgba(0,0,0,0.5);
-        --shadow-lg: 0 0.5rem 1.5rem rgba(0,0,0,0.6);
+        --shadow-sm: 0 0.125rem 0.25rem rgba(255, 255, 255, 0.4);
+        --shadow-md: 0 0.25rem 0.75rem rgba(255, 255, 255, 0.5);
+        --shadow-lg: 0 0 0.5rem rgba(196, 193, 193, 0.6);
     }
-} */
+}
 
 [data-theme="dark"] {
     --light-bg: #0F172A;
@@ -187,7 +201,7 @@ CALCULATOR SCREEN
     height: 100%;
     width: 100%;
     min-width: 360px;
-    background-color: var(--light-bg);
+    background: var(--light-gray-bg);
     flex-direction: column;
     position: relative;
 }
@@ -213,13 +227,13 @@ CALCULATOR SCREEN
 }
 
 .calc-header h1 {
-    font-size: var(--font-md);
+    font-size: var(--font-lg);
     font-weight: 600;
     max-width: 250px;
 }
 
 .settings-btn {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--overlay-light);
     border: none;
     color: var(--white);
     width: 40px;
@@ -249,7 +263,7 @@ CALCULATOR SCREEN
     font-size: var(--font-sm);
     border-radius: var(--radius-xl);
     background: var(--light-bg);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
 }
 
 .calc-items-label,
@@ -270,12 +284,12 @@ CALCULATOR SCREEN
 .calc-display {
     flex: 1;
     min-width: 360px;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-xl);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    font-size: 30px;
+    font-size: var(--font-2xl);
     font-weight: 600;
     line-height: 1.2;
     overflow-y: auto;
@@ -293,6 +307,7 @@ CALCULATOR SCREEN
     width: 100%;
     padding: 1rem;
     border-top: 5px solid var(--dark-text);
+    box-shadow: 0 -6px 16px rgba(0,0,0,0.25);
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     background: var(--light-bg);
@@ -314,13 +329,15 @@ CALCULATOR SCREEN
 /* Calculator Buttons */
 .calc-keypad button {
     width: 4rem;
-    height: 4rem;
-    font-size: var(--font-lg);
+    height: 3rem;
+    font-size: var(--font-xl);
     font-weight: var(--btn-number-weight);
-    border-radius: var(--btn-radius);
+    border-radius: var(--radius-2xl);
+    margin: 3px;
     color: var(--dark-text);
-    background-color: var(--btn-bg);
+    background: var(--btn-bg);
     border: none;
+    box-shadow: var(--btn-shadow);
     cursor: pointer;
     transition: transform var(--transition-fast);
     display: flex;
@@ -333,7 +350,7 @@ CALCULATOR SCREEN
 }
 
 button.operator {
-    font-size: var(--font-xl);
+    font-size: var(--font-3xl);
     font-weight: 700;
     background-color: var(--btn-operator);
     color: var(--white);
@@ -348,17 +365,17 @@ button.delete {
 }
 
 button.delete {
-    font-size: 35px;
+    font-size: var(--font-2xl);
 }
 
 button.equal {
-    font-size: var(--font-xl);
+    font-size: var(--font-3xl);
 }
 
 button.bill {
     width: 160px;
     font-size: var(--font-lg);
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     font-weight: 700;
     letter-spacing: 1.5px;
     background-color: var(--btn-bill);
@@ -394,7 +411,7 @@ BILL SCREEN
 /* Bill Header */
 .bill-header {
     width: 100%;
-    min-height: 120px;
+    min-height: 7.5rem;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -419,8 +436,8 @@ BILL SCREEN
 
 .shop-details .logo {
     flex-shrink: 0;
-    width: 80px;
-    height: 80px;
+    width: 5rem;
+    height: 5rem;
     border-radius: var(--radius-round);
     text-align: center;
     color: var(--dark-text);
@@ -431,7 +448,7 @@ BILL SCREEN
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 40px;
+    font-size: var(--font-4xl);
 }
 
 .shop-details .logo img {
@@ -459,7 +476,7 @@ BILL SCREEN
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--overlay-light);
     border-radius: var(--radius-md);
     padding: var(--spacing-sm) var(--spacing-lg);
     font-size: var(--font-md);
@@ -473,14 +490,14 @@ BILL SCREEN
     overflow-y: auto;
     word-break: break-all;
     background: var(--light-bg);
-    padding-bottom: 120px;
+    padding-bottom: 7rem;
 }
 
 .bill-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    gap: var(--spacing-sm);
     padding: 2px 8px;
     margin-bottom: var(--spacing-sm);
     color: var(--dark-text);
@@ -506,7 +523,7 @@ BILL SCREEN
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: var(--spacing-sm);
 }
 
 .bill-item-name .item-name {
@@ -525,17 +542,17 @@ BILL SCREEN
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: var(--spacing-sm);
     opacity: 0.2;
 }
 
 .bill-item-actions button {
     border: none;
-    font-size: 20px;
+    font-size: var(--font-lg);
     background: transparent;
     border: none;
-    width: 20px;
-    height: 40px;
+    width: 1.25rem;
+    height: 2.5rem;
     font-size: var(--font-md);
     cursor: pointer;
     transition: transform var(--transition-normal);
@@ -572,7 +589,7 @@ BILL SCREEN
 }
 
 .summary-row.total {
-    font-size: 26px;
+    font-size: var(--font-xl);
     font-weight: 700;
     color: var(--primary-color);
     border-top: 3px solid var(--gray-text);
@@ -591,7 +608,7 @@ BILL SCREEN
 }
 
 .bill-actions button {
-    padding: 14px;
+    padding: var(--font-sm);
     border: none;
     border-radius: var(--radius-sm);
     font-size: var(--font-sm);
@@ -618,7 +635,7 @@ BILL SCREEN
 .bill-footer {
     text-align: center;
     color: var(--dark-text);
-    padding-bottom: 4px;
+    padding-bottom: 0.25rem;
 }
 
 /* ========================================
@@ -638,7 +655,7 @@ BILL HISTORY SCREEN
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: var(--spacing-lg);
     padding: var(--spacing-sm);
     color: var(--white);
     background: var(--primary-gradient);
@@ -649,7 +666,7 @@ BILL HISTORY SCREEN
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 5px;
+    padding-top: 0.25rem;
 }
 
 .history-labal {
@@ -657,7 +674,7 @@ BILL HISTORY SCREEN
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--overlay-light);
     border-radius: var(--radius-md);
     padding: var(--spacing-sm) var(--spacing-lg);
     font-size: var(--font-sm);
@@ -665,7 +682,7 @@ BILL HISTORY SCREEN
 }
 
 .close-bill-history-btn {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--overlay-light);
     border: none;
     color: var(--white);
     width: 40px;
@@ -689,10 +706,10 @@ BILL HISTORY SCREEN
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: var(--spacing-lg);
     color: var(--dark-text);
     background: var(--light-gray);
-    padding: 10px 20px;
+    padding: var(--spacing-sm) var(--spacing-md);
     margin-bottom: var(--spacing-md);
     border-radius: var(--radius-md);
     box-sizing: var(--shadow-sm);
@@ -710,7 +727,7 @@ BILL HISTORY SCREEN
 
 .history-item .name{
     font-weight: 600;
-    font-size: 20px;
+    font-size: var(--font-lg);
 }
 
 .history-item .amount {
@@ -763,18 +780,18 @@ SETTIING MODAL STYLES
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: var(--spacing-lg);
     padding: var(--spacing-md) var(--spacing-sm);
     color: var(--white);
     background: var(--primary-gradient);
 }
 
 .close-settings {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--overlay-light);
     border: none;
     color: var(--white);
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: var(--radius-round);
     font-size: var(--font-md);
     font: 900;
@@ -808,7 +825,7 @@ SETTIING MODAL STYLES
 .setting-item h2 {
     text-align: center;
     border-bottom: 2px solid;
-    margin: 15px;
+    margin: var(--spacing-md);
 }
 
 .setting-item {
@@ -820,7 +837,7 @@ SETTIING MODAL STYLES
 
 .setting-item label {
     display: block;
-    padding-left: 10px;
+    padding-left: var(--spacing-sm);
     margin-bottom: var(--spacing-sm);
     color: var(--dark-text);
     font-weight: 600;
@@ -849,7 +866,7 @@ SETTIING MODAL STYLES
 
 .setting-item select {
     width: 100%;
-    padding: 12px;
+    padding: var(--spacing-sm);
     border: 2px solid var(--light-gray);
     border-radius: var(--radius-sm);
     font-size: var(--font-sm);
@@ -871,17 +888,17 @@ SETTIING MODAL STYLES
     background: var(--light-bg);
     z-index: 9;
     width: 100%;
-    padding: 20px;
+    padding: var(--spacing-lg);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--spacing-sm);
     align-items: center;
     justify-content: center;
 }
 
 .update-settings {
     width: 100%;
-    padding: 12px;
+    padding: var(--spacing-sm);
     background: var(--success-color);
     color: var(--white);
     border: none;
@@ -901,7 +918,7 @@ SETTIING MODAL STYLES
     background: var(--primary-gradient);
     border: none;
     border-radius: var(--radius-md);
-    padding: 10px;
+    padding: var(--spacing-sm);
     cursor: pointer;
     transition: transform var(--transition-normal);
 }
@@ -931,31 +948,31 @@ SETTIING MODAL STYLES
 }
 
 .user-details-content {
-    margin: 30px 0;
+    margin: var(--spacing-xl) 0;
     pointer-events: none;
     opacity: 0.6;
 }
 
 .reset-app-section {
     border-top: 1px solid #eee;
-    padding-top: 16px;
-    margin-bottom: 150px;
+    padding-top: var(--spacing-md);
+    margin-bottom: 9.38rem;
 }
 
 .reset-app-btn {
     background: #ff4d4d;
     color: var(--white);
     border: none;
-    padding: 10px;
-    border-radius: 8px;
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-sm);
     font-weight: 600;
-    font-size: 20px;
+    font-size: var(--font-lg);
 }
 
 .reset-description {
-    font-size: 15px;
+    font-size: var(--font-sm);
     opacity: 0.7;
-    margin-top: 6px;
+    margin-top: var(--spacing-xs);
 }
 
 
@@ -967,8 +984,8 @@ MODAL BASE STYLES
     height: 100%;
     position: fixed;
     top: 0;
-    background: rgba(0, 0, 0, 0.454);
-    backdrop-filter: blur(4px);
+    background: var(--overlay-dark);
+    backdrop-filter: blur(6px);
     display: none;
     flex-direction: column;
     align-items: center;
@@ -981,13 +998,13 @@ MODAL BASE STYLES
 }
 
 .modal {
-    max-width: 90%;
-    max-height: 580px;
+    width: 90%;
+    max-height: 36.25rem;   /* 580px */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px 10px;
+    padding: var(--spacing-lg) var(--spacing-sm);
     border-radius: 20px;
     color: var(--dark-text);
     background: var(--light-bg);
@@ -995,15 +1012,15 @@ MODAL BASE STYLES
 
 .modal-overlay .calc-name {
     user-select: none;
-    max-width: 250px;
+    max-width: 15.63rem;    /* 250px */
     text-align: center;
     position: fixed;
     top: 3%;
     color: var(--white);
-    font-size: 20px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.249);
-    border-radius: 10px;
+    font-size: var(--font-lg);
+    padding: var(--spacing-md);
+    background: var(--overlay-light);
+    border-radius: var(--radius-md);
 }
 
 .modal-box {
@@ -1067,9 +1084,9 @@ MODAL BASE STYLES
 /* Subh Labh Logo */
 .subh-labh-logo {
     user-select: none;
-    width: 200px;
+    width: 12.5rem;     /* 200px */
     margin-bottom: var(--spacing-lg);
-    font-size: 60px;
+    font-size: 3.75rem;    /* 60px */
     text-align: center;
 }
 
@@ -1101,8 +1118,8 @@ Caculator History MODAL STYLES
     background: var(--btn-bg);
     color: var(--white);
     border: none;
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: var(--radius-round);
     font-size: var(--font-md);
     cursor: pointer;
@@ -1119,11 +1136,11 @@ Caculator History MODAL STYLES
 
 .calc-history-list {
     user-select: text !important;
-    max-height: 350px;
+    max-height: 21.88rem;   /* 350px */
     flex: 1;
     overflow-y: auto;
     word-break: break-all;
-    padding: 10px;
+    padding: var(--spacing-sm);
     padding-bottom: 0;
     background: var(--light-bg);
 }
@@ -1131,7 +1148,7 @@ Caculator History MODAL STYLES
 .calc-history-item {
     color: var(--dark-text);
     background: var(--light-gray);
-    padding: 10px 20px;
+    padding: var(--spacing-sm) var(--spacing-lg);
     margin-bottom: var(--spacing-sm);
     border-radius: var(--radius-md);
     box-sizing: var(--shadow-sm);
@@ -1143,21 +1160,21 @@ Caculator History MODAL STYLES
 
 .calc-history-exp {
     text-align: right;
-    font-size: 20px;
+    font-size: var(--spacing-lg);
 }
 
 .calc-history-total {
     text-align: right;
     color: #22c55e;
-    font-size: 30px;
+    font-size: var(--spacing-xl);
     font-weight: bold;
 }
 
 .calc-history-header>h3 {
-    font-size: 25px;
+    font-size: var(--font-xl);
     text-align: left;
-    padding-bottom: 5px;
-    margin-bottom: 20px;
+    padding-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-lg);
     border-bottom: 3px solid var(--black);
 }
 
@@ -1170,7 +1187,7 @@ Caculator History MODAL STYLES
     color: var(--white);
     font-weight: 700;
     border: none;
-    padding: 14px;
+    padding: var(--spacing-md);
 }
 
 /* ========================================
@@ -1226,7 +1243,7 @@ INFO POPUP MODAL STYLES
     font-weight: 600;
     text-align: center;
     line-height: 1.4;
-    margin: 10px 0;
+    margin: var(--spacing-sm) 0;
 }
 
 .modal-action,
@@ -1261,15 +1278,14 @@ ITEM NAME SCREEEN
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: var(--spacing-lg);
 }
 
 .item-name-navbar>h1 {
     font-size: var(--font-lg);
-    margin-bottom: 10px;
+    margin-bottom: var(--spacing-sm);
     text-transform: capitalize;
-    /* text-align: center; */
-    max-width: 250px;
+    max-width: 15.63rem;    /* 250px */
 }
 
 .item-name-inputs-labal {
@@ -1277,44 +1293,45 @@ ITEM NAME SCREEEN
     display: flex;
     align-items: center;
     justify-content: space-around;
-    gap: 10px;
+    gap: var(--spacing-sm);
     text-align: center;
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--overlay-light);
     border-radius: var(--radius-md);
-    padding: var(--spacing-sm) 5px;
+    padding: var(--spacing-sm) var(--spacing-xs);
     font-size: var(--font-sm);
     font-weight: 600;
 }
 
 .item-name-inputs-labal>p {
-    max-width: 40px;
+    max-width: 2.5rem;  /* 40px */
 }
 
 .item-name-inputs-labal .item-name-labal {
-    max-width: 100px;
-    margin-right: 60px;
+    max-width: 6.25rem;     /* 100px */
+    margin-right: 3.75rem;  /* 60px */
 }
 
 .item-name-inputs-labal .item-operator-labal {
-    margin-right: 40px;
+    margin-right: 2.5rem;
 }
 
 .items-inputs-container {
     flex: 1;
     width: 100%;
     height: auto;
-    padding: 5px;
+    padding: var(--spacing-xs);
     overflow-y: auto;
     word-break: break-all;
+    padding-bottom: 19rem;      /* ~300px */
 }
 
 .item-name-list {
     width: 100%;
-    padding: 5px;
+    padding: var(--spacing-xs);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: var(--spacing-sm);
 }
 
 .item-name-row {
@@ -1323,9 +1340,9 @@ ITEM NAME SCREEEN
     align-items: center;
     justify-content: space-between;
     padding: var(--spacing-sm) var(--spacing-md);
-    color: var(--white);
+    color: var(--dark-text);
     background: var(--light-gray);
-    border-radius: 10px;
+    border-radius: var(--spacing-sm);
 }
 
 .add-item-name-row {
@@ -1333,7 +1350,7 @@ ITEM NAME SCREEEN
     display: none;
     grid-template-columns: repeat(3, auto);
     align-items: center;
-    background: var(--light-bg);
+    background: var(--light-gray);
     padding: var(--spacing-sm);
     border-radius: var(--radius-md);
 }
@@ -1343,24 +1360,25 @@ ITEM NAME SCREEEN
 }
 
 .add-item-name-row.add-item span {
+    color: var(--dark-text);
     font-size: var(--font-md);
     font-weight: 700;
 }
 
 .item-name-input {
-    max-width: 200px;
+    max-width: 12.5rem;     /* 250px */
 }
 .add-item-name-input {
-    max-width: 140px;
+    max-width: 8.75rem;     /* 140px */
 }
 
 .add-item-oprator-input {
     padding: 0;
-    max-width: 50px;
+    max-width: 3.13rem;     /* 50px */
 }
 
 .add-item-value-input {
-    max-width: 100px;
+    max-width: 6.25rem;     /* 100px */
 }
 
 .item-name-input,
@@ -1370,7 +1388,7 @@ ITEM NAME SCREEEN
     width: 100%;
     user-select: text;
     background: var(--light-bg);
-    color: var(--white);
+    color: var(--dark-text);
     font-size: var(--font-md);
     padding: var(--spacing-sm);
     border: 2px solid var(--light-gray);
@@ -1392,12 +1410,11 @@ ITEM NAME SCREEEN
     align-items: center;
     justify-content: center;
     gap: var(--spacing-md);
-    padding: 20px;
+    padding: var(--spacing-lg);
     margin-top: var(--spacing-sm);
 }
 
 .add-item-actions {
-    /* background-color: crimson; */
     padding: var(--spacing-sm);
 }
 
@@ -1408,7 +1425,7 @@ ITEM NAME SCREEEN
 .add-item-btn {
     padding: var(--spacing-xs) 0.5rem;
     color: var(--white);
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--overlay-light);
     font-size: var(--font-xs);
     border: none;
     border-radius: var(--radius-md);
@@ -1421,7 +1438,7 @@ ITEM NAME SCREEEN
     background: var(--light-bg);
     z-index: 9;
     width: 100%;
-    padding: 20px;
+    padding: var(--spacing-lg);
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -1491,7 +1508,7 @@ EQUAL CONFIRM POPUP
 .bill-items::-webkit-scrollbar-thumb,
 .calc-display::-webkit-scrollbar-thumb {
     background: var(--primary-color);
-    border-radius: 10px;
+    border-radius: var(--radius-md);
 }
 
 /* ========================================
@@ -1572,7 +1589,7 @@ RESPONSIVE DESIGN
         display: block !important;
         height: auto !important;
         overflow: visible !important;
-        border-radius: 20px !important;
+        border-radius: var(--radius-xl) !important;
     }
 
     .bill-header {
@@ -1595,14 +1612,14 @@ RESPONSIVE DESIGN
     }
 
     .bill-summary {
-        margin-top: 20px !important;
+        margin-top: var(--spacing-lg) !important;
         page-break-before: auto !important;
         page-break-inside: avoid !important;
     }
 
     .bill-footer {
-        border-bottom-left-radius: 20px !important;
-        border-bottom-right-radius: 20px !important;
+        border-bottom-left-radius: var(--radius-xl) !important;
+        border-bottom-right-radius: var(--radius-xl) !important;
     }
 }
 
