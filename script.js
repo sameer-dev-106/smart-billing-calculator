@@ -646,6 +646,11 @@ function appendNumber(num) {
         return;
     }
 
+    if (num === "." && calc.currentNumber === "" && expression !== "") {
+        calc.currentNumber = '0';
+        expression += '0';
+    }
+
     // Prevent multiple decimal points in same number
     if (num === "." && calc.currentNumber.includes(".")) return;
 
@@ -926,11 +931,10 @@ function updateDisplay(isEqual = false) {
         expressionDisplay.textContent = expression || "0";
     }
 
-    // Update totals and item count
+    // Update totals
     if (calc.justCalculated) {
         calcKulRakamValue.textContent = formatNumber(calc.currentTotal);
     } else {
-        // const liveTotal = evaluateExpressionWithPrecedence(expression);
         let liveTotal = 0;
         try {
             liveTotal = evaluateExpressionWithPrecedence(expression);
@@ -940,7 +944,17 @@ function updateDisplay(isEqual = false) {
         calcKulRakamValue.textContent = formatNumber(liveTotal);
     }
 
-    calcItemsValue.textContent = calc.items.filter(i => i.value !== 0).length;
+    // Update item count
+    let itemCount = 0;
+    
+    if (calc.justCalculated) {
+        itemCount = calc.items.length
+    } else {
+        const matches = expression.match(/\d+(\.\d+)?/g);
+        itemCount = matches ? matches.length : 0;
+    }
+    calcItemsValue.textContent = itemCount;
+
 
     // Update shop name if not set
     if (!appState.shopName) {

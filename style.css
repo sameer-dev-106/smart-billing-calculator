@@ -18,6 +18,7 @@
     =============================== */
     --white:#FFFFFF;
     --black: #000000;
+    --dark-bg: #6f6bdc;
     --light-bg: #F8FAFC;
     --light-gray-bg: #dddedf;
     --dark-text: #1E293B;
@@ -94,6 +95,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
 
+        --dark-bg: #0F172A;
         --light-bg: #0F172A;
         --light-gray-bg: #1a2641;
         --dark-text: #F1F5F9;
@@ -119,8 +121,9 @@
 }
 
 [data-theme="dark"] {
+    --dark-bg: #0F172A;
     --light-bg: #0F172A;
-    --light-gray-bg: #1a2641;
+    --light-gray-bg: #0F172A;
     --dark-text: #F1F5F9;
     --light-text: #1E293B;
     --gray-text: #94A3B8;
@@ -143,6 +146,7 @@
 }
 
 [data-theme="light"] {
+    --dark-bg: #6f6bdc;
     --light-bg: #F8FAFC;
     --light-gray-bg: #dddedf;
     --dark-text: #1E293B;
@@ -195,7 +199,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--primary-gradient);
+    background: var(--dark-bg);
 }
 
 /* ========================================
@@ -1597,7 +1601,7 @@ RESPONSIVE DESIGN
     html, body {
         height: auto !important;
         overflow: visible !important;
-        background: #6f6bdc !important;
+        background: var(--dark-bg) !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
     }
@@ -1605,7 +1609,7 @@ RESPONSIVE DESIGN
     main {
         height: auto !important;
         overflow: visible !important;
-        background: #6f6bdc !important;
+        background: var(--dark-bg) !important;
     }
 
     /* Hide non-bill UI */

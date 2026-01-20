@@ -231,6 +231,23 @@ To build a real shop-ready billing calculator that:
 
 ---
 
+## 🔐 Open Source, Product-First Approach
+
+This project is open source to support learning, transparency, and collaboration.
+
+However, Smart Billing Calculator is being developed as a real, shop-ready product,
+not just a demo or tutorial project.
+
+The public repository represents the open version of the app.
+Product decisions, UX improvements, and future features
+are driven by real user feedback and continuous iteration.
+
+Forking for learning and experimentation is welcome.
+Commercial redistribution without meaningful contribution
+goes against the spirit of this project.
+
+---
+
 ## 👤 Author
 
 **Sameer**
@@ -240,3 +257,9 @@ not just to show code.
 
 🔗 **Live Demo:**  
 https://sameer-dev-106.github.io/smart-billing-calculator/
+
+---
+
+## 📄 License
+
+This project is licensed under the Apache License 2.0.
