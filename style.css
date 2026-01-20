@@ -120,9 +120,14 @@
 
 [data-theme="dark"] {
     --light-bg: #0F172A;
+    --light-gray-bg: #1a2641;
     --dark-text: #F1F5F9;
+    --light-text: #1E293B;
     --gray-text: #94A3B8;
     --light-gray: #334155;
+
+    --overlay-light: rgba(255, 253, 253, 0.2);
+    --overlay-dark: rgba(73, 73, 73, 0.454);
 
     --btn-bg: #334155;
     --btn-operator: #475569;
@@ -131,6 +136,10 @@
 
     --primary-color: #60A5FA;
     --primary-dark: #818CF8;
+
+    --shadow-sm: 0 0.125rem 0.25rem rgba(255, 255, 255, 0.4);
+    --shadow-md: 0 0.25rem 0.75rem rgba(255, 255, 255, 0.5);
+    --shadow-lg: 0 0 0.5rem rgba(196, 193, 193, 0.6);
 }
 
 
