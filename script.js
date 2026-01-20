@@ -29,12 +29,21 @@ const translations = {
         alertDivideByZero: '0 से भाग नहीं कर सकते',
         alertEnterNumber: 'कृपया संख्या दर्ज करें',
         alertAddItems: 'कृपया पहले आइटम जोड़ें',
+        confirmItemNameSaveTitle: 'आइटम नाम सेव करें?',
+        confirmItemNameSaveMsg: 'आगे बढ़ने के बाद आप आइटम के नाम या राशि में कोई बदलाव नहीं कर पाएंगे।',
+        confirmItemNameSkipTitle: 'आइटम नाम छोड़ें?',
+        confirmItemNameSkipMsg: 'आइटम नाम छोड़े जाएंगे और बिल डिफ़ॉल्ट आइटम नामों के साथ जेनरेट किया जाएगा।',
         alertSkipItemName: "आइटम के नाम छोड़े जा रहे हैं। बिल डिफ़ॉल्ट आइटम नामों के साथ जेनरेट किया जाएगा।",
         alertPressEqualFirst: 'कृपया पहले "=" दबाकर बिल फाइनल करें',
         alertEnterCustomerName: 'कृपया ग्राहक का नाम दर्ज करें',
         alertShopNameUpdated: 'दुकान का नाम अपडेट हो गया',
         alertLanguageUpdated: 'भाषा हिन्दी में बदल दी गई है',
+        alertLanguageUpdated: 'भाषा हिन्दी में बदल दी गई है',
+        alertThemeUpdated: 'थीम सफलतापूर्वक अपडेट हो गई है',
         alertShopNameAndLanguageUpdated: 'दुकान का नाम और भाषा अपडेट हो गई है',
+        alertShopNameAndThemeUpdated: 'दुकान का नाम और थीम अपडेट हो गई है',
+        alertLanguageAndThemeUpdated: 'भाषा और थीम अपडेट हो गई है',
+        alertShopNameLanguageAndThemeUpdated: 'दुकान का नाम, भाषा और थीम अपडेट हो गई है',
         equalConfirmModalTitle: 'बिल फाइनल करें?',
         equalConfirmModalMsg: `= दबाने पर बिल फाइनल हो जाएगा। <br> बाद में आइटम बदले नहीं जा सकेंगे।`,
         newBillConfirmTitle: 'नया बिल शुरू करें?',
@@ -86,12 +95,20 @@ const translations = {
         alertDivideByZero: 'Zero se divide nahi hota',
         alertEnterNumber: 'Koi number dalo pehle',
         alertAddItems: 'Pehle items add karo',
+        confirmItemNameSaveTitle: 'Item names save kare?',
+        confirmItemNameSaveMsg: 'Aage badhne ke baad aap item names ya amount me koi change nahi kar paoge.',
+        confirmItemNameSkipTitle: 'Item names skip kare?',
+        confirmItemNameSkipMsg: 'Item names skip ho jayenge aur bill default item names ke saath generate hoga.',
         alertSkipItemName: "Item names skip ho rahe hain. Bill default item names ke saath banega.",
         alertPressEqualFirst: 'Please pehle "=" dabao phir bill banao',
         alertEnterCustomerName: 'Customer ka naam dalo',
         alertShopNameUpdated: 'Shop ka naam update ho gaya',
         alertLanguageUpdated: 'Language hinglish me update ho gayi',
+        alertThemeUpdated: 'Theme successfully update ho gayi hai',
         alertShopNameAndLanguageUpdated: "Shop name aur language dono update ho gaye",
+        alertShopNameAndThemeUpdated: 'Shop name aur theme update ho gaye hain',
+        alertLanguageAndThemeUpdated: 'Language aur theme update ho gayi hai',
+        alertShopNameLanguageAndThemeUpdated: 'Shop name, language aur theme update ho gaye hain',
         equalConfirmModalTitle: 'Bill finalize kare?',
         equalConfirmModalMsg: `= dabane par bill final ho jayega.<br> Baad me items edit nahi ho payenge.`,
         newBillConfirmTitle: 'Naya bill shuru kare?',
@@ -143,12 +160,20 @@ const translations = {
         alertDivideByZero: 'Cannot divide by zero',
         alertEnterNumber: 'Enter a number first',
         alertAddItems: 'Please add items first',
+        confirmItemNameSaveTitle: 'Save item names?',
+        confirmItemNameSaveMsg: 'After continuing, you will not be able to change item names or amounts.',
+        confirmItemNameSkipTitle: 'Skip item names?',
+        confirmItemNameSkipMsg: 'Item names will be skipped and the bill will be generated with default item names.',
         alertSkipItemName: "Item names are being skipped. Bill will be generated with default item names.",
         alertPressEqualFirst: 'Please press "=" first to finalize the bill',
         alertEnterCustomerName: 'Please enter customer name',
         alertShopNameUpdated: 'Shop name updated',
         alertLanguageUpdated: 'Language changed to Engilsh',
+        alertThemeUpdated: 'Theme updated successfully',
         alertShopNameAndLanguageUpdated: "Shop name and language updated",
+        alertShopNameAndThemeUpdated: 'Shop name and theme updated successfully',
+        alertLanguageAndThemeUpdated: 'Language and theme updated successfully',
+        alertShopNameLanguageAndThemeUpdated: 'Shop name, language and theme updated successfully',
         equalConfirmModalTitle: 'Finalize Bill?',
         equalConfirmModalMsg: `Pressing = will finalize the bill.<br> Items cannot be edited later.`,
         newBillConfirmTitle: 'Start A New Bill?',
@@ -227,6 +252,7 @@ const customerNameInput = document.querySelector('.customer-name-input');
 const pehelKaInput = document.querySelector('.pehel-ka-input');
 const jamaInput = document.querySelector('.jama-input');
 const languageSelect = document.querySelector('.language-select');
+const themeSelect = document.querySelector('.theme-select');
 const shopNameEdit = document.querySelector('.shop-name-edit');
 const resetDescription = document.querySelector('.reset-description');
 
@@ -275,7 +301,8 @@ const infoMsg = document.querySelector('.info-modal-msg');
 // ========================================
 const appState = {
     shopName: "",
-    language: "hinglish"
+    language: "hinglish",
+    theme: "system" // system | light | dark
     };
 
 const calc = {
@@ -326,6 +353,7 @@ function init() {
     }
 
     applyLanguage();
+    applyTheme();
     updateDisplay();
 }
 
@@ -337,6 +365,7 @@ function loadState() {
         const saved = JSON.parse(localStorage.getItem('smartBillingState')) || { };
         appState.shopName = saved.shopName || "";
         appState.language = saved.language || "hinglish";
+        appState.theme = saved.theme || "system";
     } catch (error) {
         console.error('Error loading state:', error);
     }
@@ -382,6 +411,20 @@ function saveBillHistory() {
         BILL_HISTORY_KEY,
         JSON.stringify(billHistory)
     );
+}
+
+function applyTheme() {
+    const root = document.documentElement;
+
+    if (appState.theme === "dark") {
+        root.setAttribute("data-theme", "dark");
+    } else if (appState.theme === "light") {
+        root.setAttribute("data-theme", "light");
+    } else {
+        root.removeAttribute("data-theme");
+    }
+
+    // console.log(root.setAttribute('data-theme', ''));
 }
 
 // ========================================
@@ -515,6 +558,72 @@ function calculateLiveTotal() {
     return total;
 }
 
+function evaluateExpressionWithPrecedence(expr) {
+    if (!expr || expr === "") return 0;
+
+    const lastChar = expr.slice(-1);
+    if (OPERATORS.includes(lastChar)) {
+        return evaluateExpressionWithPrecedence(expr.slice(0, -1));
+    }
+
+    // Step 1: tokenize
+    const tokens = [];
+    let num = "";
+
+    for (let ch of expr) {
+        if (OPERATORS.includes(ch)) {
+            if (num !== "") {
+                tokens.push(Number(num));
+                num = "";
+            }
+            tokens.push(ch)
+        } else {
+            num += ch;
+        }
+    }
+
+    if (num !== "") tokens.push(Number(num));
+
+    // Step 2: resole '×' and '÷'
+    const highPriority = [];
+    let i = 0;
+
+    while (i < tokens.length) {
+        const current = tokens[i];
+
+        if (current === "×" || current === "÷") {
+            const prev = highPriority.pop();
+            const next = tokens[i + 1];
+
+            if (current === "÷" && next === 0) {
+                openInfoPopup(translations[appState.language].alertDivideByZero);
+                return 0;
+            }
+
+            const result = current === "×" ? prev * next : prev / next;
+
+            highPriority.push(result);
+            i += 2;
+        } else {
+            highPriority.push(current);
+            i++;
+        }
+    }
+
+    // Step 3: resolve '+' and '-'
+    let total = highPriority[0];
+
+    for (let j = 1; j < highPriority.length; j += 2) {
+        const op = highPriority[j];
+        const val = highPriority[j + 1];
+
+        if (op === "+") total += val;
+        if (op === "-") total -= val;
+    }
+
+    return total;
+}
+
 // ========================================
 // CALCULATOR ACTIONS
 // ========================================
@@ -529,7 +638,15 @@ function appendNumber(num) {
         expression = "";
     }
 
-    // Prevent multiple decimal points
+    // Handle dot as first input
+    if (num === "." && expression === "") {
+        calc.currentNumber = "0.";
+        expression = "0."
+        updateDisplay();
+        return;
+    }
+
+    // Prevent multiple decimal points in same number
     if (num === "." && calc.currentNumber.includes(".")) return;
 
     calc.currentNumber += num;
@@ -540,38 +657,13 @@ function appendNumber(num) {
 function appendOperator(op) {
     // Continue with result after calculation
     if (calc.justCalculated) {
-        calc.currentNumber = calc.currentTotal.toString();
-        calc.currentTotal = 0;
-        calc.items = [];
+        expression = calc.currentTotal.toString();
         calc.justCalculated = false;
-        expression = calc.currentNumber;
     }
 
     // Need at least one number
     if (expression === "") return;
     // if (calc.currentNumber === "" && calc.items.length === 0) return;
-
-    if (calc.currentNumber !== "") {
-        // First number becomes total
-        if (calc.currentOperator === null) {
-            calc.currentTotal = Number(calc.currentNumber);
-        } else {
-            // Calculate with previous operator
-            calc.currentTotal = applyOperation(
-                calc.currentTotal,
-                calc.currentNumber,
-                calc.currentOperator
-            );
-        }
-
-        // Store this calculation step
-        calc.items.push({
-            op: calc.currentOperator || "",
-            value: Number(calc.currentNumber)
-        });
-
-        calc.currentNumber = "";
-    }
 
     const lastChar = expression.slice(-1);
 
@@ -586,8 +678,9 @@ function appendOperator(op) {
         
     }
 
-    calc.currentOperator = op;
-    calc.justCalculated = false;
+    calc.currentNumber = "";
+    calc.currentOperator = null;
+
     updateDisplay();
 }
 
@@ -601,17 +694,21 @@ function calculateEqual() {
     calc.currentTotal = 0;
 
 // Calculate final result
-    calc.items.forEach(item => {
-        if (item.op === "") {
-            calc.currentTotal = item.value;
-        } else {
-            calc.currentTotal = applyOperation(
-                calc.currentTotal,
-                item.value,
-                item.op
-            );
-        }
-    })
+    calc.currentTotal = evaluateExpressionWithPrecedence(expression);
+    calc.items = parseExpressionToItems(expression);
+
+    // calc.items.forEach(item => {
+    //     if (item.op === "") {
+    //         calc.currentTotal = item.value;
+    //     } else {
+    //         calc.currentTotal = applyOperation(
+    //             calc.currentTotal,
+    //             item.value,
+    //             item.op
+    //         );
+    //     }
+    // })
+
 
     calc.currentNumber = "";
     calc.currentOperator = null;
@@ -833,7 +930,13 @@ function updateDisplay(isEqual = false) {
     if (calc.justCalculated) {
         calcKulRakamValue.textContent = formatNumber(calc.currentTotal);
     } else {
-        const liveTotal = calculateLiveTotal();
+        // const liveTotal = evaluateExpressionWithPrecedence(expression);
+        let liveTotal = 0;
+        try {
+            liveTotal = evaluateExpressionWithPrecedence(expression);
+        } catch {
+            liveTotal = 0;
+        }
         calcKulRakamValue.textContent = formatNumber(liveTotal);
     }
 
@@ -1290,6 +1393,7 @@ function clearCalcHistory() {
 function openSettings() {
     shopNameEdit.value = appState.shopName;
     languageSelect.value = appState.language;
+    themeSelect.value = appState.theme;
     calculatorScreen.classList.remove('active')
     settingsScreen.classList.add('active');
 }
@@ -1302,17 +1406,18 @@ function closeSettings() {
 function updateSettings() {
     const prevName = appState.shopName;
     const prevLanguage = appState.language;
+    const prevTheme = appState.theme;
 
     const newName = shopNameEdit.value.trim();
     const newLanguage = languageSelect.value;
+    const newTheme = themeSelect.value;
 
     const nameChanged = newName !== "" && newName !== prevName;
     const languageChanged = newLanguage !== prevLanguage;
+    const themeChanged = newTheme !== prevTheme;
 
-    if (!nameChanged && !languageChanged) {
-        // settingsScreen.classList.remove('active');
-        return;
-    }
+
+    if (!nameChanged && !languageChanged && !themeChanged) return;
 
     // Apply change
     if (nameChanged) {
@@ -1325,12 +1430,32 @@ function updateSettings() {
         applyLanguage();
     }
 
+    if (themeChanged) {
+        appState.theme = newTheme;
+        applyTheme();
+    }
+
     saveAppState();
     // settingsScreen.classList.remove('active');
     // calculatorScreen.classList.add('active')
 
     if (nameChanged && languageChanged) {
         openInfoPopup(translations[appState.language].alertShopNameAndLanguageUpdated);
+        return;
+    }
+
+    if (nameChanged && themeChanged) {
+        openInfoPopup(translations[appState.language].alertShopNameAndThemeUpdated);
+        return;
+    }
+
+    if (themeChanged && languageChanged) {
+        openInfoPopup(translations[appState.language].alertLanguageAndThemeUpdated);
+        return;
+    }
+
+    if (nameChanged && languageChanged && themeChanged) {
+        openInfoPopup(translations[appState.language].alertShopNameLanguageAndThemeUpdated);
         return;
     }
 
@@ -1342,6 +1467,10 @@ function updateSettings() {
     if (languageChanged) {
         openInfoPopup(translations[appState.language].alertLanguageUpdated);
         return;
+    }
+
+    if (themeChanged) {
+        openInfoPopup(translations[appState.language].alertThemeUpdated)
     }
 }
 
@@ -1433,16 +1562,34 @@ deleteButton.addEventListener('click', backspace);
 saveShopNameButton.addEventListener('click', saveShopName);
 
 // Item input name
-saveItemsBtn.addEventListener("click", saveItemNames);
 addItemBtn.addEventListener('click', addItemInItemName);
+// saveItemsBtn.addEventListener("click", saveItemNames);
+saveItemsBtn.addEventListener("click", () => {
+    const t = translations[appState.language];
+    openConfirmModal(
+        t.confirmItemNameSaveTitle,
+        t.confirmItemNameSaveMsg,
+        () => {
+            saveItemNames();
+        }
+    );
+});
 skipItemsBtn.addEventListener("click", () => {
-    openInfoPopup(translations[appState.language].alertSkipItemName);
+    const t = translations[appState.language];
+    openConfirmModal(
+        t.confirmItemNameSkipTitle,
+        t.confirmItemNameSkipMsg,
+        () => {
+            openInfoPopup(translations[appState.language].alertSkipItemName);
 
-    infoOkBtn.onclick = () => {
-        infoModal.classList.remove("active");
-        itemNameScreen.classList.remove("active");
-        createBill();
-    }
+            infoOkBtn.onclick = () => {
+                infoModal.classList.remove("active");
+                itemNameScreen.classList.remove("active");
+                createBill();
+            }
+        }
+    );
+    
 })
 
 // Bill creation
@@ -1510,9 +1657,9 @@ billItemsContainer.addEventListener('click', (e) => {
             }, 300);
 
             // Success popup 
-            setTimeout(() => {
-                openInfoPopup(t.itemDeletedSuccess);
-            }, 500);
+            // setTimeout(() => {
+            //     openInfoPopup(t.itemDeletedSuccess);
+            // }, 500);
 
         }
     );

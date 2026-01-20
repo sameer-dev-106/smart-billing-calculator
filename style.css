@@ -142,6 +142,29 @@
     --shadow-lg: 0 0 0.5rem rgba(196, 193, 193, 0.6);
 }
 
+[data-theme="light"] {
+    --light-bg: #F8FAFC;
+    --light-gray-bg: #dddedf;
+    --dark-text: #1E293B;
+    --light-text: #F1F5F9;
+    --gray-text: #64748B;
+    --light-gray: #dddedf;
+
+    --overlay-light: rgba(255, 255, 255, 0.2);
+    --overlay-dark: rgba(0, 0, 0, 0.454);
+
+    --btn-bg: #f0f0f0;
+    --btn-operator: #CBD5E1;
+    --btn-special: #4F46E5;
+    --btn-bill: #DC2626;
+
+    --primary-color: #4F46E5;
+    --primary-dark: #7C3AED;
+
+    --shadow-sm: 0 0.125rem 0.25rem rgba(0,0,0,0.05);
+    --shadow-md: 0 0.25rem 0.75rem rgba(0,0,0,0.08);
+    --shadow-lg: 0 0 1.5rem rgba(0,0,0,0.12);
+}
 
 /* ========================================
 RESET & BASE STYLES
