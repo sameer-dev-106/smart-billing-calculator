@@ -230,6 +230,13 @@ textarea,
     user-select: text;
 }
 
+button,
+div {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
 /* ========================================
 CALCULATOR SCREEN
 ======================================== */
