@@ -1118,10 +1118,6 @@ function addItemInItemName() {
     itemNameList.appendChild(addRow);
     updateAddItemSerials();
 
-    // Auto focus
-    const nameInput = addRow.querySelector('.add-item-name-input');
-    nameInput.focus();
-
     // Auto Scroll
     addRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
@@ -1813,11 +1809,6 @@ itemNameList.addEventListener('click', (e) => {
                 row.remove();
                 updateAddItemSerials();
                 updateDeleteState();
-
-                // if (nextRow) {
-                //     const input = nextRow.querySelector('.add-item-name-input, .item-name-input');
-                //     if (input) input.focus();
-                // }
             }, 250);
         }
     );
