@@ -320,6 +320,8 @@ const calc = {
     let newExpression = "";
     let cursoreIndex = 0;
 
+    let isManualBill = false;
+
     // Calculator Container
     let calcHistory = [];
 
@@ -1039,11 +1041,16 @@ function equalConfirm() {
 function openItemNameScreen() {
     itemNameList.innerHTML = "";
 
-    calc.items.forEach((item, index) => {
-        const row = document.createElement("div");
-        row.className = "item-name-row";
+    if (isManualBill) {
+        // no calculator items
+        addItemInItemName(); // auto opne add row
+        skipItemsBtn.style.display = "none";
+    } else {
+        calc.items.forEach((item, index) => {
+            const row = document.createElement("div");
+            row.className = "item-name-row";
 
-        row.innerHTML = `
+            row.innerHTML = `
             <div class="input-container-box">
                 <span>${index + 1}.</span>
                 <input 
@@ -1057,51 +1064,60 @@ function openItemNameScreen() {
             <span>${item.op} ${formatNumber(item.value)}</span>
         `;
 
-        itemNameList.appendChild(row);
-    });
+            itemNameList.appendChild(row);
+        });
+
+        skipItemsBtn.style.display = "block";
+    }
 
     calculatorScreen.classList.remove('active')
     itemNameScreen.classList.add("active");
 }
 
-function addItemInItemName(params) {
+function addItemInItemName() {
     let addRow = document.querySelector('.add-item-name-row');
 
-    if (!addRow) {
-        addRow = document.createElement('div');
-        addRow.className = 'add-item-name-row add-item';
 
-        addRow.innerHTML = `
-            <span>${calc.items.length + 1}.</span>
+    addRow = document.createElement('div');
+    addRow.className = 'add-item-name-row add-item';
 
-            <div class="add-name-input-container">
-                <input 
-                    class="add-item-name-input"
-                    type="text"
-                    placeholder="Item name"
-                >
-            </div>
+    addRow.innerHTML = `
+        <span class="item-serial"></span>
 
-            <div class="add-value-input-container">
-                <input 
-                    class="add-item-oprator-input"
-                    type="text"
-                    value="+"
-                    disabled
-                >
-                <input 
-                    class="add-item-value-input"
-                    type="number"
-                    placeholder="value"
-                >
-            </div>
-        `;
+        <div class="add-name-input-container">
+            <input 
+                class="add-item-name-input"
+                type="text"
+                placeholder="Item name"
+            >
+        </div>
 
-            itemNameList.appendChild(addRow);
-        }
+        <div class="add-value-input-container">
+            <input 
+                class="add-item-oprator-input"
+                type="text"
+                value="+"
+                disabled
+            >
+            <input 
+                class="add-item-value-input"
+                type="number"
+                placeholder="value"
+            >
+        </div>
 
-        addRow.classList.add('add-item');
-        addItemSctions.classList.add('opened');
+        <button class="delete-add-item-btn">
+            <i class="ri-close-circle-fill"></i>
+        </button>
+
+    `;
+
+    itemNameList.appendChild(addRow);
+    updateAddItemSerials();
+
+
+    addRow.classList.add('add-item');
+    addItemSctions.classList.add('opened');
 }
 
 function saveItemNames() {
@@ -1109,28 +1125,50 @@ function saveItemNames() {
 
     inputs.forEach(input => {
         const index = Number(input.dataset.index);
-        calc.items[index].name = input.value.trim();
+        if (calc.items[index]) {
+            calc.items[index].name = input.value.trim();
+        }
     });
 
     // check add item row
-    const addName = document.querySelector('.add-item-name-input');
-    const addValue = document.querySelector('.add-item-value-input');
+    const addRow = document.querySelectorAll('.add-item-name-row');
 
-    if (addName && addValue && addValue.value !== '') {
-        calc.items.push({
-            name: addName.value.trim(),
-            op: '+',
-            value: Number(addValue.value)
-        });
+    addRow.forEach(row => {
+        const addName = row.querySelector('.add-item-name-input');
+        const addValue = row.querySelector('.add-item-value-input');
 
-        recalculateBill();
+        if (addName && addValue && addValue.value !== '') {
+            calc.items.push({
+                name: addName ? addName.value.trim() : "",
+                op: '+',
+                value: Number(addValue.value)
+            });
+            hasAddedItem = true;
+            recalculateBill();
+        }
+    })
+
+
+    if (isManualBill && calc.items.length === 0) {
+        openInfoPopup("Please add at least one item");
+        return;
     }
 
-    const addRow = document.querySelector('.add-item-name-row');
-    if (addRow) addRow.remove();
+    addRow.forEach(row => row.remove());
 
     itemNameScreen.classList.remove('active');
     createBill();
+}
+
+function updateAddItemSerials() {
+    const allRows = document.querySelectorAll(".item-name-row, .add-item-name-row")
+
+    allRows.forEach((row, index) => {
+        const serial = row.querySelector(".item-serial, span");
+        if (serial) {
+            serial.textContent = `${index + 1}.`;
+        }
+    })
 }
 
 // ========================================
@@ -1142,10 +1180,10 @@ function openBillModal() {
         return;
     }
     
-    if (calc.items.length === 0) {
-        openInfoPopup(translations[appState.language].alertAddItems);
-        return;
-    }
+    // if (calc.items.length === 0) {
+    //     openInfoPopup(translations[appState.language].alertAddItems);
+    //     return;
+    // }
     
     billInputModal.classList.add('active');
 }
@@ -1163,15 +1201,6 @@ function renderBillItems() {
             <div class="bill-item-name">
                 <span class="item-number">${i + 1}.</span>
                 <span class="item-name">${itemName}</span>
-            </div>
-
-            <div class="bill-item-actions">
-                <button 
-                    class="delete-bill-item" 
-                    data-index="${i}"
-                >
-                    <i class="ri-close-circle-fill"></i>
-                </button>
             </div>
 
             <span class="item-amount">
@@ -1604,7 +1633,31 @@ skipItemsBtn.addEventListener("click", () => {
         }
     );
     
-})
+});
+
+// Input name item delete
+itemNameList.addEventListener('click', (e) => {
+    const deleteBtn = e.target.closest('.delete-add-item-btn');
+    if (!deleteBtn) return;
+
+    const row = deleteBtn.closest('.add-item-name-row');
+    if (!row) return;
+
+    const t = translations[appState.language];
+
+    openConfirmModal(
+        t.confirmDeleteItemTitle,
+        t.confirmDeleteItemMsg,
+        () => {
+            row.classList.add('removing');
+
+            setTimeout(() => {
+                row.remove();
+                updateAddItemSerials();
+            }, 250);
+        }
+    );
+});
 
 // Bill creation
 billButton.addEventListener('click', openBillModal);
@@ -1616,6 +1669,8 @@ confirmBillButton.addEventListener('click', () => {
         return;
     }
 
+    isManualBill = calc.items.length === 0;
+
     billInputModal.classList.remove('active');
     openItemNameScreen();
 });
@@ -1623,61 +1678,6 @@ cancelBillButton.addEventListener('click', () => {
     billInputModal.classList.remove('active');
 });
 newBillButton.addEventListener('click', openNewBillConfirm);
-
-// Bill item Delete
-billItemsContainer.addEventListener('click', (e) => {
-    const deleteBtn = e.target.closest('.delete-bill-item');
-    if (!deleteBtn) return;
-
-    if (isHistoryBillOpen) {
-        openInfoPopup(
-            translations[appState.language].alertHistoryBillLocked
-        );
-        return;
-    }
-
-    const index = Number(deleteBtn.dataset.index);
-    const t = translations[appState.language];
-
-    openConfirmModal(
-        t.confirmDeleteItemTitle,
-        t.confirmDeleteItemMsg,
-        () => {
-            const itemDiv = deleteBtn.closest('.bill-item');
-            itemDiv.classList.add('removing');
-
-            setTimeout(() => {
-                calc.items.splice(index, 1);
-
-                const newTotal = recalculateBill();
-
-                // UPDATE BILL HISTORY
-                const billIndex = billHistory.findIndex(
-                    b => b.id === currentBillId
-                );
-
-                if (billIndex !== -1) {
-                    billHistory[billIndex].items = [...calc.items];
-                    billHistory[billIndex].summary.kulRakam = newTotal;
-                    billHistory[billIndex].summary.kulBakaya =
-                        newTotal +
-                        billHistory[billIndex].summary.pehelKa -
-                        billHistory[billIndex].summary.jama;
-
-                    saveBillHistory();
-                }
-
-                renderBillItems();
-            }, 300);
-
-            // Success popup 
-            // setTimeout(() => {
-            //     openInfoPopup(t.itemDeletedSuccess);
-            // }, 500);
-
-        }
-    );
-});
 
 // Calculator history 
 openCalcHistoryButton.addEventListener('click', openCalcHistory);
