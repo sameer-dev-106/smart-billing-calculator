@@ -195,39 +195,47 @@ To build a real shop-ready billing calculator that:
 ## 📦 Project Status
 
 ### ✅ Completed
-- Calculator engine  
-- Expression-based input system  
-- Operator precedence handling  
-- Strong backspace handling  
-- Safe equal confirmation flow  
-- Calculator history with restore support  
-- Bill history with persistent storage  
-- Bill history safe open confirmation  
-- Clear history with confirm and success feedback  
-- Step-by-step bill creation flow  
-- Optional item name support  
-- Add item support in item screen  
-- Default item name fallback system  
-- Bill generation  
-- Bill screen locked (read-only design)  
-- Language system (Hindi, Hinglish, English)  
-- Manual theme control (system, light, dark)  
-- Improved decimal input handling (auto `0.` prefix)  
-- Print-friendly bill layout  
-- Responsive mobile-first UI  
+- Calculator engine with operator precedence
+- Expression-based input system
+- Safe equal confirmation flow
+- Calculator history with restore support
+- Bill creation flow (step-by-step)
+- Item name screen (optional)
+- Add item support in item name screen
+- Minimum one item value validation
+- Blank item value prevention with visual error feedback
+- Prevention of blank bill generation
+- Adjustment modal (Pehle ka & Jama)
+- Live payable amount preview before final bill
+- Customer name and mobile number support
+- Read-only bill screen (locked after generation)
+- Bill history with persistent storage
+- Bill history open confirmation
+- Bill history clear with confirmation
+- Multi-language support (Hindi, Hinglish, English)
+- Theme system (System / Light / Dark)
+- Mobile-first responsive UI
+
+### 🔜 Planned
+- Single bill delete from bill history (with confirmation)
+- Bill history search (customer name / mobile)
+- Quantity and price based billing
+- Daily totals and reports
+- Invoice layout & QR payment support
+- Bill sharing via WhatsApp
+- Shop profile & UPI setup
+- React version 
 
 ---
 
-### 🔜 Planned
-- **Single bill delete from bill history (with confirmation)**  
-- Bill history search (customer name / number)  
-- Quantity and price-based billing  
-- Daily totals and reports  
-- Invoice layout and QR payment support  
-- Bill sharing via WhatsApp  
-- Shop owner profile and UPI setup  
-- First-time app onboarding flow  
-- React version  
+## 🔒 Item Validation & Safety
+
+To prevent billing mistakes:
+- At least one item with a value is mandatory
+- Item value cannot be empty
+- Blank items are visually highlighted with error animation
+- Bill generation is blocked until validation passes
+- This ensures no blank or zero-value bills are generated accidentally
 
 ---
 

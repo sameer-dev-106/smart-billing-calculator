@@ -655,6 +655,9 @@ function appendOperator(op) {
 
     const lastChar = expression.slice(-1);
 
+    // dot is last then operator → not allow
+    if (lastChar === '.') return;
+
     if (OPERATORS.includes(lastChar)) {
         // same operator → do nothing
         if (lastChar === op) return;
@@ -822,12 +825,17 @@ function renderBillHistory() {
     const list = document.querySelector('.history-list');
     list.innerHTML = "";
 
-    const customerName = bill.customer?.name || bill.customerName || "Customer";
-
-    const customerMobile = bill.customer?.mobile || "";
-
+    
     
     billHistory.forEach(bill => {
+        const customerName =
+            bill.customer?.name ||
+            bill.customerName ||
+            "Customer";
+
+        const customerMobile =
+            bill.customer?.mobile || "";
+
         const div = document.createElement('div');
         div.className = "history-item";
         div.dataset.id = bill.id;
@@ -1782,6 +1790,33 @@ saveShopNameButton.addEventListener('click', saveShopName);
 addItemBtn.addEventListener('click', addItemInItemName);
 
 saveItemsBtn.addEventListener("click", () => {
+    const rows = document.querySelectorAll('.add-item-name-row');
+    let hasValidItem = false;
+    let hasError = false;
+
+    rows.forEach(row => {
+        const valueInput = row.querySelector('.add-item-value-input');
+
+        row.classList.remove('error');
+
+        if (!valueInput || valueInput.value.trim() === "") {
+            row.classList.add('error');
+            hasError = true;
+        } else {
+            hasValidItem = true;
+        }
+    });
+
+    if (!hasValidItem) {
+        openInfoPopup("Kam se kam ek item ki value dalo");
+        return;
+    }
+
+    if (hasError) {
+        openInfoPopup("Item value khali nahi ho sakti");
+        return;
+    }
+
     const t = translations[appState.language];
     
     // Scroll to top before confirm
@@ -1821,6 +1856,12 @@ skipItemsBtn.addEventListener("click", () => {
 itemNameList.addEventListener('click', (e) => {
     const deleteBtn = e.target.closest('.delete-add-item-btn');
     if (!deleteBtn) return;
+
+    const rows = document.querySelectorAll('.add-item-name-row');
+    if (rows.length === 1) {
+        openInfoPopup("Kam se kam ek item rehna chahiye");
+        return;
+    }
 
     const row = deleteBtn.closest('.add-item-name-row');
     if (!row) return;
