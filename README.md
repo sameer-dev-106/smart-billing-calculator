@@ -99,7 +99,7 @@ This ensures clean bills without forcing extra work.
 
 ---
 
-### 7️⃣ Bill Mode
+### 7️⃣ Bill Mode (Read-Only)
 The app shows a receipt-style bill with:
 - shop name  
 - date and time  
@@ -110,8 +110,10 @@ The app shows a receipt-style bill with:
 - payment  
 - final balance  
 
-Only the item list scrolls.  
-The summary section always stays visible and print-safe.
+🔒 **Important Design Decision**  
+The bill screen is **read-only** to prevent accidental changes.  
+Items cannot be edited or deleted once the bill is generated.  
+Only “Pehle ka” and “Jama” are considered editable before finalization.
 
 ---
 
@@ -151,8 +153,6 @@ The selected theme:
 - applies instantly  
 - is saved in localStorage  
 - is restored on page reload  
-
-This ensures comfortable usage in shops with different lighting conditions.
 
 ---
 
@@ -208,8 +208,8 @@ To build a real shop-ready billing calculator that:
 - Optional item name support  
 - Add item support in item screen  
 - Default item name fallback system  
-- Bill item delete with recalculation  
 - Bill generation  
+- Bill screen locked (read-only design)  
 - Language system (Hindi, Hinglish, English)  
 - Manual theme control (system, light, dark)  
 - Improved decimal input handling (auto `0.` prefix)  
@@ -219,7 +219,7 @@ To build a real shop-ready billing calculator that:
 ---
 
 ### 🔜 Planned
-- Single bill delete from history  
+- **Single bill delete from bill history (with confirmation)**  
 - Bill history search (customer name / number)  
 - Quantity and price-based billing  
 - Daily totals and reports  
