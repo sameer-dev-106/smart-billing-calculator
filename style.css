@@ -29,6 +29,9 @@
     --overlay-light: rgba(255, 255, 255, 0.2);
     --overlay-dark: rgba(0, 0, 0, 0.454);
 
+    --add-item-outline: 1px solid rgba(0, 0, 0, 0.386);
+    --add-item-bg: rgba(0, 0, 0, 0.418);
+
     /* ===============================
     BUTTON COLORS
     =============================== */
@@ -106,6 +109,9 @@
         --overlay-light: rgba(255, 253, 253, 0.2);
         --overlay-dark: rgba(73, 73, 73, 0.454);
 
+        --add-item-outline: 1px solid rgba(255,255,255,0.15);
+        --add-item-bg: rgba(255,255,255,0.03);
+
         --btn-bg: #334155;
         --btn-operator: #475569;
         --btn-special: #6366F1;
@@ -132,6 +138,9 @@
     --overlay-light: rgba(255, 253, 253, 0.2);
     --overlay-dark: rgba(73, 73, 73, 0.454);
 
+    --add-item-outline: 1px solid rgba(255,255,255,0.15);
+    --add-item-bg: rgba(255,255,255,0.03);
+
     --btn-bg: #334155;
     --btn-operator: #475569;
     --btn-special: #6366F1;
@@ -156,6 +165,9 @@
 
     --overlay-light: rgba(255, 255, 255, 0.2);
     --overlay-dark: rgba(0, 0, 0, 0.454);
+
+    --add-item-outline: 1px solid rgba(0, 0, 0, 0.386);
+    --add-item-bg: rgba(0, 0, 0, 0.418);
 
     --btn-bg: #f0f0f0;
     --btn-operator: #CBD5E1;
@@ -1459,8 +1471,8 @@ ITEM NAME SCREEEN
 }
 
 .add-item-name-row:focus-within {
-    outline: 1px solid rgba(255,255,255,0.15);
-    background: rgba(255,255,255,0.03);
+    outline: var(--add-item-outline);
+    background: var(--add-item-bg);
 }
 
 .item-name-action-btn {
