@@ -1154,11 +1154,6 @@ function saveItemNames() {
         }
     });
 
-    if (hasError) {
-        openInfoPopup("Please enter value for all items");
-        return;
-    }
-
     addRow.forEach(row => row.remove());
 
     itemNameScreen.classList.remove('active');
