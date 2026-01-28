@@ -1319,13 +1319,21 @@ ITEM NAME SCREEEN
 ======================================== */
 .item-name-screen {
     flex-direction: column;
-    height: 100%;
-    width: 100%;
+    height: 100dvh;
+    width: 100dvw;
     background: var(--light-bg);
+    overflow: hidden;
     position: relative;
 }
 
+body.item-name-open {
+    overflow: hidden;
+}
+
 .item-name-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     padding: var(--spacing-sm);
     color: var(--white);
     background: var(--primary-gradient);
@@ -1379,7 +1387,7 @@ ITEM NAME SCREEEN
     padding: var(--spacing-xs);
     overflow-y: auto;
     word-break: break-all;
-    padding-bottom: 19rem;      /* ~300px */
+    padding-bottom: 120px;      /* 120px */
 }
 
 .item-name-list {
@@ -1516,18 +1524,6 @@ ITEM NAME SCREEEN
     background: var(--add-item-bg);
 }
 
-.item-name-action-btn {
-    width: 100%;
-    user-select: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-lg);
-    margin-top: var(--spacing-sm);
-}
-
 .add-item-actions {
     padding: var(--spacing-sm);
 }
@@ -1542,19 +1538,21 @@ ITEM NAME SCREEEN
 }
 
 .item-name-action-btn {
-    position: absolute;
+    position: sticky;
     bottom: 0;
-    right: 0;
-    background: var(--light-bg);
-    z-index: 9;
+    z-index: 10;
     width: 100%;
-    padding: var(--spacing-lg);
+    user-select: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
+    gap: var(--spacing-md);
+    background: var(--light-bg);
+    padding: var(--spacing-lg);
+    margin-top: var(--spacing-sm);
+    border-top: 1px solid rgba(255,255,255,0.08);
 }
+
+
 
 .item-name-action-btn button {
     width: 90%;

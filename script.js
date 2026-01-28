@@ -1055,6 +1055,8 @@ function equalConfirm() {
 // ITEMS NAME MANAGEMENT
 // ========================================
 function openItemNameScreen() {
+    document.body.classList.add('item-name-open');
+
     itemNameList.innerHTML = "";
 
     if (isManualBill) {
@@ -1741,15 +1743,16 @@ addItemBtn.addEventListener('click', addItemInItemName);
 // saveItemsBtn.addEventListener("click", saveItemNames);
 saveItemsBtn.addEventListener("click", () => {
     const t = translations[appState.language];
-
+    
     // Scroll to top before confirm
     document.querySelector('.items-inputs-container').scrollTo({ top: 0, behavior: 'smooth' });
-
+    
     setTimeout(() => {
         openConfirmModal(
             t.confirmItemNameSaveTitle,
             t.confirmItemNameSaveMsg,
             () => {
+                document.body.classList.remove('item-name-open');
                 saveItemNames();
             }
         );
@@ -1762,10 +1765,11 @@ skipItemsBtn.addEventListener("click", () => {
         t.confirmItemNameSkipMsg,
         () => {
             openInfoPopup(translations[appState.language].alertSkipItemName);
-
+            
             infoOkBtn.onclick = () => {
                 infoModal.classList.remove("active");
                 itemNameScreen.classList.remove("active");
+                document.body.classList.remove('item-name-open');
                 createBill();
             }
         }
