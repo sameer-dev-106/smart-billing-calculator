@@ -537,29 +537,6 @@ function parseExpressionToItems(exre) {
     return items;
 }
 
-function calculateLiveTotal() {
-    if (!expression) return 0;
-
-    const parsedItems = parseExpressionToItems(expression);
-    if (parsedItems.length === 0) return 0;
-
-    let total = 0;
-
-    parsedItems.forEach(item => {
-        if (item.op === "") {
-            total = item.value;
-        } else {
-            total = applyOperation(
-                total,
-                item.value,
-                item.op
-            );
-        }
-    });
-
-    return total;
-}
-
 function evaluateExpressionWithPrecedence(expr) {
     if (!expr || expr === "") return 0;
 
@@ -1057,6 +1034,13 @@ function equalConfirm() {
 function openItemNameScreen() {
     document.body.classList.add('item-name-open');
 
+    const customerPreview = document.querySelector('.customer-name-preview');
+
+    if (customerPreview) {
+        customerPreview.textContent =
+            customerNameInput.value.trim() || 'Customer';
+    }
+
     itemNameList.innerHTML = "";
 
     if (isManualBill) {
@@ -1144,6 +1128,36 @@ function addItemInItemName() {
     addRow.classList.add('add-item');
     addItemSctions.classList.add('opened');
 }
+
+// Add items ke liye live total
+function updateLiveItemTotal() {
+    const liveTotalEl = document.querySelector('.live-total-value');
+    if (!liveTotalEl) return;
+
+    let total = 0;
+
+    calc.items.forEach(item => {
+        if (item.op === "") {
+            total = item.value;
+        } else {
+            total = applyOperation(
+                total,
+                item.value,
+                item.op
+            );
+        }
+    });
+
+    // add-item row ka bhi count
+    const rows = document.querySelectorAll('.add-item-name-row')
+    rows.forEach(row => {
+        const val = row.querySelector('.add-item-value-input')?.value;
+        if (val) total += Number(val);
+    });
+
+    liveTotalEl.textContent = `₹ ${formatNumber(total)}`;
+}
+
 
 function saveItemNames() {
     const inputs = document.querySelectorAll('.item-name-input')
@@ -1740,7 +1754,7 @@ saveShopNameButton.addEventListener('click', saveShopName);
 
 // Item input name
 addItemBtn.addEventListener('click', addItemInItemName);
-// saveItemsBtn.addEventListener("click", saveItemNames);
+
 saveItemsBtn.addEventListener("click", () => {
     const t = translations[appState.language];
     
@@ -1808,6 +1822,17 @@ itemNameList.addEventListener('click', (e) => {
         }
     );
 });
+
+// Add items value inputs live total updates
+itemNameList.addEventListener('input', e => {
+    if (
+        e.target.classList.contains('add-item-value-input') ||
+        e.target.classList.contains('item-value-input')
+    ) {
+        updateLiveItemTotal();
+    }
+});
+
 
 // Bill creation
 billButton.addEventListener('click', openBillModal);
