@@ -844,16 +844,32 @@ function renderBillHistory() {
     billHistory.forEach(bill => {
         const div = document.createElement('div');
         div.className = "history-item";
+        div.dataset.id = bill.id;
 
         div.innerHTML = `
-            <div class="history-name-container">
-                <span class="name">${bill.customerName}</span>
-                <span>${bill.date} ${bill.time}</span>
+            <div class="history-swipe-bg">
+                <i class="ri-delete-bin-6-line"></i>
+                <span>Delete</span>
             </div>
-            <div class="amount">${bill.summary.kulBakaya}</div>
+
+            <div class="history-content">
+                <div class="history-name-container">
+                    <span class="name">${bill.customerName}</span>
+                    <span class="meta">${bill.date} ${bill.time}</span>
+                </div>
+
+                <div class="history-right">
+                    <span class="amount">${bill.summary.kulBakaya}</span>
+                    <span class="items-count">${bill.items.length} items</span>
+                </div>
+            </div>
         `;
 
+        attachSwipeHandlers(div, bill.id);
+
         div.addEventListener('click', () => {
+            if (div.classList.contains("swiping")) return;
+
             const t = translations[appState.language];
 
             openConfirmModal(
@@ -1386,6 +1402,108 @@ function clearBillHistory() {
             openInfoPopup(t.billHistoryCleared);
         }
     );
+}
+
+function attachSwipeHandlers(element, billId) {
+    let startX = 0;
+    let currentX = 0;
+    let isSwiping = false;
+
+    const content = element.querySelector('.history-content');
+
+    element.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+        isSwiping = true;
+        element.classList.remove('swiping');
+        content.style.transition = 'none';
+    });
+
+    element.addEventListener('touchmove', e => {
+        if (!isSwiping) return;
+
+        currentX = e.touches[0].clientX - startX;
+
+        if (currentX < 0) {
+            element.classList.add('swiping');
+
+            const resistance = 0.75;
+            const maxSwipe = -120;
+
+            const moveX = Math.max(currentX, maxSwipe)
+            content.style.transform = `translateX(${moveX * resistance}px)`;
+        }
+    });
+
+    element.addEventListener('touchend', () => {
+        isSwiping = false;
+
+        content.style.transition = 'transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1)';
+
+        if (currentX < -80) {
+            confirmDeleteBill(billId);
+        } else {
+            resetSwipe(element)
+        }
+
+        currentX = 0;
+    })
+}
+
+function resetSwipe(element) {
+    const content = element.querySelector('.history-content');
+
+    content.style.transition =
+        'transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1)';
+
+    content.style.transform = 'translateX(0px)';
+
+    // ✅ SAFETY CLEANUP
+    setTimeout(() => {
+        element.classList.remove('swiping');
+        content.style.transition = '';
+    }, 200);
+}
+
+function forceResetSwipe(element) {
+    const content = element.querySelector('.history-content');
+    if (!content) return;
+
+    content.style.transition = 'none';
+    content.style.transform = 'translateX(0px)';
+
+    requestAnimationFrame(() => {
+        content.style.transition =
+            'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    });
+
+    element.classList.remove('swiping');
+}
+
+function confirmDeleteBill(billId) {
+    const t = translations[appState.language];
+
+    const activeItem = document.querySelector(
+        `.history-item[data-id="${billId}"]`
+    );
+
+    openConfirmModal(
+        "Bill delete kare?",
+        "Ye bill permanently delete ho jayega",
+        () => {
+            billHistory = billHistory.filter(b => b.id !== billId);
+            saveBillHistory();
+            renderBillHistory();
+            openInfoPopup("Bill delete ho gaya");
+        }
+    );
+
+    cancelBtn.onclick = () => {
+        confirmModal.classList.remove('active');
+
+        if (activeItem) {
+            forceResetSwipe(activeItem);
+        }
+    };
 }
 
 // ========================================
