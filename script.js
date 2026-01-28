@@ -1070,6 +1070,7 @@ function openItemNameScreen() {
         skipItemsBtn.style.display = "block";
     }
 
+    updateDeleteState();
     calculatorScreen.classList.remove('active')
     itemNameScreen.classList.add("active");
 }
@@ -1111,6 +1112,7 @@ function addItemInItemName() {
 
     `;
 
+    updateDeleteState();
     itemNameList.appendChild(addRow);
     updateAddItemSerials();
 
@@ -1173,7 +1175,21 @@ function updateAddItemSerials() {
         if (serial) {
             serial.textContent = `${index + 1}.`;
         }
-    })
+    });
+
+    updateDeleteState();
+}
+
+function updateDeleteState() {
+    const rows = document.querySelectorAll('.add-item-name-row');
+    const deleteBtns = document.querySelectorAll('.delete-add-item-btn');
+
+    deleteBtns.forEach(btn => btn.classList.remove('disabled'));
+
+    if (rows.length === 1) {
+        const btn = rows[0].querySelector('.delete-add-item-btn');
+        if (btn) btn.classList.add('disabled');
+    }
 }
 
 // ========================================
@@ -1615,6 +1631,25 @@ addItemBtn.addEventListener('click', addItemInItemName);
 saveItemsBtn.addEventListener("click", () => {
     const t = translations[appState.language];
 
+    let hasError = false;
+
+    const addRows = document.querySelectorAll('.add-item-name-row');
+
+    addRows.forEach(row => {
+        row.classList.remove('error');
+
+        const valueInput = row.querySelector('.add-item-vallue-input');
+        if (!valueInput || valueInput.value === '') {
+            row.classList.add('error');
+            hasError = true;
+        }
+    });
+
+    if (hasError) {
+        openInfoPopup("Please enter value for all items");
+        return;
+    }
+
     // Scroll to top before confirm
     document.querySelector('.items-inputs-container').scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -1667,6 +1702,7 @@ itemNameList.addEventListener('click', (e) => {
             setTimeout(() => {
                 row.remove();
                 updateAddItemSerials();
+                updateDeleteState();
 
                 if (nextRow) {
                     const input = nextRow.querySelector('.add-item-name-input, .item-name-input');

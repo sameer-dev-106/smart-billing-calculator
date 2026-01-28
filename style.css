@@ -1417,6 +1417,19 @@ ITEM NAME SCREEEN
     border-radius: var(--radius-md);
 }
 
+.add-item-name-row.error {
+    border: 1px solid #ff4d4f;
+    animation: shake 0.2s ease-in-out 2;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+    75% { transform: translateX(-4px); }
+    100% { transform: translateX(0); }
+}
+
 .add-item-name-row.removing {
     transform: translateX(100%);
     opacity: 0;
@@ -1434,7 +1447,8 @@ ITEM NAME SCREEEN
     color: var(--danger-color)
 }
 
-.delete-add-item-btn {
+.delete-add-item-btn,
+.delete-add-item-btn.disabled {
     opacity: 0;
     pointer-events: none;
 }
