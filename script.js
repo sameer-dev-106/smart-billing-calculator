@@ -303,14 +303,14 @@ const appState = {
     shopName: "",
     language: "hinglish",
     theme: "system" // system | light | dark
-    };
+};
 
 const calc = {
-    currentNumber: "",
-    currentTotal: 0,
-    currentOperator: null,
-    items: [],
-    justCalculated: false
+currentNumber: "",
+currentTotal: 0,
+currentOperator: null,
+items: [],
+justCalculated: false
 };
 
 const OPERATORS = ["+", "-", "×", "÷"];
@@ -1031,26 +1031,7 @@ function equalConfirm() {
 // ========================================
 // ITEMS NAME MANAGEMENT
 // ========================================
-// helper 
-function handleKeyboardViewport() {
-    if (!window.visualViewport) return;
-
-    const viewport = window.visualViewport;
-
-    const update = () => {
-        const height = viewport.height;
-        document.documentElement.style.setProperty(
-            '--app-height',
-            `${height}px`
-        );
-    };
-
-    viewport.addEventListener('resize', update);
-    update();
-}
-
 function openItemNameScreen() {
-    handleKeyboardViewport();
     document.body.classList.add('item-name-open');
 
     const customerPreview = document.querySelector('.customer-name-preview');
@@ -1176,6 +1157,7 @@ function updateLiveItemTotal() {
 
     liveTotalEl.textContent = `₹ ${formatNumber(total)}`;
 }
+
 
 function saveItemNames() {
     const inputs = document.querySelectorAll('.item-name-input')
@@ -1832,10 +1814,10 @@ itemNameList.addEventListener('click', (e) => {
                 updateAddItemSerials();
                 updateDeleteState();
 
-                if (nextRow) {
-                    const input = nextRow.querySelector('.add-item-name-input, .item-name-input');
-                    if (input) input.focus();
-                }
+                // if (nextRow) {
+                //     const input = nextRow.querySelector('.add-item-name-input, .item-name-input');
+                //     if (input) input.focus();
+                // }
             }, 250);
         }
     );
