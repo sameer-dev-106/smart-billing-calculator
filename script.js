@@ -1077,7 +1077,6 @@ function openItemNameScreen() {
 function addItemInItemName() {
     let addRow = document.querySelector('.add-item-name-row');
 
-
     addRow = document.createElement('div');
     addRow.className = 'add-item-name-row add-item';
 
@@ -1115,6 +1114,12 @@ function addItemInItemName() {
     itemNameList.appendChild(addRow);
     updateAddItemSerials();
 
+    // Auto focus
+    const nameInput = addRow.querySelector('.add-item-name-input');
+    nameInput.focus();
+
+    // Auto Scroll
+    addRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
     addRow.classList.add('add-item');
     addItemSctions.classList.add('opened');
@@ -1609,13 +1614,19 @@ addItemBtn.addEventListener('click', addItemInItemName);
 // saveItemsBtn.addEventListener("click", saveItemNames);
 saveItemsBtn.addEventListener("click", () => {
     const t = translations[appState.language];
-    openConfirmModal(
-        t.confirmItemNameSaveTitle,
-        t.confirmItemNameSaveMsg,
-        () => {
-            saveItemNames();
-        }
-    );
+
+    // Scroll to top before confirm
+    document.querySelector('.items-inputs-container').scrollTo({ top: 0, behavior: 'smooth' });
+
+    setTimeout(() => {
+        openConfirmModal(
+            t.confirmItemNameSaveTitle,
+            t.confirmItemNameSaveMsg,
+            () => {
+                saveItemNames();
+            }
+        );
+    }, 1000);
 });
 skipItemsBtn.addEventListener("click", () => {
     const t = translations[appState.language];
@@ -1649,11 +1660,18 @@ itemNameList.addEventListener('click', (e) => {
         t.confirmDeleteItemTitle,
         t.confirmDeleteItemMsg,
         () => {
+            const nextRow = row.nextElementSibling || row.previousElementSibling;
+
             row.classList.add('removing');
 
             setTimeout(() => {
                 row.remove();
                 updateAddItemSerials();
+
+                if (nextRow) {
+                    const input = nextRow.querySelector('.add-item-name-input, .item-name-input');
+                    if (input) input.focus();
+                }
             }, 250);
         }
     );
