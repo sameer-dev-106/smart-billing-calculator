@@ -1150,14 +1150,12 @@ function saveItemNames() {
                 op: '+',
                 value: Number(addValue.value)
             });
-            hasAddedItem = true;
             recalculateBill();
         }
-    })
+    });
 
-
-    if (isManualBill && calc.items.length === 0) {
-        openInfoPopup("Please add at least one item");
+    if (hasError) {
+        openInfoPopup("Please enter value for all items");
         return;
     }
 
@@ -1630,25 +1628,6 @@ addItemBtn.addEventListener('click', addItemInItemName);
 // saveItemsBtn.addEventListener("click", saveItemNames);
 saveItemsBtn.addEventListener("click", () => {
     const t = translations[appState.language];
-
-    let hasError = false;
-
-    const addRows = document.querySelectorAll('.add-item-name-row');
-
-    addRows.forEach(row => {
-        row.classList.remove('error');
-
-        const valueInput = row.querySelector('.add-item-vallue-input');
-        if (!valueInput || valueInput.value === '') {
-            row.classList.add('error');
-            hasError = true;
-        }
-    });
-
-    if (hasError) {
-        openInfoPopup("Please enter value for all items");
-        return;
-    }
 
     // Scroll to top before confirm
     document.querySelector('.items-inputs-container').scrollTo({ top: 0, behavior: 'smooth' });
