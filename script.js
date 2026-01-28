@@ -311,33 +311,33 @@ const calc = {
     currentOperator: null,
     items: [],
     justCalculated: false
-    };
+};
 
-    const OPERATORS = ["+", "-", "×", "÷"];
+const OPERATORS = ["+", "-", "×", "÷"];
 
-    // edit expression variables
-    let expression = "";
-    let newExpression = "";
-    let cursoreIndex = 0;
+// edit expression variables
+let expression = "";
+let newExpression = "";
+let cursoreIndex = 0;
 
-    let isManualBill = false;
+let isManualBill = false;
 
-    // Calculator Container
-    let calcHistory = [];
+// Calculator Container
+let calcHistory = [];
 
-    // Bill History Container
-    let billHistory = [];
+// Bill History Container
+let billHistory = [];
 
-    // LocalStorage key for Calculator history
-    const CALC_HISTORY_KEY = "smartBillingCalcHistory";
+// LocalStorage key for Calculator history
+const CALC_HISTORY_KEY = "smartBillingCalcHistory";
 
-    // LocalStorage key for BIll history
-    const BILL_HISTORY_KEY = "smartBillingBills"
+// LocalStorage key for BIll history
+const BILL_HISTORY_KEY = "smartBillingBills"
 
-    // old bill lock flage for edit items
-    let isHistoryBillOpen = false;
+// old bill lock flage for edit items
+let isHistoryBillOpen = false;
 
-    let currentBillId = null;
+let currentBillId = null;
 
 // ========================================
 // INITIALIZATION
@@ -1031,7 +1031,26 @@ function equalConfirm() {
 // ========================================
 // ITEMS NAME MANAGEMENT
 // ========================================
+// helper 
+function handleKeyboardViewport() {
+    if (!window.visualViewport) return;
+
+    const viewport = window.visualViewport;
+
+    const update = () => {
+        const height = viewport.height;
+        document.documentElement.style.setProperty(
+            '--app-height',
+            `${height}px`
+        );
+    };
+
+    viewport.addEventListener('resize', update);
+    update();
+}
+
 function openItemNameScreen() {
+    handleKeyboardViewport();
     document.body.classList.add('item-name-open');
 
     const customerPreview = document.querySelector('.customer-name-preview');
@@ -1157,7 +1176,6 @@ function updateLiveItemTotal() {
 
     liveTotalEl.textContent = `₹ ${formatNumber(total)}`;
 }
-
 
 function saveItemNames() {
     const inputs = document.querySelectorAll('.item-name-input')
