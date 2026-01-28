@@ -1284,6 +1284,14 @@ BILL INPUT MODAL STYLES
     justify-content: center;
 }
 
+.input-group input {
+    margin-top: var(--spacing-sm);
+}
+
+.customer-mobile {
+    letter-spacing: 1px;
+}
+
 .cancel-bill {
     background-color: var(--danger-color);
     color: var(--white);
@@ -1389,7 +1397,6 @@ body.item-name-open {
     color: var(--white);
     font-weight: 700;
 }
-
 
 .items-inputs-container {
     flex: 1;

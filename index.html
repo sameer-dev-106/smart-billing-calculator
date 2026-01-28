@@ -359,13 +359,15 @@
                     <h2 class="bill-modal-title">Bill Banye</h2>
 
                     <!-- Customer Name Input -->
-                    <input required type="text" class="customer-name-input" placeholder="Customer ka naam *">
+                    <div class="input-group">
+                        <label for="customerName">Customer Name</label>
+                        <input required type="text" class="customer-name-input" placeholder="Customer ka naam *" />
+                    </div>
 
-                    <!-- Previous Balance Input -->
-                    <input type="number" class="pehel-ka-input" placeholder="Pehel ka (optional)">
-
-                    <!-- Payment Input -->
-                    <input type="number" class="jama-input" placeholder="Jama (optional)">
+                    <div class="input-group">
+                        <label for="customerMobile">Customer Mobile (optional)</label>
+                        <input type="tel" class="customer-mobile" placeholder="10 digit mobile number" maxlength="10" inputmode="numeric" />
+                    </div>
 
                     <!-- Action Buttons -->
                     <div class="modal-action">

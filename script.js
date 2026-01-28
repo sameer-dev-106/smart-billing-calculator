@@ -249,6 +249,7 @@ const kulBakayaLabel = document.querySelector('.kul-bakaya-label');
 // Input Fields
 const shopNameInput = document.querySelector('.shop-name-input');
 const customerNameInput = document.querySelector('.customer-name-input');
+const customerMobileInput = document.querySelector('.customer-mobile');
 const pehelKaInput = document.querySelector('.pehel-ka-input');
 const jamaInput = document.querySelector('.jama-input');
 const languageSelect = document.querySelector('.language-select');
@@ -1154,7 +1155,6 @@ function updateLiveItemTotal() {
     liveTotalEl.textContent = `₹ ${formatNumber(total)}`;
 }
 
-
 function saveItemNames() {
     const inputs = document.querySelectorAll('.item-name-input')
 
@@ -1257,6 +1257,7 @@ function renderBillItems() {
 
 function createBill() {
     const customerName = customerNameInput.value.trim();
+    const customerMobile = customerNameInput.dataset.mobile || "";
 
     const pehelKa = parseFloat(pehelKaInput.value) || 0;
     const jama = parseFloat(jamaInput.value) || 0;
@@ -1298,7 +1299,10 @@ function createBill() {
             shopName: appState.shopName
         },
 
-        customerName: customerName,
+        customer:{
+            name: customerName,
+            mobile: customerMobile,
+        },
 
         items: calc.items.map((item, idx)=> ({
             name: item.name || `item ${idx + 1}`,
@@ -1829,11 +1833,15 @@ itemNameList.addEventListener('input', e => {
 billButton.addEventListener('click', openBillModal);
 confirmBillButton.addEventListener('click', () => {
     const customerName = customerNameInput.value.trim();
+    const customerMobile = customerMobileInput.value.trim();
 
     if (!customerName) {
         openInfoPopup(translations[appState.language].alertEnterCustomerName);
         return;
     }
+
+    // store for later use
+    customerNameInput.dataset.mobile = customerMobile;
 
     isManualBill = calc.items.length === 0;
 
