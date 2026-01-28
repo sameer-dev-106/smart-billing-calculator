@@ -1130,7 +1130,7 @@ MODAL BASE STYLES
     border: none;
     padding: var(--spacing-md) 18px;
     border-radius: var(--radius-md);
-    font-size: var(--font-md);
+    font-size: var(--font-lg);
     font-weight: 600;
     cursor: pointer;
     transition: transform var(--transition-fast);
@@ -1298,6 +1298,29 @@ BILL INPUT MODAL STYLES
 }
 
 .confirm-bill {
+    background-color: var(--success-color);
+    color: var(--white);
+}
+
+/* ========================================
+ADJUSTMENT MODAL STYLES
+======================================== */
+.adjustment-modal {
+    justify-content: center;
+}
+
+.final-preview {
+    margin: 16px 0;
+    padding: 12px;
+    border-radius: 12px;
+    background: var(--overlay-light);
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.confirm-adjustment {
     background-color: var(--success-color);
     color: var(--white);
 }

@@ -215,6 +215,7 @@ const itemNameScreen = document.querySelector('.item-name-screen');
 const calcHistoryModal = document.querySelector('.calc-history-modal');
 const shopNameModal = document.querySelector('.shop-name-modal');
 const billInputModal = document.querySelector('.bill-input-modal');
+const adjustmentModal = document.querySelector('.adjustment-modal');
 const confirmModal = document.querySelector('.confirm-modal');
 const infoModal = document.querySelector('.info-modal');
 
@@ -245,13 +246,14 @@ const kulRakamLabel = document.querySelector('.kul-rakam-label');
 const pehelKaLabel = document.querySelector('.pehel-ka-label');
 const jamaLabel = document.querySelector('.jama-label');
 const kulBakayaLabel = document.querySelector('.kul-bakaya-label');
+const finalPayableEl = document.querySelector('.final-payable');
 
 // Input Fields
 const shopNameInput = document.querySelector('.shop-name-input');
 const customerNameInput = document.querySelector('.customer-name-input');
 const customerMobileInput = document.querySelector('.customer-mobile');
-const pehelKaInput = document.querySelector('.pehel-ka-input');
-const jamaInput = document.querySelector('.jama-input');
+const pehelKaAdjustInput = document.querySelector('.adjust-pehel-ka');
+const jamaAdjustInput = document.querySelector('.adjust-jama');
 const languageSelect = document.querySelector('.language-select');
 const themeSelect = document.querySelector('.theme-select');
 const shopNameEdit = document.querySelector('.shop-name-edit');
@@ -270,6 +272,7 @@ const cancelBillButton = document.querySelector('.cancel-bill');
 const addItemBtn = document.querySelector('.add-item-btn');
 const saveItemsBtn = document.querySelector('.save-items-btn');
 const skipItemsBtn = document.querySelector('.skip-items-btn');
+const confirmAdjustmentBtn = document.querySelector('.confirm-adjustment');
 const newBillButton = document.querySelector('.new-bill-btn');
 const settingsButton = document.querySelector('.settings-btn');
 const openBillHistoryButton = document.querySelector('.bill-history-btn');
@@ -818,6 +821,11 @@ function renderItemInputList() {
 function renderBillHistory() {
     const list = document.querySelector('.history-list');
     list.innerHTML = "";
+
+    const customerName = bill.customer?.name || bill.customerName || "Customer";
+
+    const customerMobile = bill.customer?.mobile || "";
+
     
     billHistory.forEach(bill => {
         const div = document.createElement('div');
@@ -831,9 +839,10 @@ function renderBillHistory() {
             </div>
 
             <div class="history-content">
-                <div class="history-name-container">
-                    <span class="name">${bill.customerName}</span>
-                    <span class="meta">${bill.date} ${bill.time}</span>
+            <div class="history-name-container">
+                <span class="meta">${bill.date} ${bill.time}</span>
+                <span class="name">${customerName}</span>
+                ${customerMobile ? `<span class="mobile">${customerMobile}</span>` : ""}
                 </div>
 
                 <div class="history-right">
@@ -1185,7 +1194,7 @@ function saveItemNames() {
     addRow.forEach(row => row.remove());
 
     itemNameScreen.classList.remove('active');
-    createBill();
+    openAdjustmentModal();
 }
 
 function updateAddItemSerials() {
@@ -1230,6 +1239,23 @@ function openBillModal() {
     billInputModal.classList.add('active');
 }
 
+function openAdjustmentModal() {
+    pehelKaAdjustInput.value = '';
+    jamaAdjustInput.value = '';
+    updateFinalPreview();
+
+    adjustmentModal.classList.add('active');
+    billScreen.classList.add('active');
+}
+
+function updateFinalPreview() {
+    const pehelKa = Number(pehelKaAdjustInput.value) || 0;
+    const jama = Number(jamaAdjustInput.value) || 0;
+
+    const final = calc.currentTotal + pehelKa - jama;
+    finalPayableEl.textContent = `₹ ${formatNumber(final)}`;
+}
+
 function renderBillItems() {
     let itemHtml = "";
 
@@ -1259,8 +1285,8 @@ function createBill() {
     const customerName = customerNameInput.value.trim();
     const customerMobile = customerNameInput.dataset.mobile || "";
 
-    const pehelKa = parseFloat(pehelKaInput.value) || 0;
-    const jama = parseFloat(jamaInput.value) || 0;
+    const pehelKa = parseFloat(pehelKaAdjustInput.value) || 0;
+    const jama = parseFloat(jamaAdjustInput.value) || 0;
     const kulRakam = calc.currentTotal;
     const kulBakaya = kulRakam + pehelKa - jama;
 
@@ -1332,8 +1358,8 @@ function newBill() {
     isHistoryBillOpen = false;
     // Clear inputs
     customerNameInput.value = '';
-    pehelKaInput.value = '';
-    jamaInput.value = '';
+    pehelKaAdjustInput.value = '';
+    jamaAdjustInput.value = '';
 
     // Reset calculator
     clearAll();
@@ -1368,7 +1394,7 @@ function showBillFromHistory(bill) {
 
     // header
     billShopName.textContent = bill.shop.shopName;
-    customerBillName.textContent = bill.customerName;
+    customerBillName.textContent = bill.customer.name;
     billDateDisplay.textContent = `${bill.date} ${bill.time}`
 
     // items
@@ -1692,8 +1718,8 @@ function applyLanguage() {
 
     // Placeholders
     customerNameInput.placeholder = t.customerPlaceholder;
-    pehelKaInput.placeholder = t.pehelKaPlaceholder;
-    jamaInput.placeholder = t.jamaPlaceholder;
+    pehelKaAdjustInput.placeholder = t.pehelKaPlaceholder;
+    jamaAdjustInput.placeholder = t.jamaPlaceholder;
 
     // Confrim Modal Buttons
     confirmBtn.textContent = t.confirmBtn;
@@ -1828,6 +1854,14 @@ itemNameList.addEventListener('input', e => {
     }
 });
 
+// update total live for bill
+pehelKaAdjustInput.addEventListener('input', updateFinalPreview);
+jamaAdjustInput.addEventListener('input', updateFinalPreview);
+
+confirmAdjustmentBtn.addEventListener('click', () => {
+    adjustmentModal.classList.remove('active');
+    createBill();
+});
 
 // Bill creation
 billButton.addEventListener('click', openBillModal);
