@@ -602,6 +602,15 @@ BILL SCREEN
     align-items: center;
     justify-content: space-between;
     padding: 2px 0;
+    font-weight: 600;
+}
+
+.pehel-ka-value {
+    color: #ff4d4f;
+}
+
+.jama-value {
+    color: #22c55e;
 }
 
 .summary-row.total {

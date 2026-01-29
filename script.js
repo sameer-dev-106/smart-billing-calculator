@@ -1090,6 +1090,18 @@ function openItemNameScreen() {
         skipItemsBtn.style.display = "block";
     }
 
+    const liveTotalEl = document.querySelector('.live-total-value');
+
+    if (liveTotalEl) {
+        if (calc.items.length > 0) {
+            // calculator se aaye bill
+            liveTotalEl.textContent = `₹ ${formatNumber(calc.currentTotal)}`;
+        } else {
+            // new bill / direct bill
+            liveTotalEl.textContent = '₹ 0';
+        }
+    }
+
     updateDeleteState();
     calculatorScreen.classList.remove('active')
     itemNameScreen.classList.add("active");
@@ -1135,6 +1147,7 @@ function addItemInItemName() {
     updateDeleteState();
     itemNameList.appendChild(addRow);
     updateAddItemSerials();
+    updateLiveItemTotal();
 
     // Auto Focus
     const nameInput = addRow.querySelector('.add-item-name-input');
@@ -1320,8 +1333,8 @@ function createBill() {
 
     // Update summary
     kulRakamValue.textContent = formatNumber(kulRakam);
-    pehelKaValue.textContent = formatNumber(pehelKa);
-    jamaValue.textContent = formatNumber(jama);
+    pehelKaValue.textContent = `+ ${formatNumber(pehelKa)}`;
+    jamaValue.textContent = `- ${formatNumber(jama)}`;
     kulBakayaValue.textContent = formatNumber(kulBakaya);
 
     // ======================
@@ -1378,6 +1391,10 @@ function newBill() {
     clearAll();
     expression = "";
 
+    // Add item total reset
+    const liveTotalEl = document.querySelector('.live-total-value');
+    if (liveTotalEl) liveTotalEl.textContent = '₹ 0';
+
     // Switch to calculator screen
     billScreen.classList.remove('active');
     calculatorScreen.classList.add('active');
@@ -1426,8 +1443,8 @@ function showBillFromHistory(bill) {
 
     // summary 
     kulRakamValue.textContent = bill.summary.kulRakam;
-    pehelKaValue.textContent = bill.summary.pehelKa;
-    jamaValue.textContent = bill.summary.jama;
+    pehelKaValue.textContent = `+ ${bill.summary.pehelKa}`;
+    jamaValue.textContent = `- ${bill.summary.jama}`;
     kulBakayaValue.textContent = bill.summary.kulBakaya;
 
     historyScreen.classList.remove('active');
@@ -1795,6 +1812,23 @@ saveShopNameButton.addEventListener('click', saveShopName);
 addItemBtn.addEventListener('click', addItemInItemName);
 
 saveItemsBtn.addEventListener("click", () => {
+
+    // ✅ CASE 1: Calculator se items aaye hain
+    if (!isManualBill && calc.items.length > 0) {
+        const t = translations[appState.language];
+        
+        openConfirmModal(
+            t.confirmItemNameSaveTitle,
+            t.confirmItemNameSaveMsg,
+            () => {
+                document.body.classList.remove('item-name-open');
+                itemNameScreen.classList.remove('active');
+                openAdjustmentModal();
+            }
+        );
+        return;
+    }
+
     const rows = document.querySelectorAll('.add-item-name-row');
     let hasValidItem = false;
     let hasError = false;
