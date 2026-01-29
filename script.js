@@ -848,10 +848,10 @@ function renderBillHistory() {
 
             <div class="history-content">
             <div class="history-name-container">
-                <span class="meta">${bill.date} ${bill.time}</span>
                 <span class="name">${customerName}</span>
-                ${customerMobile ? `<span class="mobile">${customerMobile}</span>` : ""}
-                </div>
+                ${customerMobile ? `<span class="mobile">+91 ${customerMobile}</span>` : ""}
+                <span class="meta">${bill.date} ${bill.time}</span>
+            </div>
 
                 <div class="history-right">
                     <span class="amount">${bill.summary.kulBakaya}</span>
@@ -1812,66 +1812,51 @@ saveShopNameButton.addEventListener('click', saveShopName);
 addItemBtn.addEventListener('click', addItemInItemName);
 
 saveItemsBtn.addEventListener("click", () => {
+    const t = translations[appState.language];
 
-    // ✅ CASE 1: Calculator se items aaye hain
-    if (!isManualBill && calc.items.length > 0) {
-        const t = translations[appState.language];
-        
-        openConfirmModal(
-            t.confirmItemNameSaveTitle,
-            t.confirmItemNameSaveMsg,
-            () => {
-                document.body.classList.remove('item-name-open');
-                itemNameScreen.classList.remove('active');
-                openAdjustmentModal();
-            }
-        );
-        return;
-    }
-
-    const rows = document.querySelectorAll('.add-item-name-row');
+    const addRows = document.querySelectorAll('.add-item-name-row');
     let hasValidItem = false;
     let hasError = false;
 
-    rows.forEach(row => {
+    // Validate ONLY add-item rows
+    addRows.forEach(row => {
         const valueInput = row.querySelector('.add-item-value-input');
-
         row.classList.remove('error');
 
-        if (!valueInput || valueInput.value.trim() === "") {
+        if (valueInput && valueInput.value.trim() !== "") {
+            hasValidItem = true;
+        } else if (valueInput) {
             row.classList.add('error');
             hasError = true;
-        } else {
-            hasValidItem = true;
         }
     });
 
-    if (!hasValidItem) {
-        openInfoPopup("Kam se kam ek item ki value dalo");
-        return;
+    // ❗ Only block if PURE manual bill
+    if (isManualBill) {
+        if (!hasValidItem) {
+            openInfoPopup("Kam se kam ek item ki value dalo");
+            return;
+        }
+
+        if (hasError) {
+            setTimeout(() => {
+                openInfoPopup("Item value khali nahi ho sakti");
+            }, 500);
+            return;
+        }
     }
 
-    if (hasError) {
-        openInfoPopup("Item value khali nahi ho sakti");
-        return;
-    }
-
-    const t = translations[appState.language];
-    
-    // Scroll to top before confirm
-    document.querySelector('.items-inputs-container').scrollTo({ top: 0, behavior: 'smooth' });
-    
-    setTimeout(() => {
-        openConfirmModal(
-            t.confirmItemNameSaveTitle,
-            t.confirmItemNameSaveMsg,
-            () => {
-                document.body.classList.remove('item-name-open');
-                saveItemNames();
-            }
-        );
-    }, 1000);
+    openConfirmModal(
+        t.confirmItemNameSaveTitle,
+        t.confirmItemNameSaveMsg,
+        () => {
+            document.body.classList.remove('item-name-open');
+            saveItemNames();
+            openAdjustmentModal();
+        }
+    );
 });
+
 skipItemsBtn.addEventListener("click", () => {
     const t = translations[appState.language];
     openConfirmModal(
@@ -1884,7 +1869,7 @@ skipItemsBtn.addEventListener("click", () => {
                 infoModal.classList.remove("active");
                 itemNameScreen.classList.remove("active");
                 document.body.classList.remove('item-name-open');
-                createBill();
+                openAdjustmentModal();
             }
         }
     );
