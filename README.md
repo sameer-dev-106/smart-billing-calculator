@@ -205,19 +205,20 @@ To build a real shop-ready billing calculator that:
 - Minimum one item value validation
 - Blank item value prevention with visual error feedback
 - Prevention of blank bill generation
-- Adjustment modal (Pehle ka & Jama)
+- Adjustment step added before final bill (Pehle ka & Jama)
+- Bill is generated only after final adjustment confirmation
 - Live payable amount preview before final bill
 - Customer name and mobile number support
 - Read-only bill screen (locked after generation)
 - Bill history with persistent storage
 - Bill history open confirmation
 - Bill history clear with confirmation
+- Single bill delete from bill history (swipe + confirmation)
 - Multi-language support (Hindi, Hinglish, English)
 - Theme system (System / Light / Dark)
 - Mobile-first responsive UI
 
 ### 🔜 Planned
-- Single bill delete from bill history (with confirmation)
 - Bill history search (customer name / mobile)
 - Quantity and price based billing
 - Daily totals and reports

@@ -163,7 +163,7 @@
     --gray-text: #64748B;
     --light-gray: #dddedf;
 
-    --overlay-light: rgba(255, 255, 255, 0.2);
+    --overlay-light: rgba(0, 0, 0, 0.2);
     --overlay-dark: rgba(0, 0, 0, 0.454);
 
     --add-item-outline: 1px solid rgba(0, 0, 0, 0.386);
@@ -1310,13 +1310,14 @@ ADJUSTMENT MODAL STYLES
 }
 
 .final-preview {
-    margin: 16px 0;
-    padding: 12px;
-    border-radius: 12px;
+    margin: var(--spacing-sm) 0;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-sm);
+    color: var(--dark-text);
     background: var(--overlay-light);
     display: flex;
     justify-content: space-between;
-    font-size: 18px;
+    font-size: var(--font-md);
     font-weight: 700;
 }
 
@@ -1372,18 +1373,10 @@ body.item-name-open {
     background: var(--primary-gradient);
 }
 
-.item-name-navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-lg);
-}
-
-.item-name-navbar>h1 {
-    font-size: var(--font-lg);
+.item-name-header>h1 {
+    font-size: var(--font-xl);
     margin-bottom: var(--spacing-sm);
     text-transform: capitalize;
-    max-width: 15.63rem;    /* 250px */
 }
 
 .item-name-summary {
@@ -1573,7 +1566,7 @@ body.item-name-open {
     padding: var(--spacing-xs) 0.5rem;
     color: var(--white);
     background: var(--overlay-light);
-    font-size: var(--font-sm);
+    font-size: var(--font-md);
     border: none;
     border-radius: var(--radius-md);
 }
@@ -1592,8 +1585,6 @@ body.item-name-open {
     margin-top: var(--spacing-sm);
     border-top: 1px solid rgba(255,255,255,0.08);
 }
-
-
 
 .item-name-action-btn button {
     width: 90%;

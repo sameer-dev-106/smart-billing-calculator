@@ -1136,6 +1136,10 @@ function addItemInItemName() {
     itemNameList.appendChild(addRow);
     updateAddItemSerials();
 
+    // Auto Focus
+    const nameInput = addRow.querySelector('.add-item-name-input');
+    if (nameInput) nameInput.focus();
+
     // Auto Scroll
     addRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
@@ -1366,6 +1370,7 @@ function newBill() {
     isHistoryBillOpen = false;
     // Clear inputs
     customerNameInput.value = '';
+    customerMobileInput.value = '';
     pehelKaAdjustInput.value = '';
     jamaAdjustInput.value = '';
 
@@ -1880,6 +1885,12 @@ itemNameList.addEventListener('click', (e) => {
                 row.remove();
                 updateAddItemSerials();
                 updateDeleteState();
+
+                if (nextRow) {
+                    const input = nextRow.querySelector('.add-item-name-input, .item-name-input');
+                    if (input) input.focus();
+                }
+
             }, 250);
         }
     );
