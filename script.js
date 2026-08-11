@@ -247,6 +247,7 @@ const pehelKaLabel = document.querySelector('.pehel-ka-label');
 const jamaLabel = document.querySelector('.jama-label');
 const kulBakayaLabel = document.querySelector('.kul-bakaya-label');
 const finalPayableEl = document.querySelector('.final-payable');
+const historySearchWrapper = document.querySelector('.history-search-wrapper');
 
 // Input Fields
 const shopNameInput = document.querySelector('.shop-name-input');
@@ -257,6 +258,7 @@ const jamaAdjustInput = document.querySelector('.adjust-jama');
 const languageSelect = document.querySelector('.language-select');
 const themeSelect = document.querySelector('.theme-select');
 const shopNameEdit = document.querySelector('.shop-name-edit');
+const historySearchInput = document.querySelector('.history-search-input');
 const resetDescription = document.querySelector('.reset-description');
 
 // Buttons
@@ -276,6 +278,7 @@ const confirmAdjustmentBtn = document.querySelector('.confirm-adjustment');
 const newBillButton = document.querySelector('.new-bill-btn');
 const settingsButton = document.querySelector('.settings-btn');
 const openBillHistoryButton = document.querySelector('.bill-history-btn');
+const searchBillHistoryButton = document.querySelector('.search-bill-history-btn');
 const closeBillHistoryButton = document.querySelector('.close-bill-history-btn');
 const clearBillHistoryButton = document.querySelector('.clear-bill-history-btn');
 const openCalcHistoryButton = document.querySelector('.calc-history-btn');
@@ -1403,6 +1406,10 @@ function newBill() {
 // ========================================
 // BILL HISTORY MANAGEMENT
 // ======================================== 
+function toggleSearchBar() {
+    historySearchWrapper.classList.toggle("active");
+}
+
 function openBillHistory() {
     const t = translations[appState.language];
     
@@ -1966,8 +1973,8 @@ clearCalcHistoryButton.addEventListener('click', clearCalcHistory);
 // Bill history 
 openBillHistoryButton.addEventListener('click', openBillHistory);
 closeBillHistoryButton.addEventListener('click', closeBillHistory);
+searchBillHistoryButton.addEventListener('click', toggleSearchBar);
 clearBillHistoryButton.addEventListener('click', clearBillHistory);
-
 
 // Settings
 settingsButton.addEventListener('click', openSettings);
