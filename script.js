@@ -67,6 +67,7 @@ const translations = {
         calcHistoryCleared: "कैलकुलेटर इतिहास सफलतापूर्वक मिटा दिया गया।",
         noBillHistory: "कोई बिल इतिहास उपलब्ध नहीं है।",
         noCalcHistory: "कोई कैलकुलेटर इतिहास उपलब्ध नहीं है।",
+        noSearchResults: "इस खोज में कोई बिल नहीं मिला।",
     },
     hinglish: {
         shopModalTitle: 'Apni dukaan ka naam enter karo',
@@ -132,6 +133,7 @@ const translations = {
         calcHistoryCleared: "Calculator history clear ho gayi.",
         noBillHistory: "Koi bill history available nahi hai.",
         noCalcHistory: "Koi calculator history available nahi hai.",
+        noSearchResults: "Is search se koi bill nahi mila",
     },
     english: {
         shopModalTitle: 'Enter Your Shop Name',
@@ -197,6 +199,7 @@ const translations = {
         calcHistoryCleared: "Calculator history cleared successfully.",
         noBillHistory: "No bill history available.",
         noCalcHistory: "No calculator history available.",
+        noSearchResults: "No bill was found from this search.",
     }
 };
 
@@ -313,11 +316,11 @@ const appState = {
 };
 
 const calc = {
-currentNumber: "",
-currentTotal: 0,
-currentOperator: null,
-items: [],
-justCalculated: false
+    currentNumber: "",
+    currentTotal: 0,
+    currentOperator: null,
+    items: [],
+    justCalculated: false
 };
 
 const OPERATORS = ["+", "-", "×", "÷"];
@@ -371,7 +374,7 @@ function init() {
 // ========================================
 function loadState() {
     try {
-        const saved = JSON.parse(localStorage.getItem('smartBillingState')) || { };
+        const saved = JSON.parse(localStorage.getItem('smartBillingState')) || {};
         appState.shopName = saved.shopName || "";
         appState.language = saved.language || "hinglish";
         appState.theme = saved.theme || "system";
@@ -472,7 +475,7 @@ function saveShopName() {
 
     if (!name) {
         openInfoPopup(translations[appState.language].alertEnterShopName);
-    return;
+        return;
     }
 
     appState.shopName = name;
@@ -669,7 +672,7 @@ function appendOperator(op) {
         expression = expression.slice(0, -1) + op;
     } else {
         expression += op;
-        
+
     }
 
     calc.currentNumber = "";
@@ -679,7 +682,6 @@ function appendOperator(op) {
 }
 
 function calculateEqual() {
-
     const parsedItems = parseExpressionToItems(expression);
 
     if (parsedItems.length === 0) return;
@@ -687,7 +689,7 @@ function calculateEqual() {
     calc.items = parsedItems;
     calc.currentTotal = 0;
 
-// Calculate final result
+    // Calculate final result
     calc.currentTotal = evaluateExpressionWithPrecedence(expression);
     calc.items = parseExpressionToItems(expression);
 
@@ -702,7 +704,6 @@ function calculateEqual() {
     //         );
     //     }
     // })
-
 
     calc.currentNumber = "";
     calc.currentOperator = null;
@@ -739,7 +740,7 @@ function clearAll() {
 function backspace() {
     if (!expression) return;
 
-    expression = expression.slice(0,-1);
+    expression = expression.slice(0, -1);
 
     calc.currentNumber = "";
     calc.currentOperator = null;
@@ -751,7 +752,7 @@ function backspace() {
         return;
     }
 
-    const parsedItems =parseExpressionToItems(expression);
+    const parsedItems = parseExpressionToItems(expression);
     calc.items = parsedItems;
 
     parsedItems.forEach(item => {
@@ -769,7 +770,7 @@ function backspace() {
     const lastChar = expression[expression.length - 1];
 
     if (!OPERATORS.includes(lastChar)) {
-        calc.currentNumber = parsedItems[parsedItems.length -1].value.toString();
+        calc.currentNumber = parsedItems[parsedItems.length - 1].value.toString();
         calc.items.pop();
     } else {
         calc.currentOperator = lastChar;
@@ -824,6 +825,12 @@ function renderItemInputList() {
 
 }
 
+function getBillDetails(bill) {
+    const customerName = bill.customer?.name || bill.customerName || "Customer";
+    const customerMobile = bill.customer?.mobile || "";
+    return { name: customerName, mobile: customerMobile }
+}
+
 function renderBillHistory() {
     const list = document.querySelector('.history-list');
     list.innerHTML = "";
@@ -831,25 +838,12 @@ function renderBillHistory() {
     const query = historySearchInput.value.toLowerCase();
 
     const filteredHistory = billHistory.filter(bill => {
-        const customerName =
-            bill.customer?.name ||
-            bill.customerName ||
-            "Customer";
-
-        const customerMobile =
-            bill.customer?.mobile || "";
-
-        return customerName.toLowerCase().includes(query) || customerMobile.includes(query);
+        const { name, mobile } = getBillDetails(bill);
+        return name.toLowerCase().includes(query) || mobile.includes(query);
     });
 
     filteredHistory.forEach(bill => {
-        const customerName =
-            bill.customer?.name ||
-            bill.customerName ||
-            "Customer";
-
-        const customerMobile =
-            bill.customer?.mobile || "";
+        const { name, mobile } = getBillDetails(bill);
 
         const div = document.createElement('div');
         div.className = "history-item";
@@ -863,8 +857,8 @@ function renderBillHistory() {
 
             <div class="history-content">
             <div class="history-name-container">
-                <span class="name">${customerName}</span>
-                ${customerMobile ? `<span class="mobile">+91 ${customerMobile}</span>` : ""}
+                <span class="name">${name}</span>
+                ${mobile ? `<span class="mobile">+91 ${mobile}</span>` : ""}
                 <span class="meta">${bill.date} ${bill.time}</span>
             </div>
 
@@ -974,7 +968,7 @@ function updateDisplay(isEqual = false) {
 
     // Update item count
     let itemCount = 0;
-    
+
     if (calc.justCalculated) {
         itemCount = calc.items.length
     } else {
@@ -1270,12 +1264,12 @@ function openBillModal() {
         openInfoPopup(translations[appState.language].alertPressEqualFirst);
         return;
     }
-    
+
     // if (calc.items.length === 0) {
     //     openInfoPopup(translations[appState.language].alertAddItems);
     //     return;
     // }
-    
+
     billInputModal.classList.add('active');
 }
 
@@ -1365,12 +1359,12 @@ function createBill() {
             shopName: appState.shopName
         },
 
-        customer:{
+        customer: {
             name: customerName,
             mobile: customerMobile,
         },
 
-        items: calc.items.map((item, idx)=> ({
+        items: calc.items.map((item, idx) => ({
             name: item.name || `item ${idx + 1}`,
             op: item.op,
             value: item.value
@@ -1424,7 +1418,7 @@ function toggleSearchBar() {
 
 function openBillHistory() {
     const t = translations[appState.language];
-    
+
     if (billHistory.length === 0) {
         openInfoPopup(t.noBillHistory);
         return;
@@ -1814,10 +1808,10 @@ equalButton.addEventListener('click', () => {
 
     const lastChar = expression.slice(-1)
 
-    if (OPERATORS.includes(lastChar)){
+    if (OPERATORS.includes(lastChar)) {
         openInfoPopup(translations[appState.language].alertEnterNumber);
         return;
-    } 
+    }
 
     equalConfirm();
 });
@@ -1883,7 +1877,7 @@ skipItemsBtn.addEventListener("click", () => {
         t.confirmItemNameSkipMsg,
         () => {
             openInfoPopup(translations[appState.language].alertSkipItemName);
-            
+
             infoOkBtn.onclick = () => {
                 infoModal.classList.remove("active");
                 itemNameScreen.classList.remove("active");
@@ -1892,7 +1886,7 @@ skipItemsBtn.addEventListener("click", () => {
             }
         }
     );
-    
+
 });
 
 // Input name item delete
