@@ -720,6 +720,22 @@ BILL HISTORY SCREEN
     transition: transform var(--transition-normal);
 }
 
+.no-bill-history {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light-gray);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    box-sizing: var(--shadow-sm);
+}
+
+.no-bill-history h1 {
+    color: var(--dark-text);
+    font-weight: 600;
+    font-size: var(--font-m);
+}
+
 .history-list {
     flex: 1;
     overflow-y: auto;
