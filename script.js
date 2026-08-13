@@ -842,6 +842,16 @@ function renderBillHistory() {
         return name.toLowerCase().includes(query) || mobile.includes(query);
     });
 
+    if (filteredHistory.length === 0) {
+        const t = translations[appState.language];
+        list.innerHTML = `
+            <div class="no-bill-history">
+                <h1>${t.noSearchResults}</h1>
+            </div>
+        `
+        return;
+    }
+
     filteredHistory.forEach(bill => {
         const { name, mobile } = getBillDetails(bill);
 
