@@ -828,9 +828,21 @@ function renderBillHistory() {
     const list = document.querySelector('.history-list');
     list.innerHTML = "";
 
-    
-    
-    billHistory.forEach(bill => {
+    const query = historySearchInput.value.toLowerCase();
+
+    const filteredHistory = billHistory.filter(bill => {
+        const customerName =
+            bill.customer?.name ||
+            bill.customerName ||
+            "Customer";
+
+        const customerMobile =
+            bill.customer?.mobile || "";
+
+        return customerName.toLowerCase().includes(query) || customerMobile.includes(query);
+    });
+
+    filteredHistory.forEach(bill => {
         const customerName =
             bill.customer?.name ||
             bill.customerName ||
@@ -1975,6 +1987,7 @@ openBillHistoryButton.addEventListener('click', openBillHistory);
 closeBillHistoryButton.addEventListener('click', closeBillHistory);
 searchBillHistoryButton.addEventListener('click', toggleSearchBar);
 clearBillHistoryButton.addEventListener('click', clearBillHistory);
+historySearchInput.addEventListener('input', renderBillHistory);
 
 // Settings
 settingsButton.addEventListener('click', openSettings);
