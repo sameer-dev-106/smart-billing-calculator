@@ -1088,15 +1088,10 @@ SETTIING MODAL STYLES
     position: absolute;
     bottom: 0;
     right: 0;
-    background: var(--light-bg);
     z-index: 9;
     width: 100%;
-    padding: var(--spacing-lg);
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    align-items: center;
-    justify-content: center;
+    background: var(--light-bg);
+    padding: var(--spacing-sm);
 }
 
 .update-settings {
