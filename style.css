@@ -1031,6 +1031,14 @@ SETTIING MODAL STYLES
     justify-content: center;
 }
 
+.history-settings {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) 0;
+}
+
 .setting-item label {
     display: block;
     padding-left: var(--spacing-sm);
@@ -1058,7 +1066,6 @@ SETTIING MODAL STYLES
     outline: none;
     border-color: var(--primary-color);
 }
-
 
 .setting-item select {
     width: 100%;
