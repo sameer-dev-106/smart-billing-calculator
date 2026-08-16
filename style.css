@@ -287,7 +287,15 @@ CALCULATOR SCREEN
     max-width: 250px;
 }
 
-.settings-btn {
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    position: relative;
+}
+
+.settings-btn,
+.history-menu-btn {
     background: var(--overlay-light);
     border: none;
     color: var(--white);
@@ -299,12 +307,55 @@ CALCULATOR SCREEN
     transition: background var(--transition-normal);
 }
 
-.settings-btn:hover {
+.settings-btn:hover,
+.history-menu-btn:hover {
     background: rgba(255, 255, 255, 0.3);
 }
 
-.settings-btn:active {
+.settings-btn:active, 
+.history-menu-btn:active {
     transform: scale(0.95);
+}
+
+/* Dropdown Menu */
+.history-menu {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    z-index: 30;
+    min-width: 180px;
+    background: var(--dark-bg);
+    border: 1px solid var(--overlay-light);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.history-menu.active {
+    display: block;
+}
+
+.history-menu button {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    color: var(--white);
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-sm);
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 1px solid var(--overlay-light);
+}
+
+.history-menu button:last-child {
+    border-bottom: none;
+}
+
+.history-menu button:hover,
+.history-menu button:active {
+    background: var(--overlay-light);
 }
 
 /* Total & Items Display Box */
