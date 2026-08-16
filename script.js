@@ -251,6 +251,7 @@ const jamaLabel = document.querySelector('.jama-label');
 const kulBakayaLabel = document.querySelector('.kul-bakaya-label');
 const finalPayableEl = document.querySelector('.final-payable');
 const historySearchWrapper = document.querySelector('.history-search-wrapper');
+const customerSuggestions = document.querySelector('.customer-suggestions');
 
 // Input Fields
 const shopNameInput = document.querySelector('.shop-name-input');
@@ -1325,6 +1326,52 @@ function renderBillItems() {
     billItemsContainer.innerHTML = itemHtml;
 }
 
+function getUniqueCustomers() {
+    const uniqueList = [];
+
+    billHistory.forEach(bill => {
+        const { name, mobile } = getBillDetails(bill);
+
+        if (mobile === "") {
+            uniqueList.push({ name, mobile });
+        } else {
+            const alreadyExists = uniqueList.some(c => c.mobile === mobile);
+
+            if (!alreadyExists) {
+                uniqueList.push({ name, mobile });
+            }
+        }
+    });
+
+    return uniqueList;
+}
+
+function getCustomerSuggestion() {
+    customerSuggestions.innerHTML = "";
+    const allCustomers = getUniqueCustomers();
+
+    const query = customerNameInput.value.trim().toLowerCase();
+
+    if (query === "") return customerSuggestions.classList.remove('active');
+
+    const filteredCustomer = allCustomers.filter(c => {
+        return c.name.toLowerCase().includes(query);
+    });
+
+    customerSuggestions.classList.add('active');
+
+    filteredCustomer.forEach(c => {
+        const { name, mobile } = c;
+        const div = document.createElement('div');
+        div.className = "suggestion-item";
+        div.innerHTML = `
+            <span class="suggestion-name">${name}</span>
+            <span class="suggestion-mobile">${mobile}</span>
+        `
+        customerSuggestions.appendChild(div);
+    });
+}
+
 function createBill() {
     const customerName = customerNameInput.value.trim();
     const customerMobile = customerNameInput.dataset.mobile || "";
@@ -1956,6 +2003,9 @@ confirmAdjustmentBtn.addEventListener('click', () => {
     adjustmentModal.classList.remove('active');
     createBill();
 });
+
+// Custmore Name or Number Suggetion
+customerNameInput.addEventListener('input', getCustomerSuggestion);
 
 // Bill creation
 billButton.addEventListener('click', openBillModal);
