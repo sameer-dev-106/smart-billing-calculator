@@ -1358,7 +1358,9 @@ function getCustomerSuggestion() {
         return c.name.toLowerCase().includes(query);
     });
 
-    customerSuggestions.classList.add('active');
+    if (filteredCustomer.length === 0) {
+        return customerSuggestions.classList.remove('active');
+    }
 
     filteredCustomer.forEach(c => {
         const { name, mobile } = c;
@@ -1368,13 +1370,15 @@ function getCustomerSuggestion() {
             <span class="suggestion-name">${name}</span>
             <span class="suggestion-mobile">${mobile}</span>
         `
-        div.addEventListener('click', ()=> {
+        div.addEventListener('click', () => {
             customerNameInput.value = name;
             customerMobileInput.value = mobile;
             customerSuggestions.classList.remove('active');
         })
         customerSuggestions.appendChild(div);
     });
+
+    customerSuggestions.classList.add('active');
 }
 
 function createBill() {
@@ -2003,7 +2007,6 @@ itemNameList.addEventListener('input', e => {
 // update total live for bill
 pehelKaAdjustInput.addEventListener('input', updateFinalPreview);
 jamaAdjustInput.addEventListener('input', updateFinalPreview);
-
 confirmAdjustmentBtn.addEventListener('click', () => {
     adjustmentModal.classList.remove('active');
     createBill();
