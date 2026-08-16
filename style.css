@@ -1007,7 +1007,6 @@ SETTINGS MODAL STYLES
 
 .setting-items {
     flex: 1;
-    max-height: 500px;
     overflow-y: auto;
     word-break: break-all;
     width: 100%;
