@@ -960,7 +960,7 @@ BILL HISTORY SCREEN
 }
 
 /* ========================================
-SETTIING MODAL STYLES
+SETTINGS MODAL STYLES
 ======================================== */
 .settings-screen {
     width: 100%;
@@ -1096,14 +1096,14 @@ SETTIING MODAL STYLES
 
 .update-settings {
     width: 100%;
-    padding: var(--spacing-sm);
-    background: var(--success-color);
-    color: var(--white);
     border: none;
-    border-radius: var(--radius-sm);
-    font-size: var(--font-md);
     font-weight: bold;
     cursor: pointer;
+    color: var(--white);
+    font-size: var(--font-md);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    background: var(--success-color);
     transition: transform var(--transition-fast);
 }
 
