@@ -83,6 +83,18 @@ When user clicks **Bill**, a form opens asking:
 
 Billing is blocked unless calculation is finalized correctly.
 
+**Smart Customer Suggestions**  
+While typing the customer name, the app checks past bills and shows a  
+dropdown of matching returning customers.
+
+- Suggestions are generated from unique customers found in bill history  
+- Matching happens as the user types (case-insensitive)  
+- Selecting a suggestion instantly autofills both name and mobile number  
+- Dropdown closes automatically when clicking outside it  
+- No duplicate suggestions are shown for a customer with the same mobile number  
+
+This saves time for shopkeepers billing regular/repeat customers.
+
 ---
 
 ### 6️⃣ Item Name (Optional but Recommended)
