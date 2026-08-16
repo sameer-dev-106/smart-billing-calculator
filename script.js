@@ -1480,6 +1480,13 @@ function newBill() {
 }
 
 // ========================================
+// HISTORY MANAGEMENT
+// ======================================== 
+function openHistoryMenu() {
+    historyMenu.classList.toggle('active');
+}
+
+// ========================================
 // BILL HISTORY MANAGEMENT
 // ======================================== 
 function toggleSearchBar() {
@@ -2043,9 +2050,8 @@ cancelBillButton.addEventListener('click', () => {
 });
 newBillButton.addEventListener('click', openNewBillConfirm);
 
-historyMenuButton.addEventListener('click', () => {
-    historyMenu.classList.toggle('active');
-});
+// History menu
+historyMenuButton.addEventListener('click', openHistoryMenu);
 
 // Calculator history
 openCalcHistoryOptionButton.addEventListener('click', openCalcHistory);
