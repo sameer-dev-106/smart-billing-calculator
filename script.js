@@ -2059,5 +2059,12 @@ updateSettingsButton.addEventListener('click', updateSettings);
 // Reset
 resetAppBtn.addEventListener('click', resetAppData);
 
+// Close customer suggestions when clicking outside
+document.addEventListener('click', (event) => {
+    if (event.target !== customerNameInput && !customerSuggestions.contains(event.target)) {
+        return customerSuggestions.classList.remove('active');
+    }
+});
+
 // Initialize app
 init();
