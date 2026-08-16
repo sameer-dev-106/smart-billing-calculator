@@ -126,6 +126,14 @@ Every finalized bill is saved automatically.
 - Old bills can be reviewed anytime  
 - Bills are locked to prevent accidental changes  
 
+**Search Bill History**  
+A search bar inside Bill History lets shopkeepers quickly find old bills.
+
+- Toggleable search bar inside the Bill History screen  
+- Search works by customer name or mobile number  
+- Filtering happens live as the user types  
+- Shows a clear "no results" message when nothing matches  
+
 ---
 
 ## 🌐 Language Support
@@ -214,12 +222,13 @@ To build a real shop-ready billing calculator that:
 - Bill history open confirmation
 - Bill history clear with confirmation
 - Single bill delete from bill history (swipe + confirmation)
+- Bill history search (customer name / mobile)
+- Smart customer suggestions with autofill (returning customers)
 - Multi-language support (Hindi, Hinglish, English)
 - Theme system (System / Light / Dark)
 - Mobile-first responsive UI
 
 ### 🔜 Planned
-- Bill history search (customer name / mobile)
 - Quantity and price based billing
 - Daily totals and reports
 - Invoice layout & QR payment support
