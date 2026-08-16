@@ -17,7 +17,15 @@
             <!-- Header with shop name and settings -->
             <header class="calc-header">
                 <h1 class="shop-name-display"></h1>
-                <button class="settings-btn" aria-label="Settings">⚙️</button>
+                <div class="header-actions">
+                    <button class="history-menu-btn" aria-label="History">🕓</button>
+                    <div class="history-menu">
+                        <button class="open-bill-history-option">Bill History</button>
+                        <button class="open-calc-history-option">Calculator History</button>
+                    </div>
+                    <button class="settings-btn" aria-label="Settings">⚙️</button>
+                </div>
+
                 <small class="app-author">
                     Built by Sameer Lilar
                 </small>
@@ -376,7 +384,8 @@
 
                     <div class="input-group">
                         <label for="customerMobile">Customer Mobile (optional)</label>
-                        <input type="tel" class="customer-mobile" placeholder="10 digit mobile number" maxlength="10" inputmode="numeric" />
+                        <input type="tel" class="customer-mobile" placeholder="10 digit mobile number" maxlength="10"
+                            inputmode="numeric" />
                     </div>
 
                     <!-- Action Buttons -->
