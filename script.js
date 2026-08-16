@@ -231,6 +231,7 @@ const billDateDisplay = document.querySelector('.bill-date');
 const billItemsContainer = document.querySelector('.bill-items');
 const itemNameList = document.querySelector('.item-name-list');
 const addItemSctions = document.querySelector('.add-item-actions');
+const historyMenu = document.querySelector('.history-menu');
 
 // Calculator Display Elements
 const calcKulRakamValue = document.querySelector('.calc-kul-rakam-value');
@@ -281,11 +282,14 @@ const skipItemsBtn = document.querySelector('.skip-items-btn');
 const confirmAdjustmentBtn = document.querySelector('.confirm-adjustment');
 const newBillButton = document.querySelector('.new-bill-btn');
 const settingsButton = document.querySelector('.settings-btn');
+const historyMenuButton = document.querySelector('.history-menu-btn');
 const openBillHistoryButton = document.querySelector('.bill-history-btn');
+const openBillHistoryOptionButton = document.querySelector('.open-bill-history-option');
 const searchBillHistoryButton = document.querySelector('.search-bill-history-btn');
 const closeBillHistoryButton = document.querySelector('.close-bill-history-btn');
 const clearBillHistoryButton = document.querySelector('.clear-bill-history-btn');
 const openCalcHistoryButton = document.querySelector('.calc-history-btn');
+const openCalcHistoryOptionButton = document.querySelector('.open-calc-history-option');
 const closeCalcHistoryButton = document.querySelector('.close-calc-history-btn');
 const clearCalcHistoryButton = document.querySelector('.clear-calc-history-btn');
 const resetAppBtn = document.querySelector('.reset-app-btn');
@@ -2039,12 +2043,18 @@ cancelBillButton.addEventListener('click', () => {
 });
 newBillButton.addEventListener('click', openNewBillConfirm);
 
-// Calculator history 
+historyMenuButton.addEventListener('click', () => {
+    historyMenu.classList.toggle('active');
+});
+
+// Calculator history
+openCalcHistoryOptionButton.addEventListener('click', openCalcHistory);
 openCalcHistoryButton.addEventListener('click', openCalcHistory);
 closeCalcHistoryButton.addEventListener('click', closeCalcHistory);
 clearCalcHistoryButton.addEventListener('click', clearCalcHistory);
 
 // Bill history 
+openBillHistoryOptionButton.addEventListener('click', openBillHistory);
 openBillHistoryButton.addEventListener('click', openBillHistory);
 closeBillHistoryButton.addEventListener('click', closeBillHistory);
 searchBillHistoryButton.addEventListener('click', toggleSearchBar);
@@ -2059,10 +2069,14 @@ updateSettingsButton.addEventListener('click', updateSettings);
 // Reset
 resetAppBtn.addEventListener('click', resetAppData);
 
-// Close customer suggestions when clicking outside
+// Close modals when clicking outside
 document.addEventListener('click', (event) => {
     if (event.target !== customerNameInput && !customerSuggestions.contains(event.target)) {
-        return customerSuggestions.classList.remove('active');
+        customerSuggestions.classList.remove('active');
+    }
+
+    if (event.target !== historyMenuButton && !historyMenu.contains(event.target)) {
+        historyMenu.classList.remove('active');
     }
 });
 
