@@ -1368,6 +1368,11 @@ function getCustomerSuggestion() {
             <span class="suggestion-name">${name}</span>
             <span class="suggestion-mobile">${mobile}</span>
         `
+        div.addEventListener('click', ()=> {
+            customerNameInput.value = name;
+            customerMobileInput.value = mobile;
+            customerSuggestions.classList.remove('active');
+        })
         customerSuggestions.appendChild(div);
     });
 }
