@@ -1342,6 +1342,7 @@ Caculator History MODAL STYLES
 }
 
 .calc-history-item {
+    position: relative;
     color: var(--dark-text);
     background: var(--light-gray);
     padding: var(--spacing-sm) var(--spacing-lg);
@@ -1375,6 +1376,11 @@ Caculator History MODAL STYLES
 }
 
 .calc-history-item>p {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-sm);
     text-align: right;
 }
 
