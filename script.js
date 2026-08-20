@@ -914,13 +914,13 @@ function renderCalcHistory() {
 
         div.innerHTML = `
             <h3>Items: ${item.itemCount}</h3>
+            <p>${item.date} ${item.time}</p>
             <div class="calc-history-exp">
                 ${item.expression}
             </div>
             <div class="calc-history-total">
                 = ${item.total}
             </div>
-            <p>${item.date} ${item.time}</p>
         `;
 
         div.addEventListener('click', () => {
