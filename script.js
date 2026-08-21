@@ -335,6 +335,7 @@ const OPERATORS = ["+", "-", "×", "÷"];
 let expression = "";
 let newExpression = "";
 let cursorIndex = 0;
+let currentFilter = "all";
 
 let isManualBill = false;
 
@@ -353,6 +354,7 @@ const BILL_HISTORY_KEY = "smartBillingBills"
 // old bill lock flags for edit items
 let isHistoryBillOpen = false;
 
+// current bill id for edit
 let currentBillId = null;
 
 // ========================================
@@ -837,13 +839,49 @@ function getBillDetails(bill) {
     return { name: customerName, mobile: customerMobile }
 }
 
-function renderBillHistory() {
+function getFilteredByDate(bills, filterType) {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - today.getDay());
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
+    const startOfYear = new Date(today.getFullYear(), 0 /* January */, 1);
+
+    return bills.filter(bill => {
+        const billDate = new Date(bill.date.split('/').reverse().join('-'));
+
+        switch (filterType) {
+            case "today":
+                return billDate.toDateString() === today.toDateString();
+            case "yesterday":
+                return billDate.toDateString() === yesterday.toDateString();
+            case "thisWeek":
+                return billDate >= startOfWeek;
+            case "thisMonth":
+                return billDate >= startOfMonth;
+            case "lastMonth":
+                return billDate >= lastMonthStart && billDate <= lastMonthEnd
+            case "thisYear":
+                return billDate >= startOfYear;
+            default:
+                return true;
+        }
+    });
+}
+
+function renderBillHistory(filterType = "all") {
     const list = document.querySelector('.history-list');
     list.innerHTML = "";
 
+    const filteredByDate = getFilteredByDate(billHistory, filterType);
+
     const query = historySearchInput.value.toLowerCase();
 
-    const filteredHistory = billHistory.filter(bill => {
+    const filteredHistory = filteredByDate.filter(bill => {
         const { name, mobile } = getBillDetails(bill);
         return name.toLowerCase().includes(query) || mobile.includes(query);
     });
@@ -2066,7 +2104,16 @@ openBillHistoryButton.addEventListener('click', openBillHistory);
 closeBillHistoryButton.addEventListener('click', closeBillHistory);
 searchBillHistoryButton.addEventListener('click', toggleSearchBar);
 clearBillHistoryButton.addEventListener('click', clearBillHistory);
-historySearchInput.addEventListener('input', renderBillHistory);
+historySearchInput.addEventListener('input', () => renderBillHistory(currentFilter));
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filterType = btn.dataset.filter;
+        currentFilter = filterType;
+        return renderBillHistory(filterType);
+    });
+});
 
 // Settings
 settingsButton.addEventListener('click', openSettings);
