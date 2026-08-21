@@ -804,6 +804,11 @@ BILL HISTORY SCREEN
     color: var(--white);
 }
 
+.bill-history-filters .filter-btn:hover,
+.bill-history-filters .filter-btn:active {
+    transform: scale(0.95);
+}
+
 .no-bill-history {
     display: flex;
     align-items: center;
