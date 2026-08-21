@@ -298,6 +298,7 @@ const updateSettingsButton = document.querySelector('.update-settings');
 const confirmBtn = document.querySelector('.confirm-btn');
 const cancelBtn = document.querySelector('.cancel-btn');
 const infoOkBtn = document.querySelector('.info-ok-btn');
+const filterBtns = document.querySelectorAll('.filter-btn');
 
 // Modal Title Elements
 const shopModalTitle = document.querySelector('.shop-modal-title');
