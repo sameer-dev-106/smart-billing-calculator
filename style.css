@@ -771,6 +771,39 @@ BILL HISTORY SCREEN
     transition: transform var(--transition-normal);
 }
 
+.bill-history-filters {
+    overflow-x: auto;
+    display: flex;
+    gap: var(--spacing-xs);
+    background: var(--dark-bg);
+    padding: var(--spacing-sm);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.bill-history-filters::-webkit-scrollbar {
+    display: none;
+}
+
+.bill-history-filters .filter-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 600;
+    color: var(--white);
+    background-color: var(--btn-bg);
+    font-size: var(--font-sm);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-normal);
+}
+
+.bill-history-filters .filter-btn.active {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
 .no-bill-history {
     display: flex;
     align-items: center;
