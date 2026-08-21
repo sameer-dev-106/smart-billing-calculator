@@ -745,7 +745,7 @@ BILL HISTORY SCREEN
     padding-top: 0.25rem;
 }
 
-.history-labal {
+.history-label {
     width: 100%;
     display: flex;
     align-items: center;
@@ -1292,7 +1292,7 @@ MODAL BASE STYLES
 }
 
 /* ========================================
-Caculator History MODAL STYLES
+Calculator History MODAL STYLES
 ======================================== */
 .calc-history-modal {
     justify-content: space-evenly;
@@ -1546,7 +1546,7 @@ INFO POPUP MODAL STYLES
 }
 
 /* ========================================
-ITEM NAME SCREEEN
+ITEM NAME SCREEN
 ======================================== */
 .item-name-screen {
     flex-direction: column;
@@ -1669,7 +1669,7 @@ body.item-name-open {
     max-width: 7rem;     /* 140px */
 }
 
-.add-item-oprator-input {
+.add-item-operator-input {
     padding: 0;
     max-width: 3.13rem;     /* 50px */
 }
@@ -1680,7 +1680,7 @@ body.item-name-open {
 
 .item-name-input,
 .add-item-name-input ,
-.add-item-oprator-input,
+.add-item-operator-input,
 .add-item-value-input {
     width: 100%;
     user-select: text;
