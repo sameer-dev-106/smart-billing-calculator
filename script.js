@@ -74,7 +74,7 @@ const translations = {
         shopSaveBtn: 'Save karo',
         billModalTitle: 'Bill banao',
         customerPlaceholder: 'Customer ka naam *',
-        pehelKaPlaceholder: 'Pehle ka (optional)',
+        pehelKaPlaceholder: 'pehel ka (optional)',
         jamaPlaceholder: 'Jama (optional)',
         billCreateBtn: 'Bill banao',
         itemCountLabel: 'Items:',
@@ -89,19 +89,19 @@ const translations = {
         cancelBtn: 'Cancel karo',
         confirmBtn: 'Confirm karo',
         kulRakamLabel: 'Kul rakam:',
-        pehelKaLabel: 'Pehle ka:',
+        pehelKaLabel: 'pehel ka:',
         jamaLabel: 'Jama:',
         kulBakayaLabel: 'Kul bakaya:',
         alertEnterShopName: 'Please shop ka naam dalo',
         alertDivideByZero: 'Zero se divide nahi hota',
-        alertEnterNumber: 'Koi number dalo pehle',
-        alertAddItems: 'Pehle items add karo',
+        alertEnterNumber: 'Koi number dalo pehel',
+        alertAddItems: 'Pehel items add karo',
         confirmItemNameSaveTitle: 'Item names save kare?',
         confirmItemNameSaveMsg: 'Aage badhne ke baad aap item names ya amount me koi change nahi kar paoge.',
         confirmItemNameSkipTitle: 'Item names skip kare?',
         confirmItemNameSkipMsg: 'Item names skip ho jayenge aur bill default item names ke saath generate hoga.',
         alertSkipItemName: "Item names skip ho rahe hain. Bill default item names ke saath banega.",
-        alertPressEqualFirst: 'Please pehle "=" dabao phir bill banao',
+        alertPressEqualFirst: 'Please pehel "=" dabao phir bill banao',
         alertEnterCustomerName: 'Customer ka naam dalo',
         alertShopNameUpdated: 'Shop ka naam update ho gaya',
         alertLanguageUpdated: 'Language hinglish me update ho gayi',
@@ -126,7 +126,7 @@ const translations = {
         resetDescription: `Ye option saara saved data delete kar dega <br> jaise shop name, language, bill history aur calculator history.`,
         resetConfirmTitle: "Saara data clear kare?",
         resetConfirmMsg: `Ye app ka poora data delete kar dega. <br> Ye action undo nahi hoga.`,
-        resetSuccessMsg: `Saara data successfully clear ho gaya hai. <br> App dobara start ho raha hai.`,
+        resetSuccessMsg: `Saara data successfully clear ho gaya hai. <br> App dobra start ho raha hai.`,
         confirmClearBillHistoryMsg: "Saare purane bills permanently delete ho jayenge.",
         confirmClearCalcHistoryMsg: "Saara calculator history permanently delete ho jayega.",
         billHistoryCleared: "Bill history clear ho gayi.",
@@ -170,7 +170,7 @@ const translations = {
         alertPressEqualFirst: 'Please press "=" first to finalize the bill',
         alertEnterCustomerName: 'Please enter customer name',
         alertShopNameUpdated: 'Shop name updated',
-        alertLanguageUpdated: 'Language changed to Engilsh',
+        alertLanguageUpdated: 'Language changed to English',
         alertThemeUpdated: 'Theme updated successfully',
         alertShopNameAndLanguageUpdated: "Shop name and language updated",
         alertShopNameAndThemeUpdated: 'Shop name and theme updated successfully',
@@ -230,7 +230,7 @@ const expressionDisplay = document.querySelector('.expression');
 const billDateDisplay = document.querySelector('.bill-date');
 const billItemsContainer = document.querySelector('.bill-items');
 const itemNameList = document.querySelector('.item-name-list');
-const addItemSctions = document.querySelector('.add-item-actions');
+const addItemActions = document.querySelector('.add-item-actions');
 const historyMenu = document.querySelector('.history-menu');
 
 // Calculator Display Elements
@@ -333,7 +333,7 @@ const OPERATORS = ["+", "-", "×", "÷"];
 // edit expression variables
 let expression = "";
 let newExpression = "";
-let cursoreIndex = 0;
+let cursorIndex = 0;
 
 let isManualBill = false;
 
@@ -349,7 +349,7 @@ const CALC_HISTORY_KEY = "smartBillingCalcHistory";
 // LocalStorage key for BIll history
 const BILL_HISTORY_KEY = "smartBillingBills"
 
-// old bill lock flage for edit items
+// old bill lock flags for edit items
 let isHistoryBillOpen = false;
 
 let currentBillId = null;
@@ -406,7 +406,7 @@ function loadCalcHistory() {
     }
 }
 
-function saveCalcHistroy() {
+function saveCalcHistory() {
     localStorage.setItem(
         CALC_HISTORY_KEY,
         JSON.stringify(calcHistory)
@@ -515,13 +515,13 @@ function applyOperation(a, b, op) {
     }
 }
 
-function parseExpressionToItems(exre) {
+function parseExpressionToItems(expression) {
     const items = [];
     let currentNumber = "";
     let currentOp = "";
 
-    for (let i = 0; i < exre.length; i++) {
-        const char = exre[i];
+    for (let i = 0; i < expression.length; i++) {
+        const char = expression[i];
 
         if (OPERATORS.includes(char)) {
             if (currentNumber !== "") {
@@ -729,7 +729,7 @@ function calculateEqual() {
     }
 
     calcHistory.unshift(calcHistoryItem);
-    saveCalcHistroy();
+    saveCalcHistory();
 }
 
 function clearAll() {
@@ -1087,7 +1087,7 @@ function openItemNameScreen() {
 
     if (isManualBill) {
         // no calculator items
-        addItemInItemName(); // auto opne add row
+        addItemInItemName(); // auto open add row
         skipItemsBtn.style.display = "none";
     } else {
         calc.items.forEach((item, index) => {
@@ -1118,7 +1118,7 @@ function openItemNameScreen() {
 
     if (liveTotalEl) {
         if (calc.items.length > 0) {
-            // calculator se aaye bill
+            // calculator se aye bill
             liveTotalEl.textContent = `₹ ${formatNumber(calc.currentTotal)}`;
         } else {
             // new bill / direct bill
@@ -1150,7 +1150,7 @@ function addItemInItemName() {
 
         <div class="add-value-input-container">
             <input 
-                class="add-item-oprator-input"
+                class="add-item-operator-input"
                 type="text"
                 value="+"
                 disabled
@@ -1181,7 +1181,7 @@ function addItemInItemName() {
     addRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
     addRow.classList.add('add-item');
-    addItemSctions.classList.add('opened');
+    addItemActions.classList.add('opened');
 }
 
 // Add items ke liye live total
@@ -1841,7 +1841,7 @@ function applyLanguage() {
     pehelKaAdjustInput.placeholder = t.pehelKaPlaceholder;
     jamaAdjustInput.placeholder = t.jamaPlaceholder;
 
-    // Confrim Modal Buttons
+    // Confirm Modal Buttons
     confirmBtn.textContent = t.confirmBtn;
     cancelBtn.textContent = t.cancelBtn;
 
@@ -2023,7 +2023,7 @@ confirmAdjustmentBtn.addEventListener('click', () => {
     createBill();
 });
 
-// Custmore Name or Number Suggetion
+// Customer Name or Number Suggestion
 customerNameInput.addEventListener('input', getCustomerSuggestion);
 
 // Bill creation
